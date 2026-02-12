@@ -394,6 +394,91 @@
   let dragOffsetX = 0;
   let dragOffsetY = 0;
   
+  // 音乐播放器状态管理
+  const MUSIC_PLAYER_STATE_KEY = 'musicPlayerState';
+  
+  // 保存播放器状态
+  function savePlayerState() {
+    const state = {
+      currentSongIndex: currentSongIndex,
+      isPlaying: isPlaying,
+      currentTime: audioElement ? audioElement.currentTime : 0,
+      lyricsVisible: lyricsVisible,
+      floatingLyricsPosition: {
+        left: floatingLyrics.style.left,
+        top: floatingLyrics.style.top,
+        transform: floatingLyrics.style.transform
+      },
+      panelVisible: musicPanel ? musicPanel.classList.contains('active') : false
+    };
+    localStorage.setItem(MUSIC_PLAYER_STATE_KEY, JSON.stringify(state));
+    console.log('保存播放器状态:', state);
+  }
+  
+  // 恢复播放器状态
+  function restorePlayerState() {
+    try {
+      const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        console.log('恢复播放器状态:', state);
+        
+        // 恢复歌曲索引
+        if (state.currentSongIndex !== undefined) {
+          currentSongIndex = state.currentSongIndex;
+        }
+        
+        // 恢复播放状态
+        if (state.isPlaying !== undefined) {
+          isPlaying = state.isPlaying;
+        }
+        
+        // 恢复歌词显示状态
+        if (state.lyricsVisible !== undefined) {
+          lyricsVisible = state.lyricsVisible;
+          if (lyricsVisible) {
+            lyricsSection.classList.add('show');
+            lyricsToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            floatingLyrics.classList.add('active');
+          }
+        }
+        
+        // 恢复浮动歌词位置
+        if (state.floatingLyricsPosition) {
+          floatingLyrics.style.left = state.floatingLyricsPosition.left || '50%';
+          floatingLyrics.style.top = state.floatingLyricsPosition.top || '50%';
+          floatingLyrics.style.transform = state.floatingLyricsPosition.transform || 'translate(-50%, -50%)';
+        }
+        
+        // 恢复面板显示状态
+        if (state.panelVisible && musicPanel) {
+          musicPanel.classList.add('active');
+        }
+        
+        return true;
+      }
+    } catch (error) {
+      console.error('恢复播放器状态失败:', error);
+    }
+    return false;
+  }
+  
+  // 定期保存状态
+  function setupAutoSave() {
+    // 每5秒保存一次状态
+    setInterval(savePlayerState, 5000);
+    
+    // 页面卸载时保存状态
+    window.addEventListener('beforeunload', savePlayerState);
+    
+    // 页面隐藏时保存状态
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        savePlayerState();
+      }
+    });
+  }
+  
   // 创建音频元素
   function createAudioElement() {
     audioElement = new Audio();
@@ -560,22 +645,59 @@
           console.log('方法1失败:', error);
         }
         
-        // 方法2：如果方法1失败，尝试使用歌曲ID
+        // 方法2：使用网易云官方接口（需要处理跨域）
         if (!lyricsFound && song.url) {
           try {
-            console.log('尝试方法2 - 歌曲URL获取');
-            // 从URL中提取可能的ID
+            console.log('尝试方法2 - 网易云官方接口');
+            // 从URL中提取歌曲ID
             const urlParts = song.url.split('/');
             const possibleId = urlParts[urlParts.length - 1];
             
             if (possibleId) {
-              const response = await fetch(`https://api.injahow.cn/meting/?type=lrc&id=${possibleId}`);
-              const data = await response.json();
+              console.log('尝试网易云官方接口，歌曲ID:', possibleId);
               
-              if (data && data.lrc) {
-                console.log('通过歌曲ID获取到歌词');
-                lyricsData = parseLyrics(data.lrc);
-                lyricsFound = true;
+              // 方法2a：尝试网易云官方接口
+              try {
+                console.log('调用网易云官方接口:', `http://music.163.com/api/song/media?id=${possibleId}`);
+                
+                // 使用代理方式避免跨域问题
+                const neteaseResponse = await fetch(`http://music.163.com/api/song/media?id=${possibleId}`, {
+                  method: 'GET',
+                  mode: 'no-cors',  // 改为no-cors模式
+                  cache: 'no-cache'
+                });
+                
+                console.log('网易云接口响应状态:', neteaseResponse.status);
+                
+                if (neteaseResponse.ok || neteaseResponse.type === 'opaque') {
+                  try {
+                    const neteaseData = await neteaseResponse.json();
+                    console.log('网易云接口返回数据:', neteaseData);
+                    
+                    if (neteaseData && neteaseData.lyric) {
+                      console.log('通过网易云官方接口获取到歌词');
+                      lyricsData = parseLyrics(neteaseData.lyric);
+                      lyricsFound = true;
+                    }
+                  } catch (jsonError) {
+                    console.log('解析网易云响应失败:', jsonError);
+                  }
+                }
+              } catch (neteaseError) {
+                console.log('网易云官方接口失败:', neteaseError);
+              }
+              
+              // 方法2b：如果官方接口失败，使用备用接口
+              if (!lyricsFound) {
+                console.log('尝试备用接口');
+                const response = await fetch(`https://api.injahow.cn/meting/?type=lrc&id=${possibleId}`);
+                const data = await response.json();
+                
+                if (data && data.lrc) {
+                  console.log('通过备用接口获取到歌词');
+                  lyricsData = parseLyrics(data.lrc);
+                  lyricsFound = true;
+                }
               }
             }
           } catch (error) {
@@ -703,6 +825,16 @@
       
       if (song.url) {
         audioElement.src = song.url;
+        
+        // 恢复播放位置
+        const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+        if (savedState && isPlaying) {
+          const state = JSON.parse(savedState);
+          if (state.currentTime > 0) {
+            audioElement.currentTime = state.currentTime;
+          }
+        }
+        
         audioElement.play().then(() => {
           isPlaying = true;
           updatePlayButton();
@@ -872,8 +1004,19 @@
     musicToggleBtn.addEventListener('click', function() {
       musicPanel.classList.toggle('active');
       if (songs.length === 0) {
-        fetchPlaylist();
+        fetchPlaylist().then(() => {
+          // 歌单加载完成后，如果有保存的状态，恢复播放
+          const stateRestored = restorePlayerState();
+          if (stateRestored && songs.length > 0) {
+            updateSongInfo();
+            updatePlaylist();
+            if (isPlaying) {
+              playCurrentSong();
+            }
+          }
+        });
       }
+      savePlayerState(); // 保存面板状态
     });
   }
   
@@ -909,6 +1052,30 @@
   
   // 初始化拖动功能
   initLyricsDrag();
+  
+  // 页面初始化时恢复状态
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('页面加载完成，初始化音乐播放器');
+    
+    // 尝试恢复保存的状态
+    const stateRestored = restorePlayerState();
+    
+    // 如果有保存的状态，先加载歌单然后恢复播放
+    if (stateRestored) {
+      fetchPlaylist().then(() => {
+        if (songs.length > 0) {
+          updateSongInfo();
+          updatePlaylist();
+          if (isPlaying) {
+            playCurrentSong();
+          }
+        }
+      });
+    }
+    
+    // 设置自动保存
+    setupAutoSave();
+  });
   
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
