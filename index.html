@@ -183,7 +183,7 @@
 <section class="hero" id="hero-section">
   
     <!-- 图片背景 -->
-    <div class="hero-bg" style="background-image: url('/img/background/星空-风景.png')"></div>
+    <div class="hero-bg" style="background-image: url('/img/background/云彩-夜晚-夜景.png')"></div>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -990,7 +990,7 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (兼容 Jekyll 和 Hexo) -->
+  <!-- MathJax 支持 (兼容 hexo-renderer-mathjax) -->
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
@@ -1011,10 +1011,12 @@
         availableFonts: ["TeX"],
         preferredFont: "TeX",
         webFont: "TeX"
-      }
+      },
+      // 支持 hexo-renderer-mathjax 的 math/tex 标签
+      processHTML: true
     });
   </script>
-  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML-HTMLorMML"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {

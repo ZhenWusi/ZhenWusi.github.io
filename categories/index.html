@@ -929,7 +929,7 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (兼容 Jekyll 和 Hexo) -->
+  <!-- MathJax 支持 (兼容 hexo-renderer-mathjax) -->
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
@@ -950,10 +950,12 @@
         availableFonts: ["TeX"],
         preferredFont: "TeX",
         webFont: "TeX"
-      }
+      },
+      // 支持 hexo-renderer-mathjax 的 math/tex 标签
+      processHTML: true
     });
   </script>
-  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML-HTMLorMML"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
