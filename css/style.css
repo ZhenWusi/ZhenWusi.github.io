@@ -1380,6 +1380,7 @@ img {
   border-left: 4px solid var(--primary);
   overflow-x: auto;
   font-family: 'Fira Code', monospace;
+  text-align: center; /* 居中显示 */
 }
 
 .math-inline {
@@ -1405,7 +1406,7 @@ img {
 
 /* 公式容器 */
 .math-block {
-  text-align: center;
+  text-align: center; /* 居中显示 */
   margin: 1.5em 0;
   padding: 1em;
   background: var(--bg-code);
@@ -1421,6 +1422,28 @@ img {
   background: var(--bg-code);
   border-radius: 4px;
   font-size: 0.9em;
+}
+
+/* MathJax 块级公式居中 */
+.MJX-TEX .MathJax_Display {
+  text-align: center !important;
+  margin: 1.5em auto !important;
+  padding: 1em !important;
+  background: var(--bg-code) !important;
+  border-radius: var(--radius-md) !important;
+  border-left: 4px solid var(--primary) !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* MathJax 行内公式 */
+.MJX-TEX .MathJax_CHTML {
+  display: inline-block !important;
+  background: var(--bg-code) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  margin: 0 2px !important;
 }
 
 /* 公式编号 */
@@ -1447,6 +1470,33 @@ img {
 /* 公式括号 */
 .MJX-TEX .MJX-TEX-DELIM {
   color: var(--text-secondary) !important;
+}
+
+/* 公式容器居中 */
+.MJX-TEX .MathJax_PHTML {
+  text-align: center !important;
+  margin: 1.5em auto !important;
+  padding: 1em !important;
+  background: var(--bg-code) !important;
+  border-radius: var(--radius-md) !important;
+  border-left: 4px solid var(--primary) !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* 确保所有数学公式都居中 */
+.MJX-TEX .MathJax {
+  text-align: center !important;
+}
+
+/* 公式表格居中 */
+.MJX-TEX table {
+  margin: 0 auto !important;
+}
+
+/* 公式矩阵居中 */
+.MJX-TEX .MJX-mtable {
+  margin: 0 auto !important;
 }
 
 /* ==========================================
