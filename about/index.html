@@ -964,33 +964,28 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (兼容 math/tex 格式) -->
-  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+  <!-- MathJax v3 支持 -->
+  <script>
+    window.MathJax = {
+      loader: {
+        load: ['[tex]/ams'],
+        source: {
+          '[tex]/ams': 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-ams.js'
+        }
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        tags: 'ams'
       },
-      TeX: {
-        equationNumbers: {
-          autoNumber: "AMS"
-        },
-        extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
-      },
-      "HTML-CSS": { 
-        fonts: ["TeX"],
-        linebreaks: { automatic: true },
-        availableFonts: ["TeX"],
-        preferredFont: "TeX",
-        webFont: "TeX"
-      },
-      // 支持 math/tex 标签
-      processHTML: true,
-      processRefs: true
-    });
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        processHtmlClass: 'mathjax_process',
+        ignoreHtmlClass: 'mathjax_ignore'
+      }
+    };
   </script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
