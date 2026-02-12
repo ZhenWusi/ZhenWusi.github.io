@@ -583,5 +583,24 @@
   
 <script src="/js/main.js"></script>
 
+
+  <!-- MathJax 重新渲染脚本 -->
+  <script>
+    // 等待 MathJax 加载完成后重新渲染
+    if (window.MathJax) {
+      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
+      MathJax.startup.promise.then(() => {
+        MathJax.typesetPromise.then(() => {
+          MathJax.typesetClear();
+          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+          MathJax.texReset();
+          MathJax.typesetPromise.then(() => {
+            MathJax.processDocument();
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>

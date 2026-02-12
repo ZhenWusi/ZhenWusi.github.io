@@ -228,7 +228,7 @@
 </ul>
 <h2 id="📬-联系方式"><a href="#📬-联系方式" class="headerlink" title="📬 联系方式"></a>📬 联系方式</h2><ul>
 <li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/ZhenWusi">ZhenWusi</a></li>
-<li><strong>邮箱</strong>：<a href="mailto:&#x7a;&#104;&#101;&#x6e;&#x77;&#x75;&#115;&#x69;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#x6f;&#109;">&#x7a;&#104;&#101;&#x6e;&#x77;&#x75;&#115;&#x69;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#x6f;&#109;</a></li>
+<li><strong>邮箱</strong>：<a href="mailto:&#122;&#x68;&#101;&#110;&#x77;&#117;&#x73;&#105;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#122;&#x68;&#101;&#110;&#x77;&#117;&#x73;&#105;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢你的来访，欢迎交流！✨</p>
@@ -381,5 +381,24 @@
   
 <script src="/js/main.js"></script>
 
+
+  <!-- MathJax 重新渲染脚本 -->
+  <script>
+    // 等待 MathJax 加载完成后重新渲染
+    if (window.MathJax) {
+      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
+      MathJax.startup.promise.then(() => {
+        MathJax.typesetPromise.then(() => {
+          MathJax.typesetClear();
+          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+          MathJax.texReset();
+          MathJax.typesetPromise.then(() => {
+            MathJax.processDocument();
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>

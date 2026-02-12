@@ -199,10 +199,8 @@
 
 <section class="hero" id="hero-section">
   
-    <!-- 视频背景 -->
-    <video autoplay muted loop id="hero-video">
-      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
-    </video>
+    <!-- 图片背景 -->
+    <div class="hero-bg" style="background-image: url('/img/background/城市-夕阳.png')"></div>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -413,5 +411,24 @@
   
 <script src="/js/main.js"></script>
 
+
+  <!-- MathJax 重新渲染脚本 -->
+  <script>
+    // 等待 MathJax 加载完成后重新渲染
+    if (window.MathJax) {
+      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
+      MathJax.startup.promise.then(() => {
+        MathJax.typesetPromise.then(() => {
+          MathJax.typesetClear();
+          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
+          MathJax.texReset();
+          MathJax.typesetPromise.then(() => {
+            MathJax.processDocument();
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>

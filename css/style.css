@@ -1370,6 +1370,86 @@ img {
 }
 
 /* ==========================================
+ * 数学公式样式
+ * ========================================== */
+.math-display {
+  margin: 1.5em 0;
+  padding: 1em;
+  background: var(--bg-code);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+}
+
+.math-inline {
+  font-family: 'Fira Code', monospace;
+  background: var(--bg-code);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* MathJax 公式样式 */
+.MJX-TEX {
+  font-family: 'Fira Code', monospace !important;
+}
+
+.MJX-TEX .MathJax_CHTML {
+  color: var(--text-primary) !important;
+}
+
+.MJX-TEX .MathJax_HIGHLIGHT {
+  color: var(--primary) !important;
+}
+
+/* 公式容器 */
+.math-block {
+  text-align: center;
+  margin: 1.5em 0;
+  padding: 1em;
+  background: var(--bg-code);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+/* 行内公式 */
+.math-inline-block {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 2px 6px;
+  background: var(--bg-code);
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* 公式编号 */
+.MJX-TEX .MJX-TEX-TEX {
+  font-size: 1.1em !important;
+}
+
+/* 公式变量 */
+.MJX-TEX .MJX-TEX-VAR {
+  font-style: italic !important;
+  color: var(--primary) !important;
+}
+
+/* 公式运算符 */
+.MJX-TEX .MJX-TEX-OP {
+  color: var(--text-primary) !important;
+}
+
+/* 公式函数 */
+.MJX-TEX .MJX-TEX-NORMAL {
+  font-family: 'Fira Code', monospace !important;
+}
+
+/* 公式括号 */
+.MJX-TEX .MJX-TEX-DELIM {
+  color: var(--text-secondary) !important;
+}
+
+/* ==========================================
  * 小型音乐播放器（参考主流播放软件）
  * ========================================== */
 .music-player {
