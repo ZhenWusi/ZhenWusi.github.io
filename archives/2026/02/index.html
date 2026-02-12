@@ -33,22 +33,6 @@
   <!-- Font Awesome 图标 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax 支持 -->
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <!-- 主样式表 -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -955,24 +939,20 @@
   
 <script src="/js/main.js"></script>
 
-
-  <!-- MathJax 重新渲染脚本 -->
-  <script>
-    // 等待 MathJax 加载完成后重新渲染
-    if (window.MathJax) {
-      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
-      MathJax.startup.promise.then(() => {
-        MathJax.typesetPromise.then(() => {
-          MathJax.typesetClear();
-          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-          MathJax.texReset();
-          MathJax.typesetPromise.then(() => {
-            MathJax.processDocument();
-          });
-        });
-      });
-    }
-  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

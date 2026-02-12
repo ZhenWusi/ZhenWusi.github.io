@@ -33,22 +33,6 @@
   <!-- Font Awesome 图标 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax 支持 -->
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <!-- 主样式表 -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -212,10 +196,10 @@
 <p>代码改变世界，技术点亮生活。</p>
 </blockquote>
 <h2 id="🛠️-技术栈"><a href="#🛠️-技术栈" class="headerlink" title="🛠️ 技术栈"></a>🛠️ 技术栈</h2><ul>
-<li><strong>前端</strong>：HTML5 &#x2F; CSS3 &#x2F; JavaScript &#x2F; Vue &#x2F; React</li>
-<li><strong>后端</strong>：Node.js &#x2F; Python &#x2F; Java</li>
-<li><strong>工具</strong>：Git &#x2F; Docker &#x2F; Linux &#x2F; VS Code</li>
-<li><strong>其他</strong>：Markdown &#x2F; Hexo &#x2F; GitHub Pages</li>
+<li><strong>前端</strong>：HTML5 / CSS3 / JavaScript / Vue / React</li>
+<li><strong>后端</strong>：Node.js / Python / Java</li>
+<li><strong>工具</strong>：Git / Docker / Linux / VS Code</li>
+<li><strong>其他</strong>：Markdown / Hexo / GitHub Pages</li>
 </ul>
 <h2 id="🎯-关于本站"><a href="#🎯-关于本站" class="headerlink" title="🎯 关于本站"></a>🎯 关于本站</h2><p>这个博客基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> 构建，托管在 <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a> 上。</p>
 <p>主要记录：</p>
@@ -227,7 +211,7 @@
 </ul>
 <h2 id="📬-联系方式"><a href="#📬-联系方式" class="headerlink" title="📬 联系方式"></a>📬 联系方式</h2><ul>
 <li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/ZhenWusi">ZhenWusi</a></li>
-<li><strong>邮箱</strong>：<a href="mailto:&#x7a;&#104;&#101;&#x6e;&#119;&#x75;&#115;&#105;&#64;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#x63;&#x6f;&#109;">&#x7a;&#104;&#101;&#x6e;&#119;&#x75;&#115;&#105;&#64;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#x63;&#x6f;&#109;</a></li>
+<li><strong>邮箱</strong>：zhenwusi@example.com</li>
 </ul>
 <hr>
 <p>感谢你的来访，欢迎交流！✨</p>
@@ -979,24 +963,20 @@
   
 <script src="/js/main.js"></script>
 
-
-  <!-- MathJax 重新渲染脚本 -->
-  <script>
-    // 等待 MathJax 加载完成后重新渲染
-    if (window.MathJax) {
-      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
-      MathJax.startup.promise.then(() => {
-        MathJax.typesetPromise.then(() => {
-          MathJax.typesetClear();
-          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-          MathJax.texReset();
-          MathJax.typesetPromise.then(() => {
-            MathJax.processDocument();
-          });
-        });
-      });
-    }
-  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

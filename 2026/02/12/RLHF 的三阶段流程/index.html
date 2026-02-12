@@ -33,22 +33,6 @@
   <!-- Font Awesome 图标 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax 支持 -->
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
   <!-- 主样式表 -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -244,8 +228,7 @@
 <h4 id="阶段一：SFT（Supervised-Fine-Tuning）"><a href="#阶段一：SFT（Supervised-Fine-Tuning）" class="headerlink" title="阶段一：SFT（Supervised Fine-Tuning）"></a>阶段一：SFT（Supervised Fine-Tuning）</h4><p>RLHF 通常从对一个预训练语言模型进行监督微调开始，使用高质量的人工数据（如对话、摘要等），得到一个模型 $\pi_{SFT}$。</p>
 <p><strong>数据形式</strong>：$(\text{prompt } x, \text{高质量回答 } y)$</p>
 <p><strong>损失函数</strong>：标准的监督学习损失函数</p>
-<p>$$\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)$$</p>
-<ul>
+<script type="math/tex; mode=display">\max\_{\theta} \sum\_{(x,y) \in D} \log \pi\_\theta(y|x)</script><ul>
 <li>$\pi_\theta$：策略模型的参数化形式</li>
 <li>$D$：监督微调数据集</li>
 <li>$x$：输入提示</li>
@@ -253,21 +236,16 @@
 </ul>
 <p><strong>目标</strong>：让模型学会基本的对话能力和任务完成能力，即”怎么说话”</p>
 <h4 id="阶段二：奖励模型（Reward-Modeling）"><a href="#阶段二：奖励模型（Reward-Modeling）" class="headerlink" title="阶段二：奖励模型（Reward Modeling）"></a>阶段二：奖励模型（Reward Modeling）</h4><p>使用 SFT 模型，对同一个 prompt $x$ 采样两个回答：</p>
-<p>$$y_1, y_2 \sim \pi_{SFT}(y|x)$$</p>
-<p>交给人类标注者，让他们选更好的一个：</p>
-<p>$$y_w \succ y_l \mid x$$</p>
-<ul>
+<script type="math/tex; mode=display">y\_1, y\_2 \sim \pi\_{SFT}(y|x)</script><p>交给人类标注者，让他们选更好的一个：</p>
+<script type="math/tex; mode=display">y_w \succ y_l \mid x</script><ul>
 <li>$y_w$：winner,preferred（赢家）</li>
 <li>$y_l$：loser,rejected（输家）</li>
 </ul>
 <p><strong>潜在奖励函数假设</strong>：假设人类偏好是由一个未知的真实奖励函数 $r^*(x,y)$ 生成的。我们并不知道它，但假设它存在。</p>
 <p><strong>偏好模型</strong>：</p>
-<p>$$p^*(y_1 &gt; y_2 | x) &#x3D; \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}$$</p>
-<p><strong>数据集形式</strong>：</p>
-<p>$$D &#x3D; {(x^{(i)}, y_w^{(i)}, y_l^{(i)})}_{i&#x3D;1}^N$$</p>
-<p><strong>损失函数</strong>：</p>
-<p>$$\mathcal{L}<em>\text{R}(r_\phi, \mathcal{D}) &#x3D; -\mathbb{E}</em>{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}$$</p>
-<hr>
+<script type="math/tex; mode=display">p^*(y_1 > y_2 | x) = \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}</script><p><strong>数据集形式</strong>：</p>
+<script type="math/tex; mode=display">D = \{(x^{(i)}, y_w^{(i)}, y_l^{(i)})\}_{i=1}^N</script><p><strong>损失函数</strong>：</p>
+<script type="math/tex; mode=display">\mathcal{L}_\text{R}(r_\phi, \mathcal{D}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}</script><hr>
 <h5 id="补充解释"><a href="#补充解释" class="headerlink" title="补充解释"></a>补充解释</h5><p>BT 模型：</p>
 <p>Bradley-Terry 模型是一个用于<strong>成对比较</strong>的概率模型</p>
 <p><strong>核心思想</strong>：</p>
@@ -275,113 +253,91 @@
 <li>每个对象 $i$ 有一个隐藏的”实力值”参数 $\lambda_i$</li>
 <li>当两个对象 $i$ 和 $j$ 比较时，$i$ 战胜 $j$ 的概率为：</li>
 </ul>
-<p>$$P(i \succ j) &#x3D; \frac{\lambda_i}{\lambda_i + \lambda_j}$$</p>
-<p><strong>在 DPO 中的应用</strong>：</p>
+<script type="math/tex; mode=display">P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}</script><p><strong>在 DPO 中的应用</strong>：</p>
 <ul>
 <li>将奖励函数 $r(x,y)$ 看作”实力值”</li>
 <li>人类偏好 $ y_w \succ y_l $ 就是”比较结果”</li>
 <li>通过 BT 模型建立奖励与偏好的桥梁</li>
 </ul>
 <p>为什么不用「谁分数大就选谁」？</p>
-<p>如果直接规定：$$y_1 \succ y_2 \iff r^*(x,y_1) &gt; r^*(x,y_2)$$<br>那问题是：人类判断有噪声，同一个人、同一个问题，不一定每次选同样的。所以我们不建模成确定性规则，而是：概率模型</p>
+<p>如果直接规定：<script type="math/tex">y_1 \succ y_2 \iff r^*(x,y_1) > r^*(x,y_2)</script><br>那问题是：人类判断有噪声，同一个人、同一个问题，不一定每次选同样的。所以我们不建模成确定性规则，而是：概率模型</p>
 <p>把公式 (1) 改写一下：</p>
-<p>$$p^*(y_1 \succ y_2 \mid x) &#x3D; \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}$$</p>
-<p>这就是熟悉的 Sigmoid 函数：</p>
-<p>$$\sigma(z) &#x3D; \frac{1}{1 + e^{-z}}$$</p>
-<p>于是：</p>
-<p>$$p^*(y_1 \succ y_2 \mid x) &#x3D; \sigma(r^*(x,y_1) - r^*(x,y_2))$$</p>
-<p>因为真实数据里人确实选择了 $ y_w $，所以该事件的概率是上式，对数似然是：</p>
-<p>$$\log p_\theta(y_w \succ y_l \mid x) &#x3D; \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$$</p>
-<p>最大化所有样本的对数似然：</p>
-<p>$$\max_\theta \sum_{i&#x3D;1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))$$</p>
-<p>意思是：对每一条数据，都算一次”模型认为人类会选赢家的概率的对数”，然后把它们加起来，让这个总和尽可能大。对数把“连乘”变成“连加”,最优解不变(对数是单调递增函数)</p>
+<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}</script><p>这就是熟悉的 Sigmoid 函数：</p>
+<script type="math/tex; mode=display">\sigma(z) = \frac{1}{1 + e^{-z}}</script><p>于是：</p>
+<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))</script><p>因为真实数据里人确实选择了 $ y_w $，所以该事件的概率是上式，对数似然是：</p>
+<script type="math/tex; mode=display">\log p_\theta(y_w \succ y_l \mid x) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))</script><p>最大化所有样本的对数似然：</p>
+<script type="math/tex; mode=display">\max_\theta \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>意思是：对每一条数据，都算一次”模型认为人类会选赢家的概率的对数”，然后把它们加起来，让这个总和尽可能大。对数把“连乘”变成“连加”,最优解不变(对数是单调递增函数)</p>
 <p>等价地，最小化负对数似然（Likelihood）：</p>
-<p>$$L_R &#x3D; -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]$$</p>
-<p>这正是公式 (2)。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
-<p>对一个有限数据集 $D &#x3D; {z_1, …, z_N}$，如果你均匀随机从中抽一个样本，那么：</p>
-<p>$$\mathbb{E}<em>{z \sim D} [f(z)] &#x3D; \frac{1}{N} \sum</em>{i&#x3D;1}^N f(z_i)$$</p>
-<p>👉 期望 &#x3D; 平均值</p>
-<p>令 $f(x,y_w,y_l) &#x3D; \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$ 那么：</p>
-<p>$$\mathbb{E}<em>{(x,y_w,y_l) \sim D} [f] &#x3D; \frac{1}{N} \sum</em>{i&#x3D;1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))$$</p>
-<p>因为 $\sum_{i&#x3D;1}^N f_i$ 和 $\frac{1}{N} \sum_{i&#x3D;1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：$$\arg\max_\theta \sum_{i&#x3D;1}^N f_i &#x3D; \arg\max_\theta \frac{1}{N} \sum_{i&#x3D;1}^N f_i$$</p>
-<p>原目标：$$\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]$$</p>
-<p>等价于：$$\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]$$</p>
-<p>于是定义：$$L_R &#x3D; -\mathbb{E}_D [\log \sigma(\cdots)]$$</p>
+<script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><p>这正是公式 (2)。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
+<p>对一个有限数据集 $D = {z_1, …, z_N}$，如果你均匀随机从中抽一个样本，那么：</p>
+<script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>👉 期望 = 平均值</p>
+<p>令 $f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l))$ 那么：</p>
+<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $\sum<em>{i=1}^N f_i$ 和 $\frac{1}{N} \sum</em>{i=1}^N f<em>i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：$$\arg\max</em>\theta \sum<em>{i=1}^N f_i = \arg\max</em>\theta \frac{1}{N} \sum_{i=1}^N f_i$$</p>
+<p>原目标：<script type="math/tex">\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]</script></p>
+<p>等价于：<script type="math/tex">\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
+<p>于是定义：<script type="math/tex">L_R = -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
 <p><strong>为什么机器学习里”总是最小化”？</strong></p>
 <p>因为梯度下降（Gradient Descent）默认是 minimize loss，所以大家习惯：把”想最大化的目标”，写成”要最小化的损失”。</p>
 <hr>
 <h4 id="阶段三：RL-微调"><a href="#阶段三：RL-微调" class="headerlink" title="阶段三：RL 微调"></a>阶段三：RL 微调</h4><p><strong>RL 目标函数（核心）</strong>：</p>
-<p>$$\max_{\pi_\theta} \mathbb{E}<em>{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D</em>{\text{KL}} \left[ \pi_\theta(y|x) \middle| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}$$</p>
-<hr>
+<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><hr>
 <h5 id="补充解释-1"><a href="#补充解释-1" class="headerlink" title="补充解释"></a>补充解释</h5><p>一句话解释：👉 让模型生成 奖励高的回答 👉 但不能偏离原始 SFT 模型太远</p>
 <p>$\pi_{ref}$（即初始 SFT 模型 $\pi_{SFT}$）实践中，语言模型策略 $\pi_\theta$ 也被初始化为 $\pi_{SFT}$。</p>
 <ul>
-<li><strong>初始状态</strong>：$\pi_\theta &#x3D; \pi_{ref} &#x3D; \pi_{SFT}$</li>
+<li><strong>初始状态</strong>：$\pi_\theta = \pi_{ref} = \pi_{SFT}$</li>
 <li><strong>训练目标</strong>：在保持与原始 SFT 模型接近的前提下，优化奖励</li>
 <li><strong>KL 约束作用</strong>：确保模型不会偏离初始能力太远</li>
 </ul>
 <p><strong>KL 约束：</strong></p>
 <p>KL 散度（Kullback-Leibler 散度）衡量两个概率分布之间的差异：</p>
-<p>$$D_{\text{KL}}[P | Q] &#x3D; \sum_x P(x) \log \frac{P(x)}{Q(x)}$$</p>
-<p>$$D_{\text{KL}}[\pi_\theta(y|x) | \pi_{SFT}(y|x)] &#x3D; \mathbb{E}<em>{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi</em>{SFT}(y|x)} \right]$$</p>
-<p>这表示：</p>
+<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D\_{\text{KL}}[\pi\_\theta(y|x) \| \pi\_{SFT}(y|x)] = \mathbb{E}\_{y \sim \pi\_\theta} \left[ \log \frac{\pi\_\theta(y|x)}{\pi\_{SFT}(y|x)} \right]</script><p>这表示：</p>
 <ul>
-<li>如果 $\pi_\theta$ 和 $\pi_{SFT}$ 相同：KL &#x3D; 0</li>
+<li>如果 $\pi_\theta$ 和 $\pi_{SFT}$ 相同：KL = 0</li>
 <li>如果 $\pi_\theta$ 偏离 $\pi_{SFT}$：KL &gt; 0</li>
 <li>目标函数中的 $-\beta KL$ 惩罚偏离行为</li>
 </ul>
 <p><strong>KL 散度推导过程详解</strong></p>
 <p><strong>KL 散度的通用定义（离散型）</strong>：</p>
-<p>$$D_{\text{KL}}[P | Q] &#x3D; \sum_i P(i) \log \frac{P(i)}{Q(i)}$$</p>
-<p><strong>期望的定义</strong>：<br>对于随机变量 $Y \sim P$，函数 $f(Y)$ 的期望定义为：</p>
-<p>$$\mathbb{E}<em>{Y \sim P}[f(Y)] &#x3D; \sum</em>{y \in \mathcal{Y}} P(y) f(y)$$</p>
-<p><strong>进行变量映射</strong></p>
+<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)}</script><p><strong>期望的定义</strong>：<br>对于随机变量 $Y \sim P$，函数 $f(Y)$ 的期望定义为：</p>
+<script type="math/tex; mode=display">\mathbb{E}_{Y \sim P}[f(Y)] = \sum_{y \in \mathcal{Y}} P(y) f(y)</script><p><strong>进行变量映射</strong></p>
 <p>在 RLHF 的语境下，我们要计算的是两个模型策略（概率分布）之间的差异：</p>
 <ul>
-<li>$P$** (当前分布)**：$\pi_\theta(y|x)$ —— 模型当前正在学习的策略</li>
-<li>$Q$** (参考分布)**：$\pi_{SFT}(y|x)$ —— 原始的 SFT 策略</li>
+<li>$P$<strong> (当前分布)</strong>：$\pi_\theta(y|x)$ —— 模型当前正在学习的策略</li>
+<li>$Q$<strong> (参考分布)</strong>：$\pi_{SFT}(y|x)$ —— 原始的 SFT 策略</li>
 <li><strong>样本空间</strong>：$y$（模型生成的所有可能的回答序列）</li>
 </ul>
 <p>将这些代入通用公式：</p>
-<p>$$D_{\text{KL}}[\pi_\theta | \pi_{SFT}] &#x3D; \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}$$</p>
-<p><strong>转化为期望形式</strong></p>
+<script type="math/tex; mode=display">D\_{\text{KL}}[\pi\_\theta \| \pi\_{SFT}] = \sum\_y \pi\_\theta(y|x) \log \frac{\pi\_\theta(y|x)}{\pi\_{SFT}(y|x)}</script><p><strong>转化为期望形式</strong></p>
 <ul>
 <li>外层的 $\sum_y \pi_\theta(y|x)(\cdots)$ 表示我们在按照 $\pi_\theta(y|x)$ 的概率分布对后面的项进行加权平均</li>
 <li>括号里的项 $\log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}$ 就是要计算期望的对象</li>
 </ul>
-<p>因此，根据期望的定义 $ \sum P \cdot f &#x3D; \mathbb{E}_P[f] $，可以直接写成：</p>
-<p>$$D_{\text{KL}}[\pi_\theta | \pi_{SFT}] &#x3D; \mathbb{E}<em>{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi</em>{SFT}(y|x)} \right]$$</p>
-<p><strong>为什么实践中要写成期望形式？</strong></p>
+<p>因此，根据期望的定义 $ \sum P \cdot f = \mathbb{E}_P[f] $，可以直接写成：</p>
+<script type="math/tex; mode=display">D\_{\text{KL}}[\pi\_\theta \| \pi\_{SFT}] = \mathbb{E}\_{y \sim \pi\_\theta(y|x)} \left[ \log \frac{\pi\_\theta(y|x)}{\pi\_{SFT}(y|x)} \right]</script><p><strong>为什么实践中要写成期望形式？</strong></p>
 <p>在深度学习和强化学习中，写成期望形式有重大的工程意义：</p>
 <p><strong>无法全量求和</strong>：<br>对于语言模型，可能的回答 $y$ 的组合是天文数字（由词表大小和序列长度决定），我们根本无法遍历所有的 $y$ 来计算那个 $\sum$ 符号。</p>
 <p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $\pi_\theta$ 生成（Sample）一批句子 $y$,计算这些句子的 $\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)$,取这些值的平均值，就是对 KL 散度的无偏估计</p>
 <p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $\mathbb{E}_{y \sim \pi_\theta}[r(x,y)]$。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
-<p>$$\max_{\pi_\theta} \mathbb{E}<em>{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi</em>{SFT}(y|x)} \right]$$</p>
-<p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
+<script type="math/tex; mode=display">\max\_{\pi\_\theta} \mathbb{E}\_{y \sim \pi\_\theta} \left[ r(x,y) - \beta \log \frac{\pi\_\theta(y|x)}{\pi\_{SFT}(y|x)} \right]</script><p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
 <p><strong>为什么这个目标函数不可导？</strong></p>
 <p>语言模型是<strong>离散生成</strong>的：</p>
 <ul>
-<li>输出是 token 序列 $y &#x3D; (y_1, y_2, \ldots)$</li>
-<li>采样 &#x2F; argmax 都是离散操作</li>
+<li>输出是 token 序列 $y = (y_1, y_2, \ldots)$</li>
+<li>采样 / argmax 都是离散操作</li>
 </ul>
 <p>无法像普通监督学习那样，对 $\mathbb{E}_{y \sim \pi_\theta(y|x)}[r(x,y)]$ 直接对 $\theta$ 求梯度。</p>
 <p>👉 所以不能用反向传播直接优化奖励<br>👉 必须用强化学习（policy gradient）</p>
-<p>这就是为什么要用 REINFORCE &#x2F; PPO。</p>
+<p>这就是为什么要用 REINFORCE / PPO。</p>
 <p><strong>KL 约束是怎么变成”奖励”的？</strong></p>
 <p><strong>关键一步是：把公式 (3) KL 项写成 log-prob 的形式</strong></p>
 <p>对离散策略：</p>
-<p>$$D_{\text{KL}}(\pi_\theta | \pi_{ref}) &#x3D; \mathbb{E}<em>{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi</em>{ref}(y|x) \right]$$</p>
-<p><strong>代回目标函数</strong>：</p>
-<p>$$\mathbb{E}<em>{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi</em>{ref}(y|x) \right) \right]$$</p>
-<p><strong>于是可以定义一个新的 reward</strong>：</p>
-<p>$$r(x, y) &#x3D; r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)$$</p>
-<p>即论文中的：</p>
-<p>$$r(x, y) &#x3D; r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)$$</p>
-<p>（论文里通常把 $\beta$ 省略或吸收到系数里）</p>
+<script type="math/tex; mode=display">D\_{\text{KL}}(\pi\_\theta \| \pi\_{ref}) = \mathbb{E}\_{y \sim \pi\_\theta} \left[ \log \pi\_\theta(y|x) - \log \pi\_{ref}(y|x) \right]</script><p><strong>代回目标函数</strong>：</p>
+<script type="math/tex; mode=display">\mathbb{E}\_{y \sim \pi\_\theta} \left[ r\_\phi(x, y) - \beta \left( \log \pi\_\theta(y|x) - \log \pi\_{ref}(y|x) \right) \right]</script><p><strong>于是可以定义一个新的 reward</strong>：</p>
+<script type="math/tex; mode=display">r(x, y) = r\_\phi(x, y) - \beta \left( \log \pi\_\theta(y|x) - \log \pi\_{ref}(y|x) \right)</script><p>即论文中的：</p>
+<script type="math/tex; mode=display">r(x, y) = r\_\phi(x, y) - \left( \log \pi\_\theta(y|x) - \log \pi\_{ref}(y|x) \right)</script><p>（论文里通常把 $\beta$ 省略或吸收到系数里）</p>
 <p><strong>转换后的简化目标函数</strong></p>
 <p>通过这个变换，原来的约束优化问题变成了无约束的奖励最大化问题：</p>
-<p>$$\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right]$$</p>
-<p>其中 $r(x, y)$ 已经包含了 KL 惩罚项。</p>
+<script type="math/tex; mode=display">\max\_{\pi\_\theta} \mathbb{E}\_{x \sim \mathcal{D}, y \sim \pi\_\theta(y|x)} \left[ r(x, y) \right]</script><p>其中 $r(x, y)$ 已经包含了 KL 惩罚项。</p>
 <hr>
 
       </div>
@@ -1173,24 +1129,20 @@
   
 <script src="/js/main.js"></script>
 
-
-  <!-- MathJax 重新渲染脚本 -->
-  <script>
-    // 等待 MathJax 加载完成后重新渲染
-    if (window.MathJax) {
-      MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-      MathJax.startup.promise = MathJax.startup.promise || Promise.resolve();
-      MathJax.startup.promise.then(() => {
-        MathJax.typesetPromise.then(() => {
-          MathJax.typesetClear();
-          MathJax.typesetPromise = MathJax.typesetPromise || Promise.resolve();
-          MathJax.texReset();
-          MathJax.typesetPromise.then(() => {
-            MathJax.processDocument();
-          });
-        });
-      });
-    }
-  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
