@@ -272,7 +272,7 @@
 <p>对一个有限数据集 $D = {z_1, …, z_N}$，如果你均匀随机从中抽一个样本，那么：</p>
 <script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>👉 期望 = 平均值</p>
 <p>令 $f(x,y_w,y_l) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$ 那么：</p>
-<script type="math/tex; mode=display">\mathbb{E}_{(x,y\_w,y\_l) \sim D} [f] = \frac{1}{N} \sum\_{i=1}^N \log \sigma(r\_\theta(x^{(i)}, y\_w^{(i)}) - r\_\theta(x^{(i)}, y\_l^{(i)}))</script><p>因为 $\sum_{i=1}^N f_i$ 和 $\frac{1}{N} \sum_{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：<script type="math/tex">\arg\max\_\theta \sum\_{i=1}^N f\_i = \arg\max\_\theta \frac{1}{N} \sum\_{i=1}^N f\_i</script></p>
+<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $\sum_{i=1}^N f_i$ 和 $\frac{1}{N} \sum_{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：<script type="math/tex">\arg\max\_\theta \sum\_{i=1}^N f\_i = \arg\max\_\theta \frac{1}{N} \sum\_{i=1}^N f\_i</script></p>
 <p>原目标：<script type="math/tex">\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]</script></p>
 <p>等价于：<script type="math/tex">\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
 <p>于是定义：<script type="math/tex">L_R = -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
