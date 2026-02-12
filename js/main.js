@@ -213,26 +213,11 @@
     /* ========================================
      * 简洁音乐播放器
      * ======================================== */
-    var playBtn = document.getElementById('play-btn');
-    var prevBtn = document.getElementById('prev-btn');
-    var nextBtn = document.getElementById('next-btn');
-    var modeBtn = document.getElementById('mode-btn');
     var lyricsBtn = document.getElementById('lyrics-btn');
+    var openNeteaseBtn = document.getElementById('open-netease-btn');
     var lyricsPanel = document.getElementById('lyrics-panel');
     var lyricsClose = document.getElementById('lyrics-close');
-    var songTitle = document.getElementById('song-title');
-    var songArtist = document.getElementById('song-artist');
     var lyricsContent = document.getElementById('lyrics-content');
-
-    // 歌曲数据
-    var songs = [
-      { title: "夜曲", artist: "周杰伦" },
-      { title: "晴天", artist: "周杰伦" },
-      { title: "七里香", artist: "周杰伦" },
-      { title: "稻香", artist: "周杰伦" },
-      { title: "青花瓷", artist: "周杰伦" },
-      { title: "告白气球", artist: "周杰伦" }
-    ];
 
     // 歌词数据
     var lyricsData = [
@@ -246,57 +231,7 @@
       "♪ 音乐是生活的调味剂 ♪"
     ];
 
-    var currentSongIndex = 0;
-    var isPlaying = false;
-    var playMode = 'order'; // order, random, single
     var currentLyricIndex = 0;
-
-    // 播放/暂停
-    if (playBtn) {
-      playBtn.addEventListener('click', function() {
-        isPlaying = !isPlaying;
-        updatePlayButton();
-        if (isPlaying) {
-          startLyricsAnimation();
-        } else {
-          stopLyricsAnimation();
-        }
-      });
-    }
-
-    // 上一首
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function() {
-        if (playMode === 'random') {
-          currentSongIndex = Math.floor(Math.random() * songs.length);
-        } else {
-          currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-        }
-        updateSongInfo();
-      });
-    }
-
-    // 下一首
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function() {
-        if (playMode === 'random') {
-          currentSongIndex = Math.floor(Math.random() * songs.length);
-        } else {
-          currentSongIndex = (currentSongIndex + 1) % songs.length;
-        }
-        updateSongInfo();
-      });
-    }
-
-    // 播放模式切换
-    if (modeBtn) {
-      modeBtn.addEventListener('click', function() {
-        var modes = ['order', 'random', 'single'];
-        var currentIndex = modes.indexOf(playMode);
-        playMode = modes[(currentIndex + 1) % modes.length];
-        updateModeButton();
-      });
-    }
 
     // 歌词面板
     if (lyricsBtn) {
@@ -311,63 +246,22 @@
       });
     }
 
-    // 更新播放按钮
-    function updatePlayButton() {
-      if (playBtn) {
-        var icon = playBtn.querySelector('i');
-        if (isPlaying) {
-          icon.className = 'fas fa-pause';
-          playBtn.classList.add('playing');
-        } else {
-          icon.className = 'fas fa-play';
-          playBtn.classList.remove('playing');
-        }
-      }
-    }
-
-    // 更新模式按钮
-    function updateModeButton() {
-      if (modeBtn) {
-        var icon = modeBtn.querySelector('i');
-        modeBtn.classList.remove('active');
-        
-        switch(playMode) {
-          case 'order':
-            icon.className = 'fas fa-list';
-            break;
-          case 'random':
-            icon.className = 'fas fa-random';
-            modeBtn.classList.add('active');
-            break;
-          case 'single':
-            icon.className = 'fas fa-redo';
-            break;
-        }
-      }
-    }
-
-    // 更新歌曲信息
-    function updateSongInfo() {
-      if (songTitle && songArtist) {
-        var song = songs[currentSongIndex];
-        songTitle.textContent = song.title;
-        songArtist.textContent = song.artist;
-      }
+    // 打开完整版网易云音乐
+    if (openNeteaseBtn) {
+      openNeteaseBtn.addEventListener('click', function() {
+        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
+      });
     }
 
     // 歌词动画
     var lyricsInterval;
     function startLyricsAnimation() {
-      stopLyricsAnimation();
-      lyricsInterval = setInterval(function() {
-        updateLyrics();
-      }, 3000);
-    }
-
-    function stopLyricsAnimation() {
       if (lyricsInterval) {
         clearInterval(lyricsInterval);
       }
+      lyricsInterval = setInterval(function() {
+        updateLyrics();
+      }, 3000);
     }
 
     function updateLyrics() {
@@ -375,7 +269,7 @@
         currentLyricIndex = (currentLyricIndex + 1) % lyricsData.length;
         
         var lyricsHTML = '';
-        for (var i = -1; i <= 1; i++) {
+        for (var i = -2; i <= 2; i++) {
           var index = (currentLyricIndex + i + lyricsData.length) % lyricsData.length;
           var isActive = i === 0;
           lyricsHTML += '<div class="lyrics-line' + (isActive ? ' active' : '') + '">' + lyricsData[index] + '</div>';
@@ -392,9 +286,8 @@
     }
 
     // 初始化
-    updateSongInfo();
-    updateModeButton();
     updateLyrics();
+    startLyricsAnimation();
 
     /* ========================================
      * 文章目录（TOC）高亮跟随

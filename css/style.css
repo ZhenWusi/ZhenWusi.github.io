@@ -1551,6 +1551,22 @@ img {
   justify-content: center;
   align-items: center;
   gap: 8px;
+  margin-top: 12px;
+}
+
+/* 网易云音乐迷你播放器 */
+.netease-player-mini {
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.netease-player-mini iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 80px;
 }
 
 .control-btn {
