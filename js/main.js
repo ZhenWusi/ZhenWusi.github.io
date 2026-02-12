@@ -216,6 +216,7 @@
     var miniPlayer = document.getElementById('music-mini-player');
     var minimizedBtn = document.getElementById('music-toggle-minimized');
     var minimizeBtn = document.getElementById('minimize-btn');
+    var openNeteaseBtn = document.getElementById('open-netease-btn');
     var musicIndicator = document.getElementById('music-indicator');
     var starsContainer = document.getElementById('stars-container');
 
@@ -247,14 +248,12 @@
       }
     }
 
-    // 模拟音乐播放状态（基于网易云音乐播放器状态）
-    var isPlaying = false;
-    setInterval(function() {
-      if (musicIndicator) {
-        isPlaying = !isPlaying;
-        musicIndicator.classList.toggle('playing', isPlaying);
-      }
-    }, 3000);
+    // 打开网易云音乐
+    if (openNeteaseBtn) {
+      openNeteaseBtn.addEventListener('click', function() {
+        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
+      });
+    }
 
     // 星星雪花效果
     function createStar() {

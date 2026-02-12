@@ -515,40 +515,25 @@
   <div class="music-mini-player" id="music-mini-player">
     <div class="mini-player-header">
       <div class="player-controls">
-        <button class="control-btn" id="prev-btn" title="上一首">
-          <i class="fas fa-step-backward"></i>
+        <button class="control-btn" id="open-netease-btn" title="打开网易云音乐">
+          <i class="fas fa-external-link-alt"></i>
         </button>
-        <button class="control-btn play-pause-btn" id="play-pause-btn" title="播放/暂停">
-          <i class="fas fa-play"></i>
-        </button>
-        <button class="control-btn" id="next-btn" title="下一首">
-          <i class="fas fa-step-forward"></i>
+        <button class="minimize-btn" id="minimize-btn" title="最小化">
+          <i class="fas fa-minus"></i>
         </button>
       </div>
-      <button class="minimize-btn" id="minimize-btn" title="最小化">
-        <i class="fas fa-minus"></i>
-      </button>
     </div>
     
     <div class="mini-player-content">
       <!-- 歌曲信息 -->
       <div class="song-info">
         <div class="song-cover">
-          <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面" id="song-cover">
+          <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面">
         </div>
         <div class="song-details">
-          <div class="song-title" id="song-title">网易云音乐</div>
-          <div class="song-artist" id="song-artist">歌单: 2993057618</div>
+          <div class="song-title">网易云音乐</div>
+          <div class="song-artist">歌单: 2993057618</div>
         </div>
-      </div>
-      
-      <!-- 进度条 -->
-      <div class="progress-bar">
-        <span class="time-current" id="time-current">0:00</span>
-        <div class="progress-track" id="progress-track">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-        <span class="time-total" id="time-total">0:00</span>
       </div>
       
       <!-- 网易云音乐播放器 -->
@@ -560,8 +545,8 @@
           marginwidth="0"
           marginheight="0"
           width="100%"
-          height="200"
-          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=180"
+          height="280"
+          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=260"
           loading="lazy">
         </iframe>
       </div>
