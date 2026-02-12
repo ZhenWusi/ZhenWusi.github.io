@@ -228,7 +228,7 @@
     var songCover = document.getElementById('song-cover');
     var lyricsDisplay = document.getElementById('lyrics-display');
 
-    // 模拟歌曲数据
+    // 简单的歌曲数据
     var playlist = [
       { title: '夜曲', artist: '周杰伦', cover: 'https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg', duration: 226 },
       { title: '晴天', artist: '周杰伦', cover: 'https://p1.music.126.net/SYqUNOMTg2z-1KYDRJmzLg==/109951165699245110.jpg', duration: 269 },
@@ -284,27 +284,19 @@
       });
     }
 
-    // 进度条点击
-    if (progressTrack) {
-      progressTrack.addEventListener('click', function (e) {
-        var rect = progressTrack.getBoundingClientRect();
-        var percent = (e.clientX - rect.left) / rect.width;
-        currentTime = percent * playlist[currentSongIndex].duration;
-        updateProgress();
-      });
-    }
-
     // 播放音乐
     function playMusic() {
       isPlaying = true;
-      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-      musicToggle.classList.add('playing');
+      if (playPauseBtn) {
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      }
+      if (musicToggle) {
+        musicToggle.classList.add('playing');
+      }
       
-      // 模拟播放进度
       progressInterval = setInterval(function () {
         currentTime += 0.1;
         if (currentTime >= playlist[currentSongIndex].duration) {
-          // 自动下一首
           currentSongIndex = (currentSongIndex + 1) % playlist.length;
           loadSong(currentSongIndex);
           playMusic();
@@ -317,21 +309,25 @@
     // 暂停音乐
     function pauseMusic() {
       isPlaying = false;
-      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-      musicToggle.classList.remove('playing');
+      if (playPauseBtn) {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+      if (musicToggle) {
+        musicToggle.classList.remove('playing');
+      }
       clearInterval(progressInterval);
     }
 
     // 加载歌曲
     function loadSong(index) {
       var song = playlist[index];
-      songTitle.textContent = song.title;
-      songArtist.textContent = song.artist;
-      songCover.src = song.cover;
+      if (songTitle) songTitle.textContent = song.title;
+      if (songArtist) songArtist.textContent = song.artist;
+      if (songCover) songCover.src = song.cover;
       currentTime = 0;
       updateProgress();
       
-      // 模拟歌词
+      // 简单歌词
       var lyrics = [
         '♪ ' + song.title + ' ♪',
         '歌手：' + song.artist,
@@ -343,25 +339,29 @@
         '但音乐永远陪伴我们'
       ];
       
-      lyricsDisplay.innerHTML = lyrics.map(function(line, i) {
-        return '<div class="lyrics-line">' + line + '</div>';
-      }).join('');
+      if (lyricsDisplay) {
+        lyricsDisplay.innerHTML = lyrics.map(function(line) {
+          return '<div class="lyrics-line">' + line + '</div>';
+        }).join('');
+      }
     }
 
     // 更新进度
     function updateProgress() {
       var song = playlist[currentSongIndex];
       var percent = (currentTime / song.duration) * 100;
-      progressFill.style.width = percent + '%';
-      timeCurrent.textContent = formatTime(currentTime);
-      timeTotal.textContent = formatTime(song.duration);
+      if (progressFill) progressFill.style.width = percent + '%';
+      if (timeCurrent) timeCurrent.textContent = formatTime(currentTime);
+      if (timeTotal) timeTotal.textContent = formatTime(song.duration);
       
       // 更新歌词高亮
-      var lyricsLines = lyricsDisplay.querySelectorAll('.lyrics-line');
-      var currentLineIndex = Math.floor((currentTime / song.duration) * lyricsLines.length);
-      lyricsLines.forEach(function(line, index) {
-        line.classList.toggle('active', index === currentLineIndex);
-      });
+      if (lyricsDisplay) {
+        var lyricsLines = lyricsDisplay.querySelectorAll('.lyrics-line');
+        var currentLineIndex = Math.floor((currentTime / song.duration) * lyricsLines.length);
+        lyricsLines.forEach(function(line, index) {
+          line.classList.toggle('active', index === currentLineIndex);
+        });
+      }
     }
 
     // 格式化时间
