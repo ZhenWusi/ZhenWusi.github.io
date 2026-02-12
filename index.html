@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 基本 meta 标签 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO meta 标签 -->
+  <title>ZhenWusi&#39;s Blog</title>
+  <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta name="keywords" content="技术博客,前端开发,编程学习">
+  <meta name="author" content="ZhenWusi">
+
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="ZhenWusi&#39;s Blog">
+  <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zhenwusi.github.io/index.html">
+
+  <!-- 图标 -->
+  <link rel="icon" href="https://img.icons8.com/fluency/48/domain.png" type="image/png">
+
+  <!-- Google Fonts - Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- 主样式表 -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZhenWusi's Blog" type="application/atom+xml">
+</head>
+<body>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 顶部导航栏 -->
+  <!-- 顶部导航栏 -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- 站点 Logo / 标题 -->
+    <a href="/" class="site-brand">
+      <i class="fas fa-code"></i>
+      <span>ZhenWusi&#39;s Blog</span>
+    </a>
+
+    <!-- 桌面端导航菜单 -->
+    <nav class="site-nav" id="site-nav">
+      
+        <a href="/"
+           class="nav-link active">
+          <i class="fas fa-home"></i>
+          
+          <span>首页</span>
+        </a>
+      
+        <a href="/archives"
+           class="nav-link">
+          <i class="fas fa-archive"></i>
+          
+          <span>归档</span>
+        </a>
+      
+        <a href="/categories"
+           class="nav-link">
+          <i class="fas fa-folder"></i>
+          
+          <span>分类</span>
+        </a>
+      
+        <a href="/tags"
+           class="nav-link">
+          <i class="fas fa-tags"></i>
+          
+          <span>标签</span>
+        </a>
+      
+        <a href="/friends"
+           class="nav-link">
+          <i class="fas fa-link"></i>
+          
+          <span>友链</span>
+        </a>
+      
+        <a href="/about"
+           class="nav-link">
+          <i class="fas fa-user"></i>
+          
+          <span>关于</span>
+        </a>
+      
+    </nav>
+
+    <!-- 功能按钮区域 -->
+    <div class="header-actions">
+      <!-- 搜索按钮 -->
+      <button class="action-btn" id="search-toggle" title="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+      <!-- 深色模式切换 -->
+      <button class="action-btn" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+      </button>
+      <!-- 移动端菜单按钮 -->
+      <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜索弹窗 -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索文章..." autocomplete="off">
+      <button id="search-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</header>
+
+<!-- 移动端侧滑菜单 -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <img src="https://picsum.photos/seed/avatar2024/200/200" alt="头像" class="mobile-avatar">
+    <h3>ZhenWusi</h3>
+    <p>热爱技术，热爱生活 🚀</p>
+  </div>
+  <nav class="mobile-nav">
+    
+      <a href="/" class="mobile-nav-link">
+        <i class="fas fa-home"></i>
+        
+        <span>首页</span>
+      </a>
+    
+      <a href="/archives" class="mobile-nav-link">
+        <i class="fas fa-archive"></i>
+        
+        <span>归档</span>
+      </a>
+    
+      <a href="/categories" class="mobile-nav-link">
+        <i class="fas fa-folder"></i>
+        
+        <span>分类</span>
+      </a>
+    
+      <a href="/tags" class="mobile-nav-link">
+        <i class="fas fa-tags"></i>
+        
+        <span>标签</span>
+      </a>
+    
+      <a href="/friends" class="mobile-nav-link">
+        <i class="fas fa-link"></i>
+        
+        <span>友链</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        <i class="fas fa-user"></i>
+        
+        <span>关于</span>
+      </a>
+    
+  </nav>
+</aside>
+
+
+  <!-- 页面主内容 -->
+  <main class="main-content">
+    <!-- 首页布局 -->
+
+<!-- 首页 Hero 横幅区域 -->
+<section class="hero" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&amp;q=80')">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="https://picsum.photos/seed/avatar2024/200/200" alt="头像" class="hero-avatar">
+    <h1 class="hero-title">ZhenWusi&#39;s Blog</h1>
+    <p class="hero-subtitle">记录技术与生活</p>
+    <!-- 社交图标 -->
+    <div class="hero-social">
+      
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+      
+      
+        <a href="mailto:zhenwusi@example.com"><i class="fas fa-envelope"></i></a>
+      
+    </div>
+    <!-- 向下滚动箭头 -->
+    <a href="#posts-section" class="hero-scroll-down">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </div>
+</section>
+
+<!-- 文章列表区域 -->
+<section class="posts-section" id="posts-section">
+  <div class="container">
+    <h2 class="section-title"><i class="fas fa-feather-alt"></i> 最新文章</h2>
+    <div class="posts-grid">
+      
+        
+
+<article class="post-card">
+  <!-- 文章封面图 -->
+  
+    <a href="/2025/02/12/hello-world/" class="post-card-cover">
+      <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&amp;q=80" alt="你好，世界！欢迎来到我的博客" loading="lazy">
+    </a>
+  
+
+  <!-- 文章信息 -->
+  <div class="post-card-info">
+    <!-- 分类标签 -->
+    
+      <div class="post-card-meta-top">
+        
+          <a href="/categories/%E9%9A%8F%E7%AC%94/" class="post-card-category">
+            <i class="fas fa-folder"></i> 随笔
+          </a>
+        
+      </div>
+    
+
+    <!-- 文章标题 -->
+    <h2 class="post-card-title">
+      <a href="/2025/02/12/hello-world/">你好，世界！欢迎来到我的博客</a>
+    </h2>
+
+    <!-- 文章摘要 -->
+    <p class="post-card-excerpt">
+      这是我的第一篇博客文章，记录博客搭建的过程和未来的计划。...
+    </p>
+
+    <!-- 文章元信息 -->
+    <div class="post-card-meta">
+      <span class="meta-item">
+        <i class="far fa-calendar-alt"></i>
+        2025-02-12
+      </span>
+      
+        <span class="meta-item">
+          <i class="fas fa-tags"></i>
+          
+          博客 / Hexo
+        </span>
+      
+    </div>
+  </div>
+</article>
+
+      
+        
+
+<article class="post-card">
+  <!-- 文章封面图 -->
+  
+    <a href="/2025/02/10/javascript-es6-guide/" class="post-card-cover">
+      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;q=80" alt="JavaScript ES6+ 新特性完全指南" loading="lazy">
+    </a>
+  
+
+  <!-- 文章信息 -->
+  <div class="post-card-info">
+    <!-- 分类标签 -->
+    
+      <div class="post-card-meta-top">
+        
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="post-card-category">
+            <i class="fas fa-folder"></i> 前端开发
+          </a>
+        
+      </div>
+    
+
+    <!-- 文章标题 -->
+    <h2 class="post-card-title">
+      <a href="/2025/02/10/javascript-es6-guide/">JavaScript ES6+ 新特性完全指南</a>
+    </h2>
+
+    <!-- 文章摘要 -->
+    <p class="post-card-excerpt">
+      全面介绍 ES6+ 的核心特性，包括解构赋值、箭头函数、Promise、async/await 等现代 JavaScript 必备知识。...
+    </p>
+
+    <!-- 文章元信息 -->
+    <div class="post-card-meta">
+      <span class="meta-item">
+        <i class="far fa-calendar-alt"></i>
+        2025-02-10
+      </span>
+      
+        <span class="meta-item">
+          <i class="fas fa-tags"></i>
+          
+          JavaScript / ES6 / 前端
+        </span>
+      
+    </div>
+  </div>
+</article>
+
+      
+        
+
+<article class="post-card">
+  <!-- 文章封面图 -->
+  
+    <a href="/2025/02/08/git-workflow-guide/" class="post-card-cover">
+      <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&amp;q=80" alt="Git 工作流与常用命令速查" loading="lazy">
+    </a>
+  
+
+  <!-- 文章信息 -->
+  <div class="post-card-info">
+    <!-- 分类标签 -->
+    
+      <div class="post-card-meta-top">
+        
+          <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="post-card-category">
+            <i class="fas fa-folder"></i> 开发工具
+          </a>
+        
+      </div>
+    
+
+    <!-- 文章标题 -->
+    <h2 class="post-card-title">
+      <a href="/2025/02/08/git-workflow-guide/">Git 工作流与常用命令速查</a>
+    </h2>
+
+    <!-- 文章摘要 -->
+    <p class="post-card-excerpt">
+      整理 Git 日常开发中最常用的命令和工作流，包括分支管理、代码合并、冲突解决等实用技巧。...
+    </p>
+
+    <!-- 文章元信息 -->
+    <div class="post-card-meta">
+      <span class="meta-item">
+        <i class="far fa-calendar-alt"></i>
+        2025-02-08
+      </span>
+      
+        <span class="meta-item">
+          <i class="fas fa-tags"></i>
+          
+          Git / 工具 / 版本控制
+        </span>
+      
+    </div>
+  </div>
+</article>
+
+      
+        
+
+<article class="post-card">
+  <!-- 文章封面图 -->
+  
+    <a href="/2025/02/05/docker-getting-started/" class="post-card-cover">
+      <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&amp;q=80" alt="Docker 容器化入门：从零开始" loading="lazy">
+    </a>
+  
+
+  <!-- 文章信息 -->
+  <div class="post-card-info">
+    <!-- 分类标签 -->
+    
+      <div class="post-card-meta-top">
+        
+          <a href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/" class="post-card-category">
+            <i class="fas fa-folder"></i> 后端技术
+          </a>
+        
+      </div>
+    
+
+    <!-- 文章标题 -->
+    <h2 class="post-card-title">
+      <a href="/2025/02/05/docker-getting-started/">Docker 容器化入门：从零开始</a>
+    </h2>
+
+    <!-- 文章摘要 -->
+    <p class="post-card-excerpt">
+      从零开始学习 Docker，了解镜像、容器、Dockerfile 的核心概念，以及如何用 Docker Compose 编排多容器应用。...
+    </p>
+
+    <!-- 文章元信息 -->
+    <div class="post-card-meta">
+      <span class="meta-item">
+        <i class="far fa-calendar-alt"></i>
+        2025-02-05
+      </span>
+      
+        <span class="meta-item">
+          <i class="fas fa-tags"></i>
+          
+          Docker / 运维 / 容器化
+        </span>
+      
+    </div>
+  </div>
+</article>
+
+      
+        
+
+<article class="post-card">
+  <!-- 文章封面图 -->
+  
+    <a href="/2025/02/01/vue3-composition-api/" class="post-card-cover">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&amp;q=80" alt="Vue 3 Composition API 实战总结" loading="lazy">
+    </a>
+  
+
+  <!-- 文章信息 -->
+  <div class="post-card-info">
+    <!-- 分类标签 -->
+    
+      <div class="post-card-meta-top">
+        
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="post-card-category">
+            <i class="fas fa-folder"></i> 前端开发
+          </a>
+        
+      </div>
+    
+
+    <!-- 文章标题 -->
+    <h2 class="post-card-title">
+      <a href="/2025/02/01/vue3-composition-api/">Vue 3 Composition API 实战总结</a>
+    </h2>
+
+    <!-- 文章摘要 -->
+    <p class="post-card-excerpt">
+      深入理解 Vue 3 Composition API 的核心概念，包括 ref、reactive、computed、watch 等，以及如何封装可复用的组合函数。...
+    </p>
+
+    <!-- 文章元信息 -->
+    <div class="post-card-meta">
+      <span class="meta-item">
+        <i class="far fa-calendar-alt"></i>
+        2025-02-01
+      </span>
+      
+        <span class="meta-item">
+          <i class="fas fa-tags"></i>
+          
+          JavaScript / Vue / 前端框架
+        </span>
+      
+    </div>
+  </div>
+</article>
+
+      
+    </div>
+
+    <!-- 分页 -->
+    <!-- 分页组件 -->
+
+
+  </div>
+</section>
+
+  </main>
+
+  <!-- 页脚 -->
+  <!-- 页脚区域 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+      <p>
+        &copy; 2025 - 2026
+        <a href="/">ZhenWusi</a>
+      </p>
+      <p class="footer-powered">
+        
+          由 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 驱动 |
+          主题 <a href="/">Flavor</a>
+        
+      </p>
+      
+    </div>
+
+    <!-- 页脚社交链接 -->
+    <div class="footer-social">
+      
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      
+      
+        <a href="mailto:zhenwusi@example.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+      <a href="/atom.xml" target="_blank" title="RSS 订阅">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" title="回到顶部">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- 音乐播放器 -->
+  
+    <!-- 网易云音乐播放器 -->
+<div class="music-player" id="music-player">
+  <!-- 播放器切换按钮（悬浮在页面右下角） -->
+  <button class="music-toggle" id="music-toggle" title="音乐播放器">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- 播放器面板 -->
+  <div class="music-panel" id="music-panel">
+    <div class="music-panel-header">
+      <span><i class="fas fa-headphones"></i> 音乐播放器</span>
+      <button class="music-panel-close" id="music-panel-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="music-panel-body">
+      <!-- 使用网易云音乐外链播放器 -->
+      
+        <iframe
+          frameborder="no"
+          border="0"
+          marginwidth="0"
+          marginheight="0"
+          width="100%"
+          height="450"
+          src="//music.163.com/outchain/player?type=0&id=7293820687&auto=0&height=430"
+          loading="lazy">
+        </iframe>
+      
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- 主脚本 -->
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>

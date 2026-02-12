@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 基本 meta 标签 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO meta 标签 -->
+  <title>友情链接 | ZhenWusi&#39;s Blog</title>
+  <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta name="keywords" content="技术博客,前端开发,编程学习">
+  <meta name="author" content="ZhenWusi">
+
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="友情链接">
+  <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zhenwusi.github.io/friends/index.html">
+
+  <!-- 图标 -->
+  <link rel="icon" href="https://img.icons8.com/fluency/48/domain.png" type="image/png">
+
+  <!-- Google Fonts - Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- 主样式表 -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZhenWusi's Blog" type="application/atom+xml">
+</head>
+<body>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 顶部导航栏 -->
+  <!-- 顶部导航栏 -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- 站点 Logo / 标题 -->
+    <a href="/" class="site-brand">
+      <i class="fas fa-code"></i>
+      <span>ZhenWusi&#39;s Blog</span>
+    </a>
+
+    <!-- 桌面端导航菜单 -->
+    <nav class="site-nav" id="site-nav">
+      
+        <a href="/"
+           class="nav-link">
+          <i class="fas fa-home"></i>
+          
+          <span>首页</span>
+        </a>
+      
+        <a href="/archives"
+           class="nav-link">
+          <i class="fas fa-archive"></i>
+          
+          <span>归档</span>
+        </a>
+      
+        <a href="/categories"
+           class="nav-link">
+          <i class="fas fa-folder"></i>
+          
+          <span>分类</span>
+        </a>
+      
+        <a href="/tags"
+           class="nav-link">
+          <i class="fas fa-tags"></i>
+          
+          <span>标签</span>
+        </a>
+      
+        <a href="/friends"
+           class="nav-link active">
+          <i class="fas fa-link"></i>
+          
+          <span>友链</span>
+        </a>
+      
+        <a href="/about"
+           class="nav-link">
+          <i class="fas fa-user"></i>
+          
+          <span>关于</span>
+        </a>
+      
+    </nav>
+
+    <!-- 功能按钮区域 -->
+    <div class="header-actions">
+      <!-- 搜索按钮 -->
+      <button class="action-btn" id="search-toggle" title="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+      <!-- 深色模式切换 -->
+      <button class="action-btn" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+      </button>
+      <!-- 移动端菜单按钮 -->
+      <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜索弹窗 -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索文章..." autocomplete="off">
+      <button id="search-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</header>
+
+<!-- 移动端侧滑菜单 -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <img src="https://picsum.photos/seed/avatar2024/200/200" alt="头像" class="mobile-avatar">
+    <h3>ZhenWusi</h3>
+    <p>热爱技术，热爱生活 🚀</p>
+  </div>
+  <nav class="mobile-nav">
+    
+      <a href="/" class="mobile-nav-link">
+        <i class="fas fa-home"></i>
+        
+        <span>首页</span>
+      </a>
+    
+      <a href="/archives" class="mobile-nav-link">
+        <i class="fas fa-archive"></i>
+        
+        <span>归档</span>
+      </a>
+    
+      <a href="/categories" class="mobile-nav-link">
+        <i class="fas fa-folder"></i>
+        
+        <span>分类</span>
+      </a>
+    
+      <a href="/tags" class="mobile-nav-link">
+        <i class="fas fa-tags"></i>
+        
+        <span>标签</span>
+      </a>
+    
+      <a href="/friends" class="mobile-nav-link">
+        <i class="fas fa-link"></i>
+        
+        <span>友链</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        <i class="fas fa-user"></i>
+        
+        <span>关于</span>
+      </a>
+    
+  </nav>
+</aside>
+
+
+  <!-- 页面主内容 -->
+  <main class="main-content">
+    <!-- 独立页面布局（关于、友链等） -->
+
+
+
+<!-- 页面顶部横幅 -->
+<section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&amp;q=80')">
+  <div class="hero-overlay"></div>
+  <div class="page-banner-content">
+    <h1>友情链接</h1>
+  </div>
+</section>
+
+<div class="container page-container">
+  
+    <!-- ========== 友链页面 ========== -->
+    <div class="page-body markdown-body">
+      <p>欢迎交换友链！请在评论区留下你的站点信息：</p>
+<ul>
+<li><strong>站点名称</strong></li>
+<li><strong>站点地址</strong></li>
+<li><strong>头像链接</strong></li>
+<li><strong>一句话描述</strong></li>
+</ul>
+
+    </div>
+    <div class="friends-grid">
+      
+        
+          <a href="https://hexo.io/" target="_blank" rel="noopener" class="friend-card">
+            <img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo" class="friend-avatar" loading="lazy">
+            <div class="friend-info">
+              <h3>Hexo</h3>
+              <p>快速、简洁且高效的博客框架</p>
+            </div>
+          </a>
+        
+          <a href="https://github.com" target="_blank" rel="noopener" class="friend-card">
+            <img src="https://github.githubassets.com/favicons/favicon-dark.svg" alt="GitHub" class="friend-avatar" loading="lazy">
+            <div class="friend-info">
+              <h3>GitHub</h3>
+              <p>全球最大的代码托管平台</p>
+            </div>
+          </a>
+        
+          <a href="https://developer.mozilla.org/" target="_blank" rel="noopener" class="friend-card">
+            <img src="https://developer.mozilla.org/favicon-48x48.png" alt="MDN Web Docs" class="friend-avatar" loading="lazy">
+            <div class="friend-info">
+              <h3>MDN Web Docs</h3>
+              <p>Web 技术权威文档</p>
+            </div>
+          </a>
+        
+      
+    </div>
+
+  
+</div>
+
+  </main>
+
+  <!-- 页脚 -->
+  <!-- 页脚区域 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+      <p>
+        &copy; 2025 - 2026
+        <a href="/">ZhenWusi</a>
+      </p>
+      <p class="footer-powered">
+        
+          由 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 驱动 |
+          主题 <a href="/">Flavor</a>
+        
+      </p>
+      
+    </div>
+
+    <!-- 页脚社交链接 -->
+    <div class="footer-social">
+      
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      
+      
+        <a href="mailto:zhenwusi@example.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+      <a href="/atom.xml" target="_blank" title="RSS 订阅">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" title="回到顶部">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- 音乐播放器 -->
+  
+    <!-- 网易云音乐播放器 -->
+<div class="music-player" id="music-player">
+  <!-- 播放器切换按钮（悬浮在页面右下角） -->
+  <button class="music-toggle" id="music-toggle" title="音乐播放器">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- 播放器面板 -->
+  <div class="music-panel" id="music-panel">
+    <div class="music-panel-header">
+      <span><i class="fas fa-headphones"></i> 音乐播放器</span>
+      <button class="music-panel-close" id="music-panel-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="music-panel-body">
+      <!-- 使用网易云音乐外链播放器 -->
+      
+        <iframe
+          frameborder="no"
+          border="0"
+          marginwidth="0"
+          marginheight="0"
+          width="100%"
+          height="450"
+          src="//music.163.com/outchain/player?type=0&id=7293820687&auto=0&height=430"
+          loading="lazy">
+        </iframe>
+      
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- 主脚本 -->
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 基本 meta 标签 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO meta 标签 -->
+  <title>Vue 3 Composition API 实战总结 | ZhenWusi&#39;s Blog</title>
+  <meta name="description" content="深入理解 Vue 3 Composition API 的核心概念，包括 ref、reactive、computed、watch 等，以及如何封装可复用的组合函数。">
+  <meta name="keywords" content="JavaScript,Vue,前端框架">
+  <meta name="author" content="ZhenWusi">
+
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="Vue 3 Composition API 实战总结">
+  <meta property="og:description" content="深入理解 Vue 3 Composition API 的核心概念，包括 ref、reactive、computed、watch 等，以及如何封装可复用的组合函数。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenwusi.github.io/2025/02/01/vue3-composition-api/index.html">
+
+  <!-- 图标 -->
+  <link rel="icon" href="https://img.icons8.com/fluency/48/domain.png" type="image/png">
+
+  <!-- Google Fonts - Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- 主样式表 -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="ZhenWusi's Blog" type="application/atom+xml">
+</head>
+<body>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 顶部导航栏 -->
+  <!-- 顶部导航栏 -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- 站点 Logo / 标题 -->
+    <a href="/" class="site-brand">
+      <i class="fas fa-code"></i>
+      <span>ZhenWusi&#39;s Blog</span>
+    </a>
+
+    <!-- 桌面端导航菜单 -->
+    <nav class="site-nav" id="site-nav">
+      
+        <a href="/"
+           class="nav-link">
+          <i class="fas fa-home"></i>
+          
+          <span>首页</span>
+        </a>
+      
+        <a href="/archives"
+           class="nav-link">
+          <i class="fas fa-archive"></i>
+          
+          <span>归档</span>
+        </a>
+      
+        <a href="/categories"
+           class="nav-link">
+          <i class="fas fa-folder"></i>
+          
+          <span>分类</span>
+        </a>
+      
+        <a href="/tags"
+           class="nav-link">
+          <i class="fas fa-tags"></i>
+          
+          <span>标签</span>
+        </a>
+      
+        <a href="/friends"
+           class="nav-link">
+          <i class="fas fa-link"></i>
+          
+          <span>友链</span>
+        </a>
+      
+        <a href="/about"
+           class="nav-link">
+          <i class="fas fa-user"></i>
+          
+          <span>关于</span>
+        </a>
+      
+    </nav>
+
+    <!-- 功能按钮区域 -->
+    <div class="header-actions">
+      <!-- 搜索按钮 -->
+      <button class="action-btn" id="search-toggle" title="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+      <!-- 深色模式切换 -->
+      <button class="action-btn" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+      </button>
+      <!-- 移动端菜单按钮 -->
+      <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜索弹窗 -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索文章..." autocomplete="off">
+      <button id="search-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</header>
+
+<!-- 移动端侧滑菜单 -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <img src="https://picsum.photos/seed/avatar2024/200/200" alt="头像" class="mobile-avatar">
+    <h3>ZhenWusi</h3>
+    <p>热爱技术，热爱生活 🚀</p>
+  </div>
+  <nav class="mobile-nav">
+    
+      <a href="/" class="mobile-nav-link">
+        <i class="fas fa-home"></i>
+        
+        <span>首页</span>
+      </a>
+    
+      <a href="/archives" class="mobile-nav-link">
+        <i class="fas fa-archive"></i>
+        
+        <span>归档</span>
+      </a>
+    
+      <a href="/categories" class="mobile-nav-link">
+        <i class="fas fa-folder"></i>
+        
+        <span>分类</span>
+      </a>
+    
+      <a href="/tags" class="mobile-nav-link">
+        <i class="fas fa-tags"></i>
+        
+        <span>标签</span>
+      </a>
+    
+      <a href="/friends" class="mobile-nav-link">
+        <i class="fas fa-link"></i>
+        
+        <span>友链</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        <i class="fas fa-user"></i>
+        
+        <span>关于</span>
+      </a>
+    
+  </nav>
+</aside>
+
+
+  <!-- 页面主内容 -->
+  <main class="main-content">
+    <!-- 文章详情页布局 -->
+
+
+
+<!-- 文章顶部横幅 -->
+<section class="post-banner" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&amp;q=80')">
+  <div class="hero-overlay"></div>
+  <div class="post-banner-content">
+    <!-- 分类 -->
+    
+      <div class="post-banner-cats">
+        
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"><i class="fas fa-folder"></i> 前端开发</a>
+        
+      </div>
+    
+    <h1 class="post-banner-title">Vue 3 Composition API 实战总结</h1>
+    <div class="post-banner-meta">
+      <span><i class="far fa-calendar-alt"></i> 2025-02-01</span>
+      <span><i class="far fa-clock"></i> 阅读约 402 字</span>
+      
+        <span><i class="fas fa-tags"></i>
+          
+          JavaScript / Vue / 前端框架
+        </span>
+      
+    </div>
+  </div>
+</section>
+
+<!-- 文章主体 -->
+<div class="container post-container">
+  <div class="post-layout">
+    <!-- 文章内容区域 -->
+    <article class="post-content-wrap">
+      <!-- 目录（TOC） -->
+      
+        <div class="post-toc-mobile" id="toc-mobile">
+          <details>
+            <summary><i class="fas fa-list"></i> 文章目录</summary>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-Composition-API%EF%BC%9F"><span class="toc-text">为什么需要 Composition API？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83-API"><span class="toc-text">核心 API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ref-%E5%92%8C-reactive"><span class="toc-text">ref 和 reactive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#computed-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">computed 计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#watch-%E4%BE%A6%E5%90%AC%E5%99%A8"><span class="toc-text">watch 侦听器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E5%87%BD%E6%95%B0%EF%BC%88Composables%EF%BC%89"><span class="toc-text">组合函数（Composables）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div>
+          </details>
+        </div>
+      
+
+      <!-- 正文 -->
+      <div class="post-body markdown-body">
+        <h2 id="为什么需要-Composition-API？"><a href="#为什么需要-Composition-API？" class="headerlink" title="为什么需要 Composition API？"></a>为什么需要 Composition API？</h2><p>Vue 2 的 Options API 在组件逻辑复杂时，相关代码会分散在不同选项中（data、methods、computed 等），难以维护。Composition API 允许我们按功能组织代码。</p>
+<h2 id="核心-API"><a href="#核心-API" class="headerlink" title="核心 API"></a>核心 API</h2><h3 id="ref-和-reactive"><a href="#ref-和-reactive" class="headerlink" title="ref 和 reactive"></a>ref 和 reactive</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref, reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ref - 适合基本类型</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count.<span class="property">value</span>) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// reactive - 适合对象</span></span><br><span class="line"><span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Vue 3&#x27;</span>,</span><br><span class="line">  <span class="attr">version</span>: <span class="number">3</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(state.<span class="property">name</span>) <span class="comment">// &#x27;Vue 3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="computed-计算属性"><a href="#computed-计算属性" class="headerlink" title="computed 计算属性"></a>computed 计算属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref, computed &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> price = <span class="title function_">ref</span>(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">const</span> quantity = <span class="title function_">ref</span>(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动追踪依赖，price 或 quantity 变化时自动更新</span></span><br><span class="line"><span class="keyword">const</span> total = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> price.<span class="property">value</span> * quantity.<span class="property">value</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="watch-侦听器"><a href="#watch-侦听器" class="headerlink" title="watch 侦听器"></a>watch 侦听器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref, watch, watchEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keyword = <span class="title function_">ref</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// watch - 明确指定监听目标</span></span><br><span class="line"><span class="title function_">watch</span>(keyword, <span class="function">(<span class="params">newVal, oldVal</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`搜索词从 &quot;<span class="subst">$&#123;oldVal&#125;</span>&quot; 变为 &quot;<span class="subst">$&#123;newVal&#125;</span>&quot;`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// watchEffect - 自动收集依赖</span></span><br><span class="line"><span class="title function_">watchEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`当前搜索词: <span class="subst">$&#123;keyword.value&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="组合函数（Composables）"><a href="#组合函数（Composables）" class="headerlink" title="组合函数（Composables）"></a>组合函数（Composables）</h2><p>将可复用的逻辑封装为组合函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useCounter.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">useCounter</span>(<span class="params">initialValue = <span class="number">0</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> count = <span class="title function_">ref</span>(initialValue)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">increment</span>(<span class="params"></span>) &#123; count.<span class="property">value</span>++ &#125;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">decrement</span>(<span class="params"></span>) &#123; count.<span class="property">value</span>-- &#125;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">reset</span>(<span class="params"></span>) &#123; count.<span class="property">value</span> = initialValue &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; count, increment, decrement, reset &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在组件中使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; useCounter &#125; from &#x27;./composables/useCounter&#x27;</span><br><span class="line"></span><br><span class="line">const &#123; count, increment, decrement &#125; = useCounter(10)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;decrement&quot;&gt;-&lt;/button&gt;</span><br><span class="line">  &lt;span&gt;&#123;&#123; count &#125;&#125;&lt;/span&gt;</span><br><span class="line">  &lt;button @click=&quot;increment&quot;&gt;+&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Composition API 让 Vue 3 的代码组织更灵活、更易复用。建议在新项目中优先使用 <code>&lt;script setup&gt;</code> + Composition API 的写法。</p>
+
+      </div>
+
+      <!-- 版权声明 -->
+      
+        <div class="post-copyright">
+          <p><strong><i class="fas fa-copyright"></i> 版权声明</strong></p>
+          <p>本文作者：ZhenWusi</p>
+          <p>本文链接：<a href="https://zhenwusi.github.io/2025/02/01/vue3-composition-api/">https://zhenwusi.github.io/2025/02/01/vue3-composition-api/</a></p>
+          <p>除特别声明外，本站所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</p>
+        </div>
+      
+
+      <!-- 文章标签 -->
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" class="tag-item">
+              <i class="fas fa-hashtag"></i>JavaScript
+            </a>
+          
+            <a href="/tags/Vue/" class="tag-item">
+              <i class="fas fa-hashtag"></i>Vue
+            </a>
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" class="tag-item">
+              <i class="fas fa-hashtag"></i>前端框架
+            </a>
+          
+        </div>
+      
+
+      <!-- 上一篇 / 下一篇导航 -->
+      <nav class="post-nav">
+        
+          <a href="/2025/02/05/docker-getting-started/" class="post-nav-item prev">
+            <span class="post-nav-label"><i class="fas fa-chevron-left"></i> 上一篇</span>
+            <span class="post-nav-title">Docker 容器化入门：从零开始</span>
+          </a>
+        
+        
+          <span class="post-nav-item next disabled"></span>
+        
+      </nav>
+
+      <!-- 评论区 -->
+      <!-- 评论系统组件 -->
+
+  <div class="comment-section" id="comments">
+    <h3 class="comment-title"><i class="fas fa-comments"></i> 评论区</h3>
+
+    
+      <!-- Utterances 评论（基于 GitHub Issues，无需后端） -->
+      <script
+        src="https://utteranc.es/client.js"
+        repo="ZhenWusi/ZhenWusi.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        label="💬 评论"
+        crossorigin="anonymous"
+        async>
+      </script>
+    
+  </div>
+
+
+    </article>
+
+    <!-- 侧边栏目录（桌面端） -->
+    
+      <aside class="post-sidebar" id="post-sidebar">
+        <div class="sidebar-toc">
+          <h3><i class="fas fa-list"></i> 文章目录</h3>
+          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-Composition-API%EF%BC%9F"><span class="toc-text">为什么需要 Composition API？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83-API"><span class="toc-text">核心 API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ref-%E5%92%8C-reactive"><span class="toc-text">ref 和 reactive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#computed-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">computed 计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#watch-%E4%BE%A6%E5%90%AC%E5%99%A8"><span class="toc-text">watch 侦听器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E5%87%BD%E6%95%B0%EF%BC%88Composables%EF%BC%89"><span class="toc-text">组合函数（Composables）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div>
+        </div>
+      </aside>
+    
+  </div>
+</div>
+
+  </main>
+
+  <!-- 页脚 -->
+  <!-- 页脚区域 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+      <p>
+        &copy; 2025 - 2026
+        <a href="/">ZhenWusi</a>
+      </p>
+      <p class="footer-powered">
+        
+          由 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 驱动 |
+          主题 <a href="/">Flavor</a>
+        
+      </p>
+      
+    </div>
+
+    <!-- 页脚社交链接 -->
+    <div class="footer-social">
+      
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      
+      
+        <a href="mailto:zhenwusi@example.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+      
+      <a href="/atom.xml" target="_blank" title="RSS 订阅">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" title="回到顶部">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- 音乐播放器 -->
+  
+    <!-- 网易云音乐播放器 -->
+<div class="music-player" id="music-player">
+  <!-- 播放器切换按钮（悬浮在页面右下角） -->
+  <button class="music-toggle" id="music-toggle" title="音乐播放器">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- 播放器面板 -->
+  <div class="music-panel" id="music-panel">
+    <div class="music-panel-header">
+      <span><i class="fas fa-headphones"></i> 音乐播放器</span>
+      <button class="music-panel-close" id="music-panel-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="music-panel-body">
+      <!-- 使用网易云音乐外链播放器 -->
+      
+        <iframe
+          frameborder="no"
+          border="0"
+          marginwidth="0"
+          marginheight="0"
+          width="100%"
+          height="450"
+          src="//music.163.com/outchain/player?type=0&id=7293820687&auto=0&height=430"
+          loading="lazy">
+        </iframe>
+      
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- 主脚本 -->
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
