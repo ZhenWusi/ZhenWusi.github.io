@@ -211,10 +211,13 @@
     }
 
     /* ========================================
-     * 简洁音乐播放器
+     * 左下角小型音乐播放器
      * ======================================== */
+    var musicToggleBtn = document.getElementById('music-toggle-btn');
+    var musicPanel = document.getElementById('music-panel');
+    var musicClose = document.getElementById('music-close');
+    var openFullBtn = document.getElementById('open-full-btn');
     var lyricsBtn = document.getElementById('lyrics-btn');
-    var openNeteaseBtn = document.getElementById('open-netease-btn');
     var lyricsPanel = document.getElementById('lyrics-panel');
     var lyricsClose = document.getElementById('lyrics-close');
     var lyricsContent = document.getElementById('lyrics-content');
@@ -233,6 +236,26 @@
 
     var currentLyricIndex = 0;
 
+    // 切换音乐面板
+    if (musicToggleBtn && musicPanel) {
+      musicToggleBtn.addEventListener('click', function () {
+        musicPanel.classList.toggle('active');
+      });
+    }
+
+    if (musicClose && musicPanel) {
+      musicClose.addEventListener('click', function () {
+        musicPanel.classList.remove('active');
+      });
+    }
+
+    // 打开完整版网易云音乐
+    if (openFullBtn) {
+      openFullBtn.addEventListener('click', function() {
+        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
+      });
+    }
+
     // 歌词面板
     if (lyricsBtn) {
       lyricsBtn.addEventListener('click', function() {
@@ -243,13 +266,6 @@
     if (lyricsClose) {
       lyricsClose.addEventListener('click', function() {
         lyricsPanel.classList.remove('active');
-      });
-    }
-
-    // 打开完整版网易云音乐
-    if (openNeteaseBtn) {
-      openNeteaseBtn.addEventListener('click', function() {
-        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
       });
     }
 
