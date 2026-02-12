@@ -183,7 +183,7 @@
 <section class="hero" id="hero-section">
   
     <!-- 图片背景 -->
-    <div class="hero-bg" style="background-image: url('/img/background/jk-制服-动漫女孩.png')"></div>
+    <div class="hero-bg" style="background-image: url('/img/background/星空-风景.png')"></div>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -990,7 +990,7 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (GitHub Pages 兼容) -->
+  <!-- MathJax 支持 (优化加载速度) -->
   <script>
     window.MathJax = {
       tex: {
@@ -1000,15 +1000,14 @@
         processEnvironments: true
       },
       options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       },
       startup: {
         ready: () => {
-          console.log('MathJax is ready');
+          console.log('MathJax loaded successfully');
           MathJax.startup.defaultReady();
-          MathJax.startup.promise.then(() => {
-            console.log('MathJax typesetting complete');
-          });
         }
       }
     };
