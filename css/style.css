@@ -1447,6 +1447,29 @@ img {
   gap: 6px;
 }
 
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.music-mode-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: .9rem;
+  opacity: .8;
+  transition: var(--transition);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.music-mode-btn:hover {
+  opacity: 1;
+  background: rgba(255,255,255,.1);
+}
+
 .music-panel-close {
   background: none;
   border: none;
