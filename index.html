@@ -182,10 +182,8 @@
 
 <section class="hero" id="hero-section">
   
-    <!-- 视频背景 -->
-    <video autoplay muted loop id="hero-video">
-      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
-    </video>
+    <!-- 图片背景 -->
+    <div class="hero-bg" style="background-image: url('/img/background/jk-制服-动漫女孩.png')"></div>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -991,6 +989,48 @@
   
 <script src="/js/main.js"></script>
 
+
+  <!-- MathJax 支持 (兼容 Jekyll 和 Hexo) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        },
+        extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
+      },
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      "HTML-CSS": { 
+        fonts: ["TeX"],
+        linebreaks: { automatic: true },
+        availableFonts: ["TeX"],
+        preferredFont: "TeX",
+        webFont: "TeX"
+      },
+      SVG: {
+        linebreaks: { automatic: true },
+        font: "TeX"
+      },
+      MathML: {
+        linebreaks: { automatic: true }
+      }
+    });
+    
+    // 错误处理
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      console.log("Math Processing Error: " + message[1]);
+    });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      console.log("Math Processing Error: " + message[1]);
+    });
+  </script>
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {

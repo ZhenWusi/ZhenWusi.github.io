@@ -928,6 +928,48 @@
   
 <script src="/js/main.js"></script>
 
+
+  <!-- MathJax 支持 (兼容 Jekyll 和 Hexo) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        },
+        extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
+      },
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      "HTML-CSS": { 
+        fonts: ["TeX"],
+        linebreaks: { automatic: true },
+        availableFonts: ["TeX"],
+        preferredFont: "TeX",
+        webFont: "TeX"
+      },
+      SVG: {
+        linebreaks: { automatic: true },
+        font: "TeX"
+      },
+      MathML: {
+        linebreaks: { automatic: true }
+      }
+    });
+    
+    // 错误处理
+    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      console.log("Math Processing Error: " + message[1]);
+    });
+    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      console.log("Math Processing Error: " + message[1]);
+    });
+  </script>
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
