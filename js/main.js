@@ -211,168 +211,169 @@
     }
 
     /* ========================================
-     * 简洁音乐播放器
+     * 简洁网易云音乐播放器
      * ======================================== */
-    var musicToggle = document.getElementById('music-toggle');
-    var musicLyricsPanel = document.getElementById('music-lyrics-panel');
-    var lyricsClose = document.getElementById('lyrics-close');
-    var playPauseBtn = document.getElementById('play-pause-btn');
-    var prevBtn = document.getElementById('prev-btn');
-    var nextBtn = document.getElementById('next-btn');
-    var progressTrack = document.getElementById('progress-track');
-    var progressFill = document.getElementById('progress-fill');
-    var timeCurrent = document.getElementById('time-current');
-    var timeTotal = document.getElementById('time-total');
-    var songTitle = document.getElementById('song-title');
-    var songArtist = document.getElementById('song-artist');
-    var songCover = document.getElementById('song-cover');
-    var lyricsDisplay = document.getElementById('lyrics-display');
+    var musicToggle = document.getElementById('music-toggle-draggable');
+    var musicIndicator = document.getElementById('music-indicator');
+    var starsContainer = document.getElementById('stars-container');
+    var neteaseMusicPlayer = document.getElementById('netease-music-player');
 
-    // 简单的歌曲数据
-    var playlist = [
-      { title: '夜曲', artist: '周杰伦', cover: 'https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg', duration: 226 },
-      { title: '晴天', artist: '周杰伦', cover: 'https://p1.music.126.net/SYqUNOMTg2z-1KYDRJmzLg==/109951165699245110.jpg', duration: 269 },
-      { title: '七里香', artist: '周杰伦', cover: 'https://p3.music.126.net/lEGUOFiYt1X_3lE-2n2n5g==/109951165699245110.jpg', duration: 299 }
-    ];
-    
-    var currentSongIndex = 0;
+    // 可拖动功能
+    var isDragging = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+
+    if (musicToggle) {
+      // 鼠标事件
+      musicToggle.addEventListener('mousedown', dragStart);
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', dragEnd);
+      
+      // 触摸事件
+      musicToggle.addEventListener('touchstart', dragStart);
+      document.addEventListener('touchmove', drag);
+      document.addEventListener('touchend', dragEnd);
+
+      // 双击打开网易云音乐
+      musicToggle.addEventListener('dblclick', function() {
+        window.open('//music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
+      });
+    }
+
+    function dragStart(e) {
+      if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      if (e.target === musicToggle) {
+        isDragging = true;
+        musicToggle.classList.add('dragging');
+      }
+    }
+
+    function dragEnd(e) {
+      initialX = currentX;
+      initialY = currentY;
+
+      isDragging = false;
+      if (musicToggle) {
+        musicToggle.classList.remove('dragging');
+      }
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        e.preventDefault();
+        
+        if (e.type === "touchmove") {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        } else {
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, musicToggle);
+      }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+
+    // 模拟音乐播放状态
     var isPlaying = false;
-    var currentTime = 0;
-    var progressInterval;
-
-    // 切换歌词面板
-    if (musicToggle && musicLyricsPanel) {
-      musicToggle.addEventListener('click', function () {
-        musicLyricsPanel.classList.toggle('active');
-        musicToggle.classList.toggle('playing');
-      });
-    }
-
-    if (lyricsClose && musicLyricsPanel) {
-      lyricsClose.addEventListener('click', function () {
-        musicLyricsPanel.classList.remove('active');
-        musicToggle.classList.remove('playing');
-      });
-    }
-
-    // 播放/暂停
-    if (playPauseBtn) {
-      playPauseBtn.addEventListener('click', function () {
-        if (isPlaying) {
-          pauseMusic();
-        } else {
-          playMusic();
-        }
-      });
-    }
-
-    // 上一首
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function () {
-        currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-        loadSong(currentSongIndex);
-        if (isPlaying) playMusic();
-      });
-    }
-
-    // 下一首
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function () {
-        currentSongIndex = (currentSongIndex + 1) % playlist.length;
-        loadSong(currentSongIndex);
-        if (isPlaying) playMusic();
-      });
-    }
-
-    // 播放音乐
-    function playMusic() {
-      isPlaying = true;
-      if (playPauseBtn) {
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    setInterval(function() {
+      if (musicIndicator) {
+        isPlaying = !isPlaying;
+        musicIndicator.classList.toggle('playing', isPlaying);
       }
-      if (musicToggle) {
-        musicToggle.classList.add('playing');
+    }, 3000);
+
+    // 星星雪花效果
+    function createStar() {
+      var star = document.createElement('div');
+      star.className = 'star';
+      star.innerHTML = '✨';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      star.style.opacity = Math.random();
+      
+      starsContainer.appendChild(star);
+      
+      setTimeout(function() {
+        star.remove();
+      }, 5000);
+    }
+
+    function createSnowflake() {
+      var snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.innerHTML = '❄';
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      snowflake.style.opacity = Math.random();
+      
+      starsContainer.appendChild(snowflake);
+      
+      setTimeout(function() {
+        snowflake.remove();
+      }, 5000);
+    }
+
+    // 鼠标点击创建星星雪花效果
+    document.addEventListener('click', function(e) {
+      // 排除音乐按钮区域的点击
+      if (musicToggle && musicToggle.contains(e.target)) {
+        return;
       }
       
-      progressInterval = setInterval(function () {
-        currentTime += 0.1;
-        if (currentTime >= playlist[currentSongIndex].duration) {
-          currentSongIndex = (currentSongIndex + 1) % playlist.length;
-          loadSong(currentSongIndex);
-          playMusic();
-        } else {
-          updateProgress();
-        }
-      }, 100);
-    }
-
-    // 暂停音乐
-    function pauseMusic() {
-      isPlaying = false;
-      if (playPauseBtn) {
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      // 随机创建星星或雪花
+      if (Math.random() > 0.5) {
+        createStar();
+      } else {
+        createSnowflake();
       }
-      if (musicToggle) {
-        musicToggle.classList.remove('playing');
-      }
-      clearInterval(progressInterval);
-    }
-
-    // 加载歌曲
-    function loadSong(index) {
-      var song = playlist[index];
-      if (songTitle) songTitle.textContent = song.title;
-      if (songArtist) songArtist.textContent = song.artist;
-      if (songCover) songCover.src = song.cover;
-      currentTime = 0;
-      updateProgress();
       
-      // 简单歌词
-      var lyrics = [
-        '♪ ' + song.title + ' ♪',
-        '歌手：' + song.artist,
-        '这是一首美妙的歌曲',
-        '让我们享受这音乐时光',
-        '♪ 旋律流淌 ♪',
-        '心情随着音乐起伏',
-        '美好的时光总是短暂',
-        '但音乐永远陪伴我们'
-      ];
-      
-      if (lyricsDisplay) {
-        lyricsDisplay.innerHTML = lyrics.map(function(line) {
-          return '<div class="lyrics-line">' + line + '</div>';
-        }).join('');
+      // 在点击位置创建小星星爆炸效果
+      for (var i = 0; i < 5; i++) {
+        setTimeout(function() {
+          var miniStar = document.createElement('div');
+          miniStar.className = 'star';
+          miniStar.innerHTML = '⭐';
+          miniStar.style.left = e.clientX + 'px';
+          miniStar.style.top = e.clientY + 'px';
+          miniStar.style.fontSize = '12px';
+          miniStar.style.animationDuration = '1s';
+          
+          starsContainer.appendChild(miniStar);
+          
+          setTimeout(function() {
+            miniStar.remove();
+          }, 1000);
+        }, i * 100);
       }
-    }
+    });
 
-    // 更新进度
-    function updateProgress() {
-      var song = playlist[currentSongIndex];
-      var percent = (currentTime / song.duration) * 100;
-      if (progressFill) progressFill.style.width = percent + '%';
-      if (timeCurrent) timeCurrent.textContent = formatTime(currentTime);
-      if (timeTotal) timeTotal.textContent = formatTime(song.duration);
-      
-      // 更新歌词高亮
-      if (lyricsDisplay) {
-        var lyricsLines = lyricsDisplay.querySelectorAll('.lyrics-line');
-        var currentLineIndex = Math.floor((currentTime / song.duration) * lyricsLines.length);
-        lyricsLines.forEach(function(line, index) {
-          line.classList.toggle('active', index === currentLineIndex);
-        });
+    // 自动创建星星雪花
+    setInterval(function() {
+      if (Math.random() > 0.7) {
+        createStar();
+      } else {
+        createSnowflake();
       }
-    }
-
-    // 格式化时间
-    function formatTime(seconds) {
-      var mins = Math.floor(seconds / 60);
-      var secs = Math.floor(seconds % 60);
-      return mins + ':' + (secs < 10 ? '0' : '') + secs;
-    }
-
-    // 初始化
-    loadSong(0);
+    }, 3000);
 
     /* ========================================
      * 文章目录（TOC）高亮跟随

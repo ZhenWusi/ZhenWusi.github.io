@@ -1370,7 +1370,7 @@ img {
 }
 
 /* ==========================================
- * 简洁音乐播放器
+ * 简洁网易云音乐播放器
  * ========================================== */
 .music-player {
   position: fixed;
@@ -1379,267 +1379,107 @@ img {
   z-index: 1000;
 }
 
-/* 悬浮音乐按钮 */
-.music-toggle {
+/* 可拖动的音乐按钮 */
+.music-toggle-draggable {
   width: 56px;
   height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff;
-  border: none;
-  cursor: pointer;
+  cursor: move;
   font-size: 1.2rem;
   box-shadow: var(--shadow-lg);
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  user-select: none;
 }
 
-.music-toggle:hover {
+.music-toggle-draggable:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(79,70,229,.4);
 }
 
-.music-toggle.playing {
-  animation: pulse 2s infinite;
+.music-toggle-draggable.dragging {
+  opacity: 0.8;
+  transform: scale(1.1);
+  z-index: 1001;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* 歌词面板 */
-.music-lyrics-panel {
-  position: fixed;
-  bottom: 90px;
-  right: 24px;
-  width: 380px;
-  max-height: 500px;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
-  transform: scale(0.9) translateY(20px);
+/* 音乐播放指示器 */
+.music-indicator {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: #ff4757;
+  border-radius: 50%;
+  border: 2px solid #fff;
   opacity: 0;
-  visibility: hidden;
   transition: var(--transition);
+}
+
+.music-indicator.playing {
+  opacity: 1;
+  animation: musicPulse 1.5s infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+/* 星星雪花效果 */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   z-index: 999;
 }
 
-.music-lyrics-panel.active {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-  visibility: visible;
+.star {
+  position: absolute;
+  color: #ffd700;
+  font-size: 20px;
+  animation: starFall linear;
+  pointer-events: none;
+  z-index: 999;
 }
 
-.lyrics-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+.snowflake {
+  position: absolute;
   color: #fff;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  font-size: .9rem;
-  font-weight: 600;
+  font-size: 16px;
+  animation: snowFall linear;
+  pointer-events: none;
+  z-index: 999;
 }
 
-.lyrics-header span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.lyrics-close {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  opacity: .8;
-  transition: var(--transition);
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.lyrics-close:hover {
-  opacity: 1;
-  background: rgba(255,255,255,.1);
-}
-
-.lyrics-content {
-  padding: 20px;
-}
-
-/* 当前歌曲信息 */
-.current-song {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-}
-
-.song-cover {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.song-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.song-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.song-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 4px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.song-artist {
-  font-size: .85rem;
-  color: var(--text-secondary);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 歌词显示 */
-.lyrics-display {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-  padding: 16px;
-  background: var(--bg-code);
-  border-radius: var(--radius-md);
-  text-align: center;
-  font-size: .9rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
-}
-
-.lyrics-line {
-  margin: 8px 0;
-  transition: var(--transition);
-}
-
-.lyrics-line.active {
-  color: var(--primary);
-  font-weight: 600;
-  transform: scale(1.05);
-}
-
-/* 播放控制 */
-.player-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.control-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--bg-hover);
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-size: .9rem;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.control-btn:hover {
-  background: var(--primary);
-  color: #fff;
-  transform: scale(1.1);
-}
-
-.play-pause-btn {
-  width: 48px;
-  height: 48px;
-  background: var(--primary);
-  color: #fff;
-}
-
-.play-pause-btn:hover {
-  background: var(--primary-dark);
-}
-
-/* 进度条 */
-.progress-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: .8rem;
-  color: var(--text-muted);
-}
-
-.progress-track {
-  flex: 1;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  cursor: pointer;
-  position: relative;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--primary);
-  border-radius: 2px;
-  width: 0%;
-  transition: width 0.1s ease;
-}
-
-.time-current,
-.time-total {
-  min-width: 32px;
-  text-align: center;
-}
-
-/* 移动端适配 */
-@media (max-width: 480px) {
-  .music-lyrics-panel {
-    width: calc(100vw - 48px);
-    right: 24px;
-    left: 24px;
-    max-width: 380px;
+@keyframes starFall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
   }
-  
-  .lyrics-display {
-    max-height: 150px;
-    font-size: .85rem;
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
   }
-  
-  .current-song {
-    gap: 12px;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(-100px) translateX(0);
+    opacity: 1;
   }
-  
-  .song-cover {
-    width: 50px;
-    height: 50px;
+  100% {
+    transform: translateY(100vh) translateX(50px);
+    opacity: 0;
   }
 }
 
