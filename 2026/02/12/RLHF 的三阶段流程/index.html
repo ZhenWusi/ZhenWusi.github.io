@@ -271,8 +271,8 @@
 <script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><p>这正是公式 (2)。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
 <p>对一个有限数据集 $D = {z_1, …, z_N}$，如果你均匀随机从中抽一个样本，那么：</p>
 <script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>👉 期望 = 平均值</p>
-<p>令 $f(x,y_w,y_l) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$ 那么：</p>
-<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $\sum_{i=1}^N f_i$ 和 $\frac{1}{N} \sum_{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：<script type="math/tex">\arg\max\_\theta \sum\_{i=1}^N f\_i = \arg\max\_\theta \frac{1}{N} \sum\_{i=1}^N f\_i</script></p>
+<p>令 $f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l))$ 那么：</p>
+<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $\sum<em>{i=1}^N f_i$ 和 $\frac{1}{N} \sum</em>{i=1}^N f<em>i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：$$\arg\max</em>\theta \sum<em>{i=1}^N f_i = \arg\max</em>\theta \frac{1}{N} \sum_{i=1}^N f_i$$</p>
 <p>原目标：<script type="math/tex">\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]</script></p>
 <p>等价于：<script type="math/tex">\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
 <p>于是定义：<script type="math/tex">L_R = -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
@@ -282,9 +282,9 @@
 <h4 id="阶段三：RL-微调"><a href="#阶段三：RL-微调" class="headerlink" title="阶段三：RL 微调"></a>阶段三：RL 微调</h4><p><strong>RL 目标函数（核心）</strong>：</p>
 <script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><hr>
 <h5 id="补充解释-1"><a href="#补充解释-1" class="headerlink" title="补充解释"></a>补充解释</h5><p>一句话解释：👉 让模型生成 奖励高的回答 👉 但不能偏离原始 SFT 模型太远</p>
-<p>$\pi_{ref}$（即初始 SFT 模型 $\pi_{SFT}$）实践中，语言模型策略 $\pi_\theta$ 也被初始化为 $\pi_{SFT}$。</p>
+<p>$\pi<em>{ref}$（即初始 SFT 模型 $\pi</em>{SFT}$）实践中，语言模型策略 $\pi<em>\theta$ 也被初始化为 $\pi</em>{SFT}$。</p>
 <ul>
-<li><strong>初始状态</strong>：$\pi_\theta = \pi_{ref} = \pi_{SFT}$</li>
+<li><strong>初始状态</strong>：$\pi<em>\theta = \pi</em>{ref} = \pi_{SFT}$</li>
 <li><strong>训练目标</strong>：在保持与原始 SFT 模型接近的前提下，优化奖励</li>
 <li><strong>KL 约束作用</strong>：确保模型不会偏离初始能力太远</li>
 </ul>
@@ -292,8 +292,8 @@
 <p>KL 散度（Kullback-Leibler 散度）衡量两个概率分布之间的差异：</p>
 <script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta(y|x) \| \pi_{SFT}(y|x)] = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>这表示：</p>
 <ul>
-<li>如果 $\pi_\theta$ 和 $\pi_{SFT}$ 相同：KL = 0</li>
-<li>如果 $\pi_\theta$ 偏离 $\pi_{SFT}$：KL &gt; 0</li>
+<li>如果 $\pi<em>\theta$ 和 $\pi</em>{SFT}$ 相同：KL = 0</li>
+<li>如果 $\pi<em>\theta$ 偏离 $\pi</em>{SFT}$：KL &gt; 0</li>
 <li>目标函数中的 $-\beta KL$ 惩罚偏离行为</li>
 </ul>
 <p><strong>KL 散度推导过程详解</strong></p>
@@ -309,15 +309,15 @@
 <p>将这些代入通用公式：</p>
 <script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p><strong>转化为期望形式</strong></p>
 <ul>
-<li>外层的 $\sum_y \pi_\theta(y|x)(\cdots)$ 表示我们在按照 $\pi_\theta(y|x)$ 的概率分布对后面的项进行加权平均</li>
-<li>括号里的项 $\log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}$ 就是要计算期望的对象</li>
+<li>外层的 $\sum<em>y \pi</em>\theta(y|x)(\cdots)$ 表示我们在按照 $\pi_\theta(y|x)$ 的概率分布对后面的项进行加权平均</li>
+<li>括号里的项 $\log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)}$ 就是要计算期望的对象</li>
 </ul>
 <p>因此，根据期望的定义 $ \sum P \cdot f = \mathbb{E}_P[f] $，可以直接写成：</p>
 <script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p><strong>为什么实践中要写成期望形式？</strong></p>
 <p>在深度学习和强化学习中，写成期望形式有重大的工程意义：</p>
 <p><strong>无法全量求和</strong>：<br>对于语言模型，可能的回答 $y$ 的组合是天文数字（由词表大小和序列长度决定），我们根本无法遍历所有的 $y$ 来计算那个 $\sum$ 符号。</p>
-<p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $\pi_\theta$ 生成（Sample）一批句子 $y$,计算这些句子的 $\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)$,取这些值的平均值，就是对 KL 散度的无偏估计</p>
-<p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $\mathbb{E}_{y \sim \pi_\theta}[r(x,y)]$。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
+<p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $\pi<em>\theta$ 生成（Sample）一批句子 $y$,计算这些句子的 $\log \pi</em>\theta(y|x) - \log \pi_{SFT}(y|x)$,取这些值的平均值，就是对 KL 散度的无偏估计</p>
+<p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $\mathbb{E}<em>{y \sim \pi</em>\theta}[r(x,y)]$。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
 <script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
 <p><strong>为什么这个目标函数不可导？</strong></p>
 <p>语言模型是<strong>离散生成</strong>的：</p>
@@ -325,7 +325,7 @@
 <li>输出是 token 序列 $y = (y_1, y_2, \ldots)$</li>
 <li>采样 / argmax 都是离散操作</li>
 </ul>
-<p>无法像普通监督学习那样，对 $\mathbb{E}_{y \sim \pi_\theta(y|x)}[r(x,y)]$ 直接对 $\theta$ 求梯度。</p>
+<p>无法像普通监督学习那样，对 $\mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)]$ 直接对 $\theta$ 求梯度。</p>
 <p>👉 所以不能用反向传播直接优化奖励<br>👉 必须用强化学习（policy gradient）</p>
 <p>这就是为什么要用 REINFORCE / PPO。</p>
 <p><strong>KL 约束是怎么变成”奖励”的？</strong></p>
