@@ -1130,28 +1130,6 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax v3 支持 -->
-  <script>
-    window.MathJax = {
-      loader: {
-        load: ['[tex]/ams'],
-        source: {
-          '[tex]/ams': 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-ams.js'
-        }
-      },
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        tags: 'ams'
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-        processHtmlClass: 'mathjax_process',
-        ignoreHtmlClass: 'mathjax_ignore'
-      }
-    };
-  </script>
-  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- GitHub Pages 将通过 _includes/head.html 加载 MathJax，此处不再插入脚本 -->
 </body>
 </html>
