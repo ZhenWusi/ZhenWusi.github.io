@@ -990,7 +990,8 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (兼容 hexo-renderer-mathjax) -->
+  <!-- MathJax 支持 (完全兼容 hexo-renderer-mathjax) -->
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
@@ -1012,25 +1013,20 @@
         preferredFont: "TeX",
         webFont: "TeX"
       },
-      // 支持 hexo-renderer-mathjax 的 math/tex 标签
-      processHTML: true
+      SVG: {
+        linebreaks: { automatic: true },
+        font: "TeX"
+      },
+      // 处理 hexo-renderer-mathjax 生成的 math/tex 标签
+      "HTML-CSS": {
+        scale: 100,
+        preferredFont: "TeX",
+        availableFonts: ["TeX"],
+        webFont: "TeX",
+        imageFont: "TeX",
+        undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif"
+      }
     });
   </script>
-  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML-HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
