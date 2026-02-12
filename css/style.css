@@ -1494,6 +1494,31 @@ img {
   border: none;
 }
 
+.music-playlist-info {
+  padding: 12px 16px;
+  background: var(--bg-code);
+  border-top: 1px solid var(--border);
+  font-size: .85rem;
+}
+
+.music-playlist-info p {
+  margin: 4px 0;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.music-playlist-info a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.music-playlist-info a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
 .music-empty {
   padding: 32px 20px;
   text-align: center;

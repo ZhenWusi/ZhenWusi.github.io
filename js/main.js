@@ -211,27 +211,11 @@
     }
 
     /* ========================================
-     * 音乐播放器面板切换和播放模式控制
+     * 音乐播放器面板切换
      * ======================================== */
     var musicToggle = document.getElementById('music-toggle');
     var musicPanel = document.getElementById('music-panel');
     var musicClose = document.getElementById('music-panel-close');
-    var musicModeBtn = document.getElementById('music-mode-btn');
-    var musicIframe = document.getElementById('music-iframe');
-
-    // 播放模式配置
-    var playModes = ['order', 'random', 'single'];
-    var playModeIcons = {
-      'order': 'fas fa-list-ol',
-      'random': 'fas fa-random', 
-      'single': 'fas fa-redo'
-    };
-    var playModeTitles = {
-      'order': '顺序播放',
-      'random': '随机播放',
-      'single': '单曲循环'
-    };
-    var currentModeIndex = playModes.indexOf('<%= theme.music.play_mode || "random" %>');
 
     if (musicToggle && musicPanel) {
       musicToggle.addEventListener('click', function () {
@@ -244,69 +228,6 @@
         musicPanel.classList.remove('active');
         musicToggle.classList.remove('playing');
       });
-    }
-
-    // 播放模式切换
-    if (musicModeBtn && musicIframe) {
-      musicModeBtn.addEventListener('click', function () {
-        // 切换到下一个模式
-        currentModeIndex = (currentModeIndex + 1) % playModes.length;
-        var newMode = playModes[currentModeIndex];
-        
-        // 更新按钮图标和标题
-        musicModeBtn.innerHTML = '<i class="' + playModeIcons[newMode] + '"></i>';
-        musicModeBtn.title = playModeTitles[newMode];
-        
-        // 重新加载播放器以应用新模式
-        var currentSrc = musicIframe.src;
-        var newSrc = currentSrc.replace(/&mode=[^&]*/, '&mode=' + newMode);
-        if (newSrc === currentSrc) {
-          // 如果没有找到 mode 参数，添加它
-          newSrc += '&mode=' + newMode;
-        }
-        musicIframe.src = newSrc;
-        
-        // 显示提示
-        showNotification('播放模式: ' + playModeTitles[newMode]);
-      });
-    }
-
-    // 显示通知的辅助函数
-    function showNotification(message) {
-      var notification = document.createElement('div');
-      notification.className = 'music-notification';
-      notification.textContent = message;
-      notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--primary);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        z-index: 10000;
-        font-size: 14px;
-        box-shadow: var(--shadow-lg);
-        transition: all 0.3s ease;
-        transform: translateX(100%);
-      `;
-      
-      document.body.appendChild(notification);
-      
-      // 动画显示
-      setTimeout(function() {
-        notification.style.transform = 'translateX(0)';
-      }, 100);
-      
-      // 3秒后自动消失
-      setTimeout(function() {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(function() {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 300);
-      }, 3000);
     }
 
     /* ========================================
