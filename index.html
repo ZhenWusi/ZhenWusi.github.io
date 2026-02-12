@@ -182,10 +182,8 @@
 
 <section class="hero" id="hero-section">
   
-    <!-- 视频背景 -->
-    <video autoplay muted loop id="hero-video">
-      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
-    </video>
+    <!-- 图片背景 -->
+    <div class="hero-bg" style="background-image: url('/img/background/jk-制服-动漫女孩.png')"></div>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -992,37 +990,29 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (支持 math/tex 标签) -->
-  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+  <!-- MathJax 支持 (GitHub Pages 兼容) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        processEnvironments: true
       },
-      TeX: {
-        equationNumbers: {
-          autoNumber: "AMS"
-        },
-        extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
       },
-      "HTML-CSS": { 
-        fonts: ["TeX"],
-        linebreaks: { automatic: true },
-        availableFonts: ["TeX"],
-        preferredFont: "TeX",
-        webFont: "TeX"
-      },
-      SVG: {
-        linebreaks: { automatic: true },
-        font: "TeX"
-      },
-      // 支持 math/tex 标签
-      processHTML: true,
-      processRefs: true
-    });
+      startup: {
+        ready: () => {
+          console.log('MathJax is ready');
+          MathJax.startup.defaultReady();
+          MathJax.startup.promise.then(() => {
+            console.log('MathJax typesetting complete');
+          });
+        }
+      }
+    };
   </script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
