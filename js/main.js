@@ -211,43 +211,190 @@
     }
 
     /* ========================================
-     * 音乐播放器 - APlayer 风格
+     * 简洁音乐播放器
      * ======================================== */
-    var aplayerToggle = document.getElementById('aplayer-toggle');
-    var aplayerPanel = document.getElementById('aplayer-panel');
-    var aplayerClose = document.getElementById('aplayer-close');
-    var openNetease = document.getElementById('open-netease');
+    var playBtn = document.getElementById('play-btn');
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    var modeBtn = document.getElementById('mode-btn');
+    var lyricsBtn = document.getElementById('lyrics-btn');
+    var lyricsPanel = document.getElementById('lyrics-panel');
+    var lyricsClose = document.getElementById('lyrics-close');
+    var songTitle = document.getElementById('song-title');
+    var songArtist = document.getElementById('song-artist');
+    var lyricsContent = document.getElementById('lyrics-content');
 
-    // 切换播放器面板
-    if (aplayerToggle && aplayerPanel) {
-      aplayerToggle.addEventListener('click', function () {
-        aplayerPanel.classList.toggle('active');
-        aplayerToggle.classList.toggle('playing');
-      });
-    }
+    // 歌曲数据
+    var songs = [
+      { title: "夜曲", artist: "周杰伦" },
+      { title: "晴天", artist: "周杰伦" },
+      { title: "七里香", artist: "周杰伦" },
+      { title: "稻香", artist: "周杰伦" },
+      { title: "青花瓷", artist: "周杰伦" },
+      { title: "告白气球", artist: "周杰伦" }
+    ];
 
-    if (aplayerClose && aplayerPanel) {
-      aplayerClose.addEventListener('click', function () {
-        aplayerPanel.classList.remove('active');
-        aplayerToggle.classList.remove('playing');
-      });
-    }
+    // 歌词数据
+    var lyricsData = [
+      "♪ 音乐播放中... ♪",
+      "♪ 享受美好时光 ♪",
+      "♪ 让音乐陪伴你我 ♪",
+      "♪ 生活的美好瞬间 ♪",
+      "♪ 在音乐中找到自己 ♪",
+      "♪ 每一个音符都是故事 ♪",
+      "♪ 让心灵得到治愈 ♪",
+      "♪ 音乐是生活的调味剂 ♪"
+    ];
 
-    // 打开网易云音乐
-    if (openNetease) {
-      openNetease.addEventListener('click', function() {
-        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
-      });
-    }
-
-    // 模拟播放状态（基于网易云音乐播放器）
+    var currentSongIndex = 0;
     var isPlaying = false;
-    setInterval(function() {
-      if (aplayerToggle) {
+    var playMode = 'order'; // order, random, single
+    var currentLyricIndex = 0;
+
+    // 播放/暂停
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
         isPlaying = !isPlaying;
-        aplayerToggle.classList.toggle('playing', isPlaying);
+        updatePlayButton();
+        if (isPlaying) {
+          startLyricsAnimation();
+        } else {
+          stopLyricsAnimation();
+        }
+      });
+    }
+
+    // 上一首
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        if (playMode === 'random') {
+          currentSongIndex = Math.floor(Math.random() * songs.length);
+        } else {
+          currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        }
+        updateSongInfo();
+      });
+    }
+
+    // 下一首
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        if (playMode === 'random') {
+          currentSongIndex = Math.floor(Math.random() * songs.length);
+        } else {
+          currentSongIndex = (currentSongIndex + 1) % songs.length;
+        }
+        updateSongInfo();
+      });
+    }
+
+    // 播放模式切换
+    if (modeBtn) {
+      modeBtn.addEventListener('click', function() {
+        var modes = ['order', 'random', 'single'];
+        var currentIndex = modes.indexOf(playMode);
+        playMode = modes[(currentIndex + 1) % modes.length];
+        updateModeButton();
+      });
+    }
+
+    // 歌词面板
+    if (lyricsBtn) {
+      lyricsBtn.addEventListener('click', function() {
+        lyricsPanel.classList.toggle('active');
+      });
+    }
+
+    if (lyricsClose) {
+      lyricsClose.addEventListener('click', function() {
+        lyricsPanel.classList.remove('active');
+      });
+    }
+
+    // 更新播放按钮
+    function updatePlayButton() {
+      if (playBtn) {
+        var icon = playBtn.querySelector('i');
+        if (isPlaying) {
+          icon.className = 'fas fa-pause';
+          playBtn.classList.add('playing');
+        } else {
+          icon.className = 'fas fa-play';
+          playBtn.classList.remove('playing');
+        }
       }
-    }, 4000);
+    }
+
+    // 更新模式按钮
+    function updateModeButton() {
+      if (modeBtn) {
+        var icon = modeBtn.querySelector('i');
+        modeBtn.classList.remove('active');
+        
+        switch(playMode) {
+          case 'order':
+            icon.className = 'fas fa-list';
+            break;
+          case 'random':
+            icon.className = 'fas fa-random';
+            modeBtn.classList.add('active');
+            break;
+          case 'single':
+            icon.className = 'fas fa-redo';
+            break;
+        }
+      }
+    }
+
+    // 更新歌曲信息
+    function updateSongInfo() {
+      if (songTitle && songArtist) {
+        var song = songs[currentSongIndex];
+        songTitle.textContent = song.title;
+        songArtist.textContent = song.artist;
+      }
+    }
+
+    // 歌词动画
+    var lyricsInterval;
+    function startLyricsAnimation() {
+      stopLyricsAnimation();
+      lyricsInterval = setInterval(function() {
+        updateLyrics();
+      }, 3000);
+    }
+
+    function stopLyricsAnimation() {
+      if (lyricsInterval) {
+        clearInterval(lyricsInterval);
+      }
+    }
+
+    function updateLyrics() {
+      if (lyricsContent) {
+        currentLyricIndex = (currentLyricIndex + 1) % lyricsData.length;
+        
+        var lyricsHTML = '';
+        for (var i = -1; i <= 1; i++) {
+          var index = (currentLyricIndex + i + lyricsData.length) % lyricsData.length;
+          var isActive = i === 0;
+          lyricsHTML += '<div class="lyrics-line' + (isActive ? ' active' : '') + '">' + lyricsData[index] + '</div>';
+        }
+        
+        lyricsContent.innerHTML = lyricsHTML;
+        
+        // 滚动到当前歌词
+        var activeLine = lyricsContent.querySelector('.lyrics-line.active');
+        if (activeLine) {
+          activeLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    // 初始化
+    updateSongInfo();
+    updateModeButton();
+    updateLyrics();
 
     /* ========================================
      * 文章目录（TOC）高亮跟随
