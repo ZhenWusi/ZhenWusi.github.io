@@ -964,7 +964,7 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (完全兼容 hexo-renderer-mathjax) -->
+  <!-- MathJax 支持 (支持 math/tex 标签) -->
   <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -991,15 +991,9 @@
         linebreaks: { automatic: true },
         font: "TeX"
       },
-      // 处理 hexo-renderer-mathjax 生成的 math/tex 标签
-      "HTML-CSS": {
-        scale: 100,
-        preferredFont: "TeX",
-        availableFonts: ["TeX"],
-        webFont: "TeX",
-        imageFont: "TeX",
-        undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif"
-      }
+      // 支持 math/tex 标签
+      processHTML: true,
+      processRefs: true
     });
   </script>
 </body>

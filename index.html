@@ -182,8 +182,10 @@
 
 <section class="hero" id="hero-section">
   
-    <!-- 图片背景 -->
-    <div class="hero-bg" style="background-image: url('/img/background/jk-制服-动漫女孩.png')"></div>
+    <!-- 视频背景 -->
+    <video autoplay muted loop id="hero-video">
+      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
+    </video>
   
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -990,7 +992,7 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- MathJax 支持 (完全兼容 hexo-renderer-mathjax) -->
+  <!-- MathJax 支持 (支持 math/tex 标签) -->
   <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -1017,15 +1019,9 @@
         linebreaks: { automatic: true },
         font: "TeX"
       },
-      // 处理 hexo-renderer-mathjax 生成的 math/tex 标签
-      "HTML-CSS": {
-        scale: 100,
-        preferredFont: "TeX",
-        availableFonts: ["TeX"],
-        webFont: "TeX",
-        imageFont: "TeX",
-        undefinedFamily: "STIXGeneral,'Arial Unicode MS',serif"
-      }
+      // 支持 math/tex 标签
+      processHTML: true,
+      processRefs: true
     });
   </script>
 </body>
