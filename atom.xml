@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>ZhenWusi&#39;s Blog</title>
+  <title>九九的个人博客</title>
   
   <subtitle>记录技术与生活</subtitle>
   <link href="https://zhenwusi.github.io/atom.xml" rel="self"/>
@@ -121,11 +121,11 @@
     <category term="前端开发" scheme="https://zhenwusi.github.io/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
+    <category term="JavaScript" scheme="https://zhenwusi.github.io/tags/JavaScript/"/>
+    
     <category term="Vue" scheme="https://zhenwusi.github.io/tags/Vue/"/>
     
     <category term="前端框架" scheme="https://zhenwusi.github.io/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
-    
-    <category term="JavaScript" scheme="https://zhenwusi.github.io/tags/JavaScript/"/>
     
   </entry>
   
