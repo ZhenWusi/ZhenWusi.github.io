@@ -282,70 +282,85 @@
 
   <!-- 音乐播放器 -->
   
-    <!-- 左下角小型音乐播放器 -->
+    <!-- 左下角网易云音乐播放器 -->
 
 <div class="mini-music-player" id="mini-music-player">
-  <!-- 音乐按钮 -->
-  <button class="music-toggle-btn" id="music-toggle-btn" title="音乐播放器">
-    <i class="fas fa-music"></i>
-  </button>
-
-  <!-- 播放器面板 -->
-  <div class="music-panel" id="music-panel">
-    <div class="music-header">
-      <span><i class="fas fa-music"></i> 音乐播放</span>
-      <button class="music-close" id="music-close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="music-content">
-      <!-- 网易云音乐播放器 -->
-      <div class="netease-player-compact">
-        <iframe
-          id="netease-music-iframe"
-          frameborder="no"
-          border="0"
-          marginwidth="0"
-          marginheight="0"
-          width="100%"
-          height="120"
-          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=120">
-        </iframe>
-      </div>
-      
-      <!-- 控制按钮 -->
-      <div class="music-actions">
-        <button class="action-btn" id="open-full-btn" title="打开完整版">
-          <i class="fas fa-external-link-alt"></i>
-          <span>完整版</span>
-        </button>
-        <button class="action-btn" id="lyrics-btn" title="歌词">
-          <i class="fas fa-microphone"></i>
-          <span>歌词</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- 歌词面板 -->
-  <div class="lyrics-panel" id="lyrics-panel">
-    <div class="lyrics-header">
-      <span><i class="fas fa-microphone"></i> 歌词</span>
-      <button class="lyrics-close" id="lyrics-close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div class="lyrics-content" id="lyrics-content">
-      <div class="lyrics-line">♪ 音乐播放中... ♪</div>
-      <div class="lyrics-line">♪ 享受美好时光 ♪</div>
-      <div class="lyrics-line">♪ 让音乐陪伴你我 ♪</div>
-      <div class="lyrics-line">♪ 生活的美好瞬间 ♪</div>
-      <div class="lyrics-line">♪ 在音乐中找到自己 ♪</div>
-    </div>
+  <!-- 网易云音乐播放器 -->
+  <div class="netease-player">
+    <iframe
+      frameborder="no"
+      border="0"
+      marginwidth="0"
+      marginheight="0"
+      width="100%"
+      height="200"
+      src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=200">
+    </iframe>
   </div>
 </div>
 
+<style>
+  .mini-music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+  }
+  
+  .netease-player {
+    height: 200px;
+    background: #f8f9fa;
+  }
+  
+  .netease-player iframe {
+    display: block;
+    border: none;
+    width: 100%;
+    height: 200px;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .mini-music-player {
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .netease-player {
+      background: #1a1a1a;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mini-music-player {
+      bottom: 16px;
+      left: 16px;
+      width: 260px;
+    }
+    
+    .netease-player iframe {
+      height: 180px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .mini-music-player {
+      bottom: 12px;
+      left: 12px;
+      width: 240px;
+    }
+    
+    .netease-player iframe {
+      height: 160px;
+    }
+  }
+</style>
 
   
 

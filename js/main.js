@@ -211,99 +211,10 @@
     }
 
     /* ========================================
-     * 左下角小型音乐播放器
+     * 单独音乐播放器 - 无需额外JS
      * ======================================== */
-    var musicToggleBtn = document.getElementById('music-toggle-btn');
-    var musicPanel = document.getElementById('music-panel');
-    var musicClose = document.getElementById('music-close');
-    var openFullBtn = document.getElementById('open-full-btn');
-    var lyricsBtn = document.getElementById('lyrics-btn');
-    var lyricsPanel = document.getElementById('lyrics-panel');
-    var lyricsClose = document.getElementById('lyrics-close');
-    var lyricsContent = document.getElementById('lyrics-content');
-
-    // 歌词数据
-    var lyricsData = [
-      "♪ 音乐播放中... ♪",
-      "♪ 享受美好时光 ♪",
-      "♪ 让音乐陪伴你我 ♪",
-      "♪ 生活的美好瞬间 ♪",
-      "♪ 在音乐中找到自己 ♪",
-      "♪ 每一个音符都是故事 ♪",
-      "♪ 让心灵得到治愈 ♪",
-      "♪ 音乐是生活的调味剂 ♪"
-    ];
-
-    var currentLyricIndex = 0;
-
-    // 切换音乐面板
-    if (musicToggleBtn && musicPanel) {
-      musicToggleBtn.addEventListener('click', function () {
-        musicPanel.classList.toggle('active');
-      });
-    }
-
-    if (musicClose && musicPanel) {
-      musicClose.addEventListener('click', function () {
-        musicPanel.classList.remove('active');
-      });
-    }
-
-    // 打开完整版网易云音乐
-    if (openFullBtn) {
-      openFullBtn.addEventListener('click', function() {
-        window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
-      });
-    }
-
-    // 歌词面板
-    if (lyricsBtn) {
-      lyricsBtn.addEventListener('click', function() {
-        lyricsPanel.classList.toggle('active');
-      });
-    }
-
-    if (lyricsClose) {
-      lyricsClose.addEventListener('click', function() {
-        lyricsPanel.classList.remove('active');
-      });
-    }
-
-    // 歌词动画
-    var lyricsInterval;
-    function startLyricsAnimation() {
-      if (lyricsInterval) {
-        clearInterval(lyricsInterval);
-      }
-      lyricsInterval = setInterval(function() {
-        updateLyrics();
-      }, 3000);
-    }
-
-    function updateLyrics() {
-      if (lyricsContent) {
-        currentLyricIndex = (currentLyricIndex + 1) % lyricsData.length;
-        
-        var lyricsHTML = '';
-        for (var i = -2; i <= 2; i++) {
-          var index = (currentLyricIndex + i + lyricsData.length) % lyricsData.length;
-          var isActive = i === 0;
-          lyricsHTML += '<div class="lyrics-line' + (isActive ? ' active' : '') + '">' + lyricsData[index] + '</div>';
-        }
-        
-        lyricsContent.innerHTML = lyricsHTML;
-        
-        // 滚动到当前歌词
-        var activeLine = lyricsContent.querySelector('.lyrics-line.active');
-        if (activeLine) {
-          activeLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-    }
-
-    // 初始化
-    updateLyrics();
-    startLyricsAnimation();
+    // APlayer 和 Meting 会自动处理所有功能
+    // 包括真实歌词获取、播放控制等
 
     /* ========================================
      * 文章目录（TOC）高亮跟随
