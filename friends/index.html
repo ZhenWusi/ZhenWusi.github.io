@@ -326,8 +326,8 @@
           <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面" id="song-cover">
         </div>
         <div class="song-details">
-          <div class="song-title" id="song-title">加载中...</div>
-          <div class="song-artist" id="song-artist">请稍候</div>
+          <div class="song-title" id="song-title">网易云音乐</div>
+          <div class="song-artist" id="song-artist">歌单: 2993057618</div>
         </div>
       </div>
       
@@ -340,11 +340,19 @@
         <span class="time-total" id="time-total">0:00</span>
       </div>
       
-      <!-- 歌词显示（显示当前博客内容） -->
-      <div class="lyrics-display" id="lyrics-display">
-        <div class="lyrics-content" id="blog-content">
-          正在加载博客内容...
-        </div>
+      <!-- 网易云音乐播放器 -->
+      <div class="netease-player-container">
+        <iframe
+          id="netease-music-iframe"
+          frameborder="no"
+          border="0"
+          marginwidth="0"
+          marginheight="0"
+          width="100%"
+          height="200"
+          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=180"
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </div>
@@ -354,13 +362,6 @@
     <i class="fas fa-music"></i>
     <div class="music-indicator" id="music-indicator"></div>
   </div>
-
-  <!-- 隐藏的网易云音乐播放器 -->
-  <iframe 
-    id="netease-music-player"
-    style="display: none;"
-    src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=0">
-  </iframe>
 </div>
 
 <!-- 星星雪花效果容器 -->

@@ -1637,6 +1637,21 @@ img {
   margin: 4px 0;
 }
 
+/* 网易云音乐播放器容器 */
+.netease-player-container {
+  margin-top: 12px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-code);
+}
+
+.netease-player-container iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 200px;
+}
+
 /* 最小化状态的音乐按钮 */
 .music-toggle-minimized {
   width: 48px;
