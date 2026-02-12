@@ -16,7 +16,7 @@
   <meta property="og:title" content="九九的个人博客">
   <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://zhenwusi.github.io/tags/JavaScript/index.html">
+  <meta property="og:url" content="https://zhenwusi.github.io/archives/2026/index.html">
 
   <!-- 图标 -->
   <link rel="icon" href="https://img.icons8.com/fluency/48/domain.png" type="image/png">
@@ -62,7 +62,7 @@
         </a>
       
         <a href="/archives"
-           class="nav-link">
+           class="nav-link active">
           <i class="fas fa-archive"></i>
           
           <span>归档</span>
@@ -76,7 +76,7 @@
         </a>
       
         <a href="/tags"
-           class="nav-link active">
+           class="nav-link">
           <i class="fas fa-tags"></i>
           
           <span>标签</span>
@@ -184,8 +184,8 @@
   <div class="hero-overlay"></div>
   <div class="page-banner-content">
     
-    <h1>标签：JavaScript</h1>
-    <p>共 2 篇文章</p>
+    <h1>文章归档</h1>
+    <p>共 1 篇文章</p>
   </div>
 </section>
 
@@ -196,26 +196,12 @@
   <div class="archive-timeline">
     
       <div class="archive-year">
-        <h2 class="year-title"><i class="fas fa-calendar"></i> 2025 年</h2>
+        <h2 class="year-title"><i class="fas fa-calendar"></i> 2026 年</h2>
         <ul class="archive-list">
           
             <li class="archive-item">
-              <span class="archive-date">02-10</span>
-              <a href="/2025/02/10/javascript-es6-guide/" class="archive-link">JavaScript ES6+ 新特性完全指南</a>
-              
-                
-                  <span class="archive-cat"><i class="fas fa-folder"></i> 前端开发</span>
-                
-              
-            </li>
-          
-            <li class="archive-item">
-              <span class="archive-date">02-01</span>
-              <a href="/2025/02/01/vue3-composition-api/" class="archive-link">Vue 3 Composition API 实战总结</a>
-              
-                
-                  <span class="archive-cat"><i class="fas fa-folder"></i> 前端开发</span>
-                
+              <span class="archive-date">02-12</span>
+              <a href="/2026/02/12/%E6%9C%AC%E5%9C%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9E%E6%8E%A5Autodl%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" class="archive-link"></a>
               
             </li>
           
@@ -278,42 +264,69 @@
 
   <!-- 音乐播放器 -->
   
-    <!-- 网易云音乐播放器 -->
+    <!-- 简洁音乐播放器 -->
 <div class="music-player" id="music-player">
-  <!-- 播放器切换按钮（悬浮在页面右下角） -->
+  <!-- 悬浮音乐按钮 -->
   <button class="music-toggle" id="music-toggle" title="音乐播放器">
     <i class="fas fa-music"></i>
   </button>
 
-  <!-- 播放器面板 -->
-  <div class="music-panel" id="music-panel">
-    <div class="music-panel-header">
-      <span><i class="fas fa-headphones"></i> 音乐播放器</span>
-      <button class="music-panel-close" id="music-panel-close">
+  <!-- 歌词面板 -->
+  <div class="music-lyrics-panel" id="music-lyrics-panel">
+    <div class="lyrics-header">
+      <span><i class="fas fa-music"></i> 正在播放</span>
+      <button class="lyrics-close" id="lyrics-close">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="music-panel-body">
-      <!-- 使用网易云音乐外链播放器 -->
-      
-        <iframe
-          id="music-iframe"
-          frameborder="no"
-          border="0"
-          marginwidth="0"
-          marginheight="0"
-          width="100%"
-          height="320"
-          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=280"
-          loading="lazy">
-        </iframe>
-        <div class="music-playlist-info">
-          <p><i class="fas fa-info-circle"></i> 歌单 ID: 2993057618</p>
-          <p><i class="fas fa-link"></i> <a href="https://music.163.com/#/playlist?id=2993057618" target="_blank">在网易云音乐中打开</a></p>
+    
+    <div class="lyrics-content">
+      <!-- 当前歌曲信息 -->
+      <div class="current-song">
+        <div class="song-cover">
+          <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面" id="song-cover">
         </div>
-      
+        <div class="song-info">
+          <h3 class="song-title" id="song-title">加载中...</h3>
+          <p class="song-artist" id="song-artist">请稍候</p>
+        </div>
+      </div>
+
+      <!-- 歌词显示区域 -->
+      <div class="lyrics-display" id="lyrics-display">
+        <div class="lyrics-line">♪ 音乐加载中... ♪</div>
+      </div>
+
+      <!-- 播放控制 -->
+      <div class="player-controls">
+        <button class="control-btn" id="prev-btn" title="上一首">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn play-pause-btn" id="play-pause-btn" title="播放/暂停">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn" id="next-btn" title="下一首">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="progress-bar">
+        <span class="time-current" id="time-current">0:00</span>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="time-total" id="time-total">0:00</span>
+      </div>
     </div>
   </div>
+
+  <!-- 隐藏的网易云音乐播放器（用于获取数据） -->
+  <iframe 
+    id="hidden-music-player"
+    style="display: none;"
+    src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=0">
+  </iframe>
 </div>
 
   

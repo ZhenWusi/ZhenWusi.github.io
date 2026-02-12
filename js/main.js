@@ -211,24 +211,168 @@
     }
 
     /* ========================================
-     * 音乐播放器面板切换
+     * 简洁音乐播放器
      * ======================================== */
     var musicToggle = document.getElementById('music-toggle');
-    var musicPanel = document.getElementById('music-panel');
-    var musicClose = document.getElementById('music-panel-close');
+    var musicLyricsPanel = document.getElementById('music-lyrics-panel');
+    var lyricsClose = document.getElementById('lyrics-close');
+    var playPauseBtn = document.getElementById('play-pause-btn');
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    var progressTrack = document.getElementById('progress-track');
+    var progressFill = document.getElementById('progress-fill');
+    var timeCurrent = document.getElementById('time-current');
+    var timeTotal = document.getElementById('time-total');
+    var songTitle = document.getElementById('song-title');
+    var songArtist = document.getElementById('song-artist');
+    var songCover = document.getElementById('song-cover');
+    var lyricsDisplay = document.getElementById('lyrics-display');
 
-    if (musicToggle && musicPanel) {
+    // 模拟歌曲数据
+    var playlist = [
+      { title: '夜曲', artist: '周杰伦', cover: 'https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg', duration: 226 },
+      { title: '晴天', artist: '周杰伦', cover: 'https://p1.music.126.net/SYqUNOMTg2z-1KYDRJmzLg==/109951165699245110.jpg', duration: 269 },
+      { title: '七里香', artist: '周杰伦', cover: 'https://p3.music.126.net/lEGUOFiYt1X_3lE-2n2n5g==/109951165699245110.jpg', duration: 299 }
+    ];
+    
+    var currentSongIndex = 0;
+    var isPlaying = false;
+    var currentTime = 0;
+    var progressInterval;
+
+    // 切换歌词面板
+    if (musicToggle && musicLyricsPanel) {
       musicToggle.addEventListener('click', function () {
-        musicPanel.classList.toggle('active');
+        musicLyricsPanel.classList.toggle('active');
         musicToggle.classList.toggle('playing');
       });
     }
-    if (musicClose && musicPanel) {
-      musicClose.addEventListener('click', function () {
-        musicPanel.classList.remove('active');
+
+    if (lyricsClose && musicLyricsPanel) {
+      lyricsClose.addEventListener('click', function () {
+        musicLyricsPanel.classList.remove('active');
         musicToggle.classList.remove('playing');
       });
     }
+
+    // 播放/暂停
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', function () {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+    }
+
+    // 上一首
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+        loadSong(currentSongIndex);
+        if (isPlaying) playMusic();
+      });
+    }
+
+    // 下一首
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        currentSongIndex = (currentSongIndex + 1) % playlist.length;
+        loadSong(currentSongIndex);
+        if (isPlaying) playMusic();
+      });
+    }
+
+    // 进度条点击
+    if (progressTrack) {
+      progressTrack.addEventListener('click', function (e) {
+        var rect = progressTrack.getBoundingClientRect();
+        var percent = (e.clientX - rect.left) / rect.width;
+        currentTime = percent * playlist[currentSongIndex].duration;
+        updateProgress();
+      });
+    }
+
+    // 播放音乐
+    function playMusic() {
+      isPlaying = true;
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      musicToggle.classList.add('playing');
+      
+      // 模拟播放进度
+      progressInterval = setInterval(function () {
+        currentTime += 0.1;
+        if (currentTime >= playlist[currentSongIndex].duration) {
+          // 自动下一首
+          currentSongIndex = (currentSongIndex + 1) % playlist.length;
+          loadSong(currentSongIndex);
+          playMusic();
+        } else {
+          updateProgress();
+        }
+      }, 100);
+    }
+
+    // 暂停音乐
+    function pauseMusic() {
+      isPlaying = false;
+      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      musicToggle.classList.remove('playing');
+      clearInterval(progressInterval);
+    }
+
+    // 加载歌曲
+    function loadSong(index) {
+      var song = playlist[index];
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+      songCover.src = song.cover;
+      currentTime = 0;
+      updateProgress();
+      
+      // 模拟歌词
+      var lyrics = [
+        '♪ ' + song.title + ' ♪',
+        '歌手：' + song.artist,
+        '这是一首美妙的歌曲',
+        '让我们享受这音乐时光',
+        '♪ 旋律流淌 ♪',
+        '心情随着音乐起伏',
+        '美好的时光总是短暂',
+        '但音乐永远陪伴我们'
+      ];
+      
+      lyricsDisplay.innerHTML = lyrics.map(function(line, i) {
+        return '<div class="lyrics-line">' + line + '</div>';
+      }).join('');
+    }
+
+    // 更新进度
+    function updateProgress() {
+      var song = playlist[currentSongIndex];
+      var percent = (currentTime / song.duration) * 100;
+      progressFill.style.width = percent + '%';
+      timeCurrent.textContent = formatTime(currentTime);
+      timeTotal.textContent = formatTime(song.duration);
+      
+      // 更新歌词高亮
+      var lyricsLines = lyricsDisplay.querySelectorAll('.lyrics-line');
+      var currentLineIndex = Math.floor((currentTime / song.duration) * lyricsLines.length);
+      lyricsLines.forEach(function(line, index) {
+        line.classList.toggle('active', index === currentLineIndex);
+      });
+    }
+
+    // 格式化时间
+    function formatTime(seconds) {
+      var mins = Math.floor(seconds / 60);
+      var secs = Math.floor(seconds % 60);
+      return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    // 初始化
+    loadSong(0);
 
     /* ========================================
      * 文章目录（TOC）高亮跟随

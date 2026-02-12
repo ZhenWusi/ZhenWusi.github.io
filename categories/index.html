@@ -194,33 +194,7 @@
     <!-- ========== 分类页面 ========== -->
     <div class="categories-page">
       
-        <div class="category-list">
-          
-            <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-item">
-              <i class="fas fa-folder"></i>
-              <span class="cat-name">前端开发</span>
-              <span class="cat-count">2</span>
-            </a>
-          
-            <a href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/" class="category-item">
-              <i class="fas fa-folder"></i>
-              <span class="cat-name">后端技术</span>
-              <span class="cat-count">1</span>
-            </a>
-          
-            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="category-item">
-              <i class="fas fa-folder"></i>
-              <span class="cat-name">开发工具</span>
-              <span class="cat-count">1</span>
-            </a>
-          
-            <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-item">
-              <i class="fas fa-folder"></i>
-              <span class="cat-name">随笔</span>
-              <span class="cat-count">1</span>
-            </a>
-          
-        </div>
+        <p class="empty-tip">暂无分类</p>
       
     </div>
 
@@ -275,42 +249,69 @@
 
   <!-- 音乐播放器 -->
   
-    <!-- 网易云音乐播放器 -->
+    <!-- 简洁音乐播放器 -->
 <div class="music-player" id="music-player">
-  <!-- 播放器切换按钮（悬浮在页面右下角） -->
+  <!-- 悬浮音乐按钮 -->
   <button class="music-toggle" id="music-toggle" title="音乐播放器">
     <i class="fas fa-music"></i>
   </button>
 
-  <!-- 播放器面板 -->
-  <div class="music-panel" id="music-panel">
-    <div class="music-panel-header">
-      <span><i class="fas fa-headphones"></i> 音乐播放器</span>
-      <button class="music-panel-close" id="music-panel-close">
+  <!-- 歌词面板 -->
+  <div class="music-lyrics-panel" id="music-lyrics-panel">
+    <div class="lyrics-header">
+      <span><i class="fas fa-music"></i> 正在播放</span>
+      <button class="lyrics-close" id="lyrics-close">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="music-panel-body">
-      <!-- 使用网易云音乐外链播放器 -->
-      
-        <iframe
-          id="music-iframe"
-          frameborder="no"
-          border="0"
-          marginwidth="0"
-          marginheight="0"
-          width="100%"
-          height="320"
-          src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=280"
-          loading="lazy">
-        </iframe>
-        <div class="music-playlist-info">
-          <p><i class="fas fa-info-circle"></i> 歌单 ID: 2993057618</p>
-          <p><i class="fas fa-link"></i> <a href="https://music.163.com/#/playlist?id=2993057618" target="_blank">在网易云音乐中打开</a></p>
+    
+    <div class="lyrics-content">
+      <!-- 当前歌曲信息 -->
+      <div class="current-song">
+        <div class="song-cover">
+          <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面" id="song-cover">
         </div>
-      
+        <div class="song-info">
+          <h3 class="song-title" id="song-title">加载中...</h3>
+          <p class="song-artist" id="song-artist">请稍候</p>
+        </div>
+      </div>
+
+      <!-- 歌词显示区域 -->
+      <div class="lyrics-display" id="lyrics-display">
+        <div class="lyrics-line">♪ 音乐加载中... ♪</div>
+      </div>
+
+      <!-- 播放控制 -->
+      <div class="player-controls">
+        <button class="control-btn" id="prev-btn" title="上一首">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn play-pause-btn" id="play-pause-btn" title="播放/暂停">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn" id="next-btn" title="下一首">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="progress-bar">
+        <span class="time-current" id="time-current">0:00</span>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="time-total" id="time-total">0:00</span>
+      </div>
     </div>
   </div>
+
+  <!-- 隐藏的网易云音乐播放器（用于获取数据） -->
+  <iframe 
+    id="hidden-music-player"
+    style="display: none;"
+    src="//music.163.com/outchain/player?type=0&id=2993057618&auto=0&height=0">
+  </iframe>
 </div>
 
   
