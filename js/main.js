@@ -211,32 +211,43 @@
     }
 
     /* ========================================
-     * 音乐播放器
+     * 音乐播放器 - APlayer 风格
      * ======================================== */
-    var musicBtn = document.getElementById('music-btn');
-    var musicPanel = document.getElementById('music-panel');
-    var musicClose = document.getElementById('music-close');
-    var openFullBtn = document.getElementById('open-full-btn');
+    var aplayerToggle = document.getElementById('aplayer-toggle');
+    var aplayerPanel = document.getElementById('aplayer-panel');
+    var aplayerClose = document.getElementById('aplayer-close');
+    var openNetease = document.getElementById('open-netease');
 
-    // 切换音乐面板
-    if (musicBtn && musicPanel) {
-      musicBtn.addEventListener('click', function () {
-        musicPanel.classList.toggle('active');
+    // 切换播放器面板
+    if (aplayerToggle && aplayerPanel) {
+      aplayerToggle.addEventListener('click', function () {
+        aplayerPanel.classList.toggle('active');
+        aplayerToggle.classList.toggle('playing');
       });
     }
 
-    if (musicClose && musicPanel) {
-      musicClose.addEventListener('click', function () {
-        musicPanel.classList.remove('active');
+    if (aplayerClose && aplayerPanel) {
+      aplayerClose.addEventListener('click', function () {
+        aplayerPanel.classList.remove('active');
+        aplayerToggle.classList.remove('playing');
       });
     }
 
-    // 打开完整版
-    if (openFullBtn) {
-      openFullBtn.addEventListener('click', function() {
+    // 打开网易云音乐
+    if (openNetease) {
+      openNetease.addEventListener('click', function() {
         window.open('https://music.163.com/#/playlist?id=<%= theme.music.netease_playlist_id %>', '_blank');
       });
     }
+
+    // 模拟播放状态（基于网易云音乐播放器）
+    var isPlaying = false;
+    setInterval(function() {
+      if (aplayerToggle) {
+        isPlaying = !isPlaying;
+        aplayerToggle.classList.toggle('playing', isPlaying);
+      }
+    }, 4000);
 
     /* ========================================
      * 文章目录（TOC）高亮跟随
