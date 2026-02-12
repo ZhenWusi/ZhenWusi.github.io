@@ -184,7 +184,7 @@
   <div class="page-banner-content">
     
     <h1>文章归档</h1>
-    <p>共 2 篇文章</p>
+    <p>共 1 篇文章</p>
   </div>
 </section>
 
@@ -197,12 +197,6 @@
       <div class="archive-year">
         <h2 class="year-title"><i class="fas fa-calendar"></i> 2026 年</h2>
         <ul class="archive-list">
-          
-            <li class="archive-item">
-              <span class="archive-date">02-12</span>
-              <a href="/2026/02/12/%E6%9C%AC%E5%9C%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9E%E6%8E%A5Autodl%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" class="archive-link"></a>
-              
-            </li>
           
             <li class="archive-item">
               <span class="archive-date">02-12</span>
@@ -273,10 +267,59 @@
 
   <!-- 音乐播放器 -->
   
-    <!-- 简洁网易云音乐播放器 -->
+    <!-- 小型音乐播放器 -->
 <div class="music-player" id="music-player">
-  <!-- 可拖动的音乐按钮 -->
-  <div class="music-toggle-draggable" id="music-toggle-draggable" title="网易云音乐">
+  <!-- 小型播放器窗口 -->
+  <div class="music-mini-player" id="music-mini-player">
+    <div class="mini-player-header">
+      <div class="player-controls">
+        <button class="control-btn" id="prev-btn" title="上一首">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn play-pause-btn" id="play-pause-btn" title="播放/暂停">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn" id="next-btn" title="下一首">
+          <i class="fas fa-step-forward"></i>
+        </button>
+      </div>
+      <button class="minimize-btn" id="minimize-btn" title="最小化">
+        <i class="fas fa-minus"></i>
+      </button>
+    </div>
+    
+    <div class="mini-player-content">
+      <!-- 歌曲信息 -->
+      <div class="song-info">
+        <div class="song-cover">
+          <img src="https://p2.music.126.net/diGAyEmpymX8G7JcnElncQ==/109951165699245110.jpg" alt="歌曲封面" id="song-cover">
+        </div>
+        <div class="song-details">
+          <div class="song-title" id="song-title">加载中...</div>
+          <div class="song-artist" id="song-artist">请稍候</div>
+        </div>
+      </div>
+      
+      <!-- 进度条 -->
+      <div class="progress-bar">
+        <span class="time-current" id="time-current">0:00</span>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="time-total" id="time-total">0:00</span>
+      </div>
+      
+      <!-- 歌词显示（显示当前博客内容） -->
+      <div class="lyrics-display" id="lyrics-display">
+        <div class="lyrics-content" id="blog-content">
+          正在加载博客内容...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最小化状态的音乐按钮 -->
+  <div class="music-toggle-minimized" id="music-toggle-minimized" style="display: none;">
     <i class="fas fa-music"></i>
     <div class="music-indicator" id="music-indicator"></div>
   </div>
