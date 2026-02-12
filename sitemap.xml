@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</loc>
+    
+    <lastmod>2026-02-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhenwusi.github.io/2026/02/12/%E6%9C%AC%E5%9C%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9E%E6%8E%A5Autodl%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/</loc>
     
     <lastmod>2026-02-12</lastmod>
@@ -55,6 +64,34 @@
   </url>
 
   
+  <url>
+    <loc>https://zhenwusi.github.io/tags/AI/</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhenwusi.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhenwusi.github.io/tags/RLHF/</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://zhenwusi.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>

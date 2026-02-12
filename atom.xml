@@ -38,4 +38,27 @@
     
   </entry>
   
+  <entry>
+    <title>RLHF 的三阶段流程</title>
+    <link href="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/"/>
+    <id>https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</id>
+    <published>2026-02-11T16:00:00.000Z</published>
+    <updated>2026-02-12T08:22:44.269Z</updated>
+    
+    
+    <summary type="html">深入理解 RLHF（Reinforcement Learning from Human Feedback）的三个核心阶段</summary>
+    
+    
+    
+    <category term="技术" scheme="https://zhenwusi.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="AI" scheme="https://zhenwusi.github.io/tags/AI/"/>
+    
+    <category term="机器学习" scheme="https://zhenwusi.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="RLHF" scheme="https://zhenwusi.github.io/tags/RLHF/"/>
+    
+  </entry>
+  
 </feed>
