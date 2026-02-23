@@ -953,44 +953,34 @@
 
 
   
-    <!-- MathJax v2 配置（用户指定） -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        TeX: {
-          equationNumbers: { autoNumber: 'AMS' }
-        },
-        extensions: ['tex2jax.js', 'MathZoom.js'],
-        jax: ['input/TeX', 'output/HTML-CSS'],
-        tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          displayMath: [['$$','$$'], ['\\[','\\]']],
-          processEscapes: true,
-          'HTML-CSS': { fonts: ['TeX'] }
-        }
-      });
-      MathJax.Hub.Register.MessageHook('Math Processing Error', function(message) {
-        alert('Math Processing Error: ' + message[1]);
-      });
-      MathJax.Hub.Register.MessageHook('TeX Jax - parse error', function(message) {
-        alert('Math Processing Error: ' + message[1]);
-      });
-    </script>
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
+    <script>
+      (function() {
+        var defaults = {
+          tex: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            tags: 'ams',
+            packages: {'[+]': ['noerrors']}
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            renderActions: {
+              addMenu: []
+            }
+          }
+        };
+        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams"},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
+        if (userCfg.tex) {
+          userCfg.tex = Object.assign({}, defaults.tex, userCfg.tex);
         }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        if (userCfg.options) {
+          userCfg.options = Object.assign({}, defaults.options, userCfg.options);
+        }
+        window.MathJax = Object.assign({}, defaults, userCfg);
+      })();
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 </body>
 </html>
