@@ -312,5 +312,76 @@
     window.addEventListener('scroll', updateProgress);
     updateProgress();
 
+    /* ========================================
+     * 代码块复制按钮 & Header
+     * ======================================== */
+    var codeBlocks = document.querySelectorAll('figure.highlight');
+
+    function createCopyBtn(block) {
+      var lang = 'CODE';
+      block.className.split(' ').forEach(function (cls) {
+        if (cls && cls !== 'highlight') {
+          lang = cls.toUpperCase();
+        }
+      });
+
+      var header = document.createElement('div');
+      header.className = 'code-header';
+      var langTag = document.createElement('span');
+      langTag.className = 'code-lang';
+      langTag.textContent = lang;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.innerHTML = '<i class="fas fa-copy"></i> 复制';
+
+      btn.addEventListener('click', function () {
+        var codeTd = block.querySelector('td.code');
+        var code = codeTd ? codeTd.innerText : block.innerText;
+        if (!code) return;
+
+        function setCopied(state) {
+          if (state) {
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fas fa-check"></i> 已复制';
+          } else {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fas fa-copy"></i> 复制';
+          }
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(function () {
+            setCopied(true);
+            setTimeout(function () { setCopied(false); }, 2000);
+          });
+        } else {
+          var textarea = document.createElement('textarea');
+          textarea.value = code;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          try { document.execCommand('copy'); } catch (err) { /* ignore */ }
+          document.body.removeChild(textarea);
+          setCopied(true);
+          setTimeout(function () { setCopied(false); }, 2000);
+        }
+      });
+
+      header.appendChild(langTag);
+      header.appendChild(btn);
+      block.insertBefore(header, block.firstChild);
+    }
+
+    if (codeBlocks.length) {
+      codeBlocks.forEach(function (block) {
+        if (!block.querySelector('.code-header')) {
+          createCopyBtn(block);
+        }
+      });
+    }
+
   }); // DOMContentLoaded 结束
 })();
