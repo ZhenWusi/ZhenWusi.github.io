@@ -210,6 +210,33 @@ figure.highlight .code .line:hover {
   box-shadow: var(--shadow-sm);
 }
 
+/* ---------- MathJax 样式 ---------- */
+mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  max-width: 100%;
+}
+
+mjx-container[display] {
+  display: block !important;
+  margin: 1.5em auto;
+  padding: 1em;
+  background: var(--bg-code);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+}
+
+mjx-container:not([display]) {
+  display: inline-grid !important;
+  align-items: center;
+}
+
+mjx-assistive-mml {
+  right: 0;
+  bottom: 0;
+}
+
 /* ---------- 404 页面 ---------- */
 .not-found {
   position: relative;

@@ -179,7 +179,7 @@
   
     <!-- 视频背景 -->
     <video autoplay muted loop id="hero-video">
-      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
+      <source src="/img/background/Glowing-Star-Girl-4096x2160.mp4" type="video/mp4">
     </video>
   
   <div class="hero-overlay"></div>
@@ -230,14 +230,12 @@
 
     <!-- 文章标题 -->
     <h2 class="post-card-title">
-      <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">RLHF 的三阶段流程</a>
+      <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/">力扣 88：合并两个有序数组</a>
     </h2>
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      基础知识RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
-监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
-简单可以理解为...
+      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
     </p>
 
     <!-- 文章元信息 -->
@@ -250,7 +248,7 @@
         <span class="meta-item">
           <i class="fas fa-tags"></i>
           
-          LLM
+          力扣 / 数组
         </span>
       
     </div>
@@ -279,12 +277,14 @@
 
     <!-- 文章标题 -->
     <h2 class="post-card-title">
-      <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/">力扣 88：合并两个有序数组</a>
+      <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">RLHF 的三阶段流程</a>
     </h2>
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
+      基础知识RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
+监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
+简单可以理解为...
     </p>
 
     <!-- 文章元信息 -->
@@ -297,7 +297,7 @@
         <span class="meta-item">
           <i class="fas fa-tags"></i>
           
-          力扣 / 数组
+          LLM
         </span>
       
     </div>
@@ -1053,31 +1053,63 @@
   
     <script>
       (function() {
-        var defaults = {
-          tex: {
+        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}} || {};
+        var baseCfg = {
+          loader: {
+            load: ['[tex]/noerrors']
+          },
+          tex: Object.assign({
             inlineMath: [['$','$'], ['\\(','\\)']],
             displayMath: [['$$','$$'], ['\\[','\\]']],
             tags: 'ams',
             packages: {'[+]': ['noerrors']}
-          },
-          options: {
+          }, userCfg.tex || {}),
+          chtml: Object.assign({
+            scale: 1.05
+          }, userCfg.chtml || {}),
+          options: Object.assign({
             skipHtmlTags: ['noscript', 'style', 'textarea', 'pre', 'code'],
+            enableMenu: false,
             renderActions: {
-              addMenu: []
+              findScript: [10, function(doc) {
+                var scripts = document.querySelectorAll('script[type^="math/tex"]');
+                scripts.forEach(function(node) {
+                  var display = /mode=display/.test(node.type);
+                  var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  var text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '']
             }
-          }
+          }, userCfg.options || {})
         };
-        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
-        if (userCfg.tex) {
-          userCfg.tex = Object.assign({}, defaults.tex, userCfg.tex);
+
+        function loadMathjax() {
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typesetPromise();
+            return;
+          }
+
+          window.MathJax = baseCfg;
+          var script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+          script.id = 'MathJax-script';
+          script.async = true;
+          document.head.appendChild(script);
         }
-        if (userCfg.options) {
-          userCfg.options = Object.assign({}, defaults.options, userCfg.options);
+
+        if (document.readyState === 'complete') {
+          loadMathjax();
+        } else {
+          window.addEventListener('load', loadMathjax);
         }
-        window.MathJax = Object.assign({}, defaults, userCfg);
       })();
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({

@@ -941,31 +941,63 @@
   
     <script>
       (function() {
-        var defaults = {
-          tex: {
+        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}} || {};
+        var baseCfg = {
+          loader: {
+            load: ['[tex]/noerrors']
+          },
+          tex: Object.assign({
             inlineMath: [['$','$'], ['\\(','\\)']],
             displayMath: [['$$','$$'], ['\\[','\\]']],
             tags: 'ams',
             packages: {'[+]': ['noerrors']}
-          },
-          options: {
+          }, userCfg.tex || {}),
+          chtml: Object.assign({
+            scale: 1.05
+          }, userCfg.chtml || {}),
+          options: Object.assign({
             skipHtmlTags: ['noscript', 'style', 'textarea', 'pre', 'code'],
+            enableMenu: false,
             renderActions: {
-              addMenu: []
+              findScript: [10, function(doc) {
+                var scripts = document.querySelectorAll('script[type^="math/tex"]');
+                scripts.forEach(function(node) {
+                  var display = /mode=display/.test(node.type);
+                  var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  var text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '']
             }
-          }
+          }, userCfg.options || {})
         };
-        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
-        if (userCfg.tex) {
-          userCfg.tex = Object.assign({}, defaults.tex, userCfg.tex);
+
+        function loadMathjax() {
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typesetPromise();
+            return;
+          }
+
+          window.MathJax = baseCfg;
+          var script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+          script.id = 'MathJax-script';
+          script.async = true;
+          document.head.appendChild(script);
         }
-        if (userCfg.options) {
-          userCfg.options = Object.assign({}, defaults.options, userCfg.options);
+
+        if (document.readyState === 'complete') {
+          loadMathjax();
+        } else {
+          window.addEventListener('load', loadMathjax);
         }
-        window.MathJax = Object.assign({}, defaults, userCfg);
       })();
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
