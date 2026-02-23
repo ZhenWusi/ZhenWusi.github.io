@@ -179,7 +179,7 @@
   
     <!-- 视频背景 -->
     <video autoplay muted loop id="hero-video">
-      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
+      <source src="/img/background/二次元-动态壁纸.mp4" type="video/mp4">
     </video>
   
   <div class="hero-overlay"></div>
@@ -1079,5 +1079,20 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
