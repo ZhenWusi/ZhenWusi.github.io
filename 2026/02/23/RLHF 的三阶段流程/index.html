@@ -189,7 +189,7 @@
     <h1 class="post-banner-title">RLHF 的三阶段流程</h1>
     <div class="post-banner-meta">
       <span><i class="far fa-calendar-alt"></i> 2026-02-23</span>
-      <span><i class="far fa-clock"></i> 阅读约 2.4k 字</span>
+      <span><i class="far fa-clock"></i> 阅读约 1.4k 字</span>
       
         <span><i class="fas fa-tags"></i>
           
@@ -208,142 +208,89 @@
     <article class="post-content-wrap">
       <!-- 目录（TOC） -->
       
-        <div class="post-toc-mobile" id="toc-mobile">
-          <details>
-            <summary><i class="fas fa-list"></i> 文章目录</summary>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-1"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></div>
-          </details>
-        </div>
-      
 
       <!-- 正文 -->
       <div class="post-body markdown-body" id="post-body">
-        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="RLHF-的三阶段流程"><a href="#RLHF-的三阶段流程" class="headerlink" title="RLHF 的三阶段流程"></a>RLHF 的三阶段流程</h3><p>RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：</p>
-<p><strong>监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）</strong></p>
-<p>简单可以理解为：先学”怎么说话”，再学”什么话更好”，最后逼模型多说”好话”</p>
-<h4 id="阶段一：SFT（Supervised-Fine-Tuning）"><a href="#阶段一：SFT（Supervised-Fine-Tuning）" class="headerlink" title="阶段一：SFT（Supervised Fine-Tuning）"></a>阶段一：SFT（Supervised Fine-Tuning）</h4><p>RLHF 通常从对一个预训练语言模型进行监督微调开始，使用高质量的人工数据（如对话、摘要等），得到一个模型 $ \pi_{SFT} $。</p>
-<p><strong>数据形式</strong>：$ (\text{prompt} x, \text{高质量回答} y) $</p>
-<p><strong>损失函数</strong>：标准的监督学习损失函数</p>
-<script type="math/tex; mode=display">\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)</script><ul>
-<li>$ \pi_\theta $：策略模型的参数化形式</li>
-<li>$ D $：监督微调数据集</li>
-<li>$ x $：输入提示</li>
-<li>$ y $：目标回答</li>
-</ul>
-<p><strong>目标</strong>：让模型学会基本的对话能力和任务完成能力，即”怎么说话”</p>
-<h4 id="阶段二：奖励模型（Reward-Modeling）"><a href="#阶段二：奖励模型（Reward-Modeling）" class="headerlink" title="阶段二：奖励模型（Reward Modeling）"></a>阶段二：奖励模型（Reward Modeling）</h4><p>使用 SFT 模型，对同一个 prompt $ x $ 采样两个回答：</p>
-<script type="math/tex; mode=display">y_1, y_2 \sim \pi_{SFT}(y|x)</script><p>交给人类标注者，让他们选更好的一个：</p>
-<script type="math/tex; mode=display">y_w \succ y_l \mid x</script><ul>
-<li>$ y_w $：winner,preferred（赢家）</li>
-<li>$ y_l $：loser,rejected（输家）</li>
-</ul>
-<p><strong>潜在奖励函数假设</strong>：假设人类偏好是由一个未知的真实奖励函数 $ r^*(x,y) $ 生成的。我们并不知道它，但假设它存在。</p>
-<p><strong>偏好模型</strong>：</p>
-<script type="math/tex; mode=display">p^*(y_1 > y_2 | x) = \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}</script><p><strong>数据集形式</strong>：</p>
-<script type="math/tex; mode=display">D = \{(x^{(i)}, y_w^{(i)}, y_l^{(i)})\}_{i=1}^N</script><p><strong>损失函数</strong>：</p>
-<script type="math/tex; mode=display">\mathcal{L}_\text{R}(r_\phi, \mathcal{D}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}</script><hr>
-<h5 id="补充解释"><a href="#补充解释" class="headerlink" title="补充解释"></a>补充解释</h5><p>BT 模型：</p>
-<p>Bradley-Terry 模型是一个用于<strong>成对比较</strong>的概率模型</p>
-<p><strong>核心思想</strong>：</p>
-<ul>
-<li>每个对象 $ i $ 有一个隐藏的”实力值”参数 $ \lambda_i $</li>
-<li>当两个对象 $ i $ 和 $ j $ 比较时，$ i $ 战胜 $ j $ 的概率为：</li>
-</ul>
-<script type="math/tex; mode=display">P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}</script><p><strong>在 DPO 中的应用</strong>：</p>
-<ul>
-<li>将奖励函数 $ r(x,y) $ 看作”实力值”</li>
-<li>人类偏好 $ y_w \succ y_l $ 就是”比较结果”</li>
-<li>通过 BT 模型建立奖励与偏好的桥梁</li>
-</ul>
-<p>为什么不用「谁分数大就选谁」？</p>
-<p>如果直接规定：<script type="math/tex">y_1 \succ y_2 \iff r^*(x,y_1) > r^*(x,y_2)</script><br>那问题是：人类判断有噪声，同一个人、同一个问题，不一定每次选同样的。所以我们不建模成确定性规则，而是：概率模型</p>
-<p>把公式 (1) 改写一下：</p>
-<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}</script><p>这就是熟悉的 Sigmoid 函数：</p>
-<script type="math/tex; mode=display">\sigma(z) = \frac{1}{1 + e^{-z}}</script><p>于是：</p>
-<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))</script><p>因为真实数据里人确实选择了 $ y_w $，所以该事件的概率是上式，对数似然是：</p>
-<script type="math/tex; mode=display">\log p_\theta(y_w \succ y_l \mid x) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))</script><p>最大化所有样本的对数似然：</p>
-<script type="math/tex; mode=display">\max_\theta \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>意思是：对每一条数据，都算一次”模型认为人类会选赢家的概率的对数”，然后把它们加起来，让这个总和尽可能大。对数把“连乘”变成“连加”,最优解不变(对数是单调递增函数)</p>
-<p>等价地，最小化负对数似然（Likelihood）：</p>
-<script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><p>这正是公式 (2)。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
-<p>对一个有限数据集 $ D = {z_1, …, z_N} $，如果你均匀随机从中抽一个样本，那么：</p>
-<script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>👉 期望 = 平均值</p>
-<p>令 $ f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l)) $ 那么：</p>
-<script type="math/tex; mode=display">
-\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $ \sum<em>{i=1}^N f_i $ 和 $ \frac{1}{N} \sum</em>{i=1}^N f_i $ 只差一个常数 $ \frac{1}{N} $。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：</p>
-<script type="math/tex; mode=display">
-\arg\max_\theta \sum_{i=1}^N f_i = \arg\max_\theta \frac{1}{N} \sum_{i=1}^N f_i</script><p>原目标：$ \max_\theta \mathbb{E}_D [\log \sigma(\cdots)] $</p>
-<p>等价于：$ \min_\theta -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
-<p>于是定义：$ L_R = -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
-<p><strong>为什么机器学习里”总是最小化”？</strong></p>
-<p>因为梯度下降（Gradient Descent）默认是 minimize loss，所以大家习惯：把”想最大化的目标”，写成”要最小化的损失”。</p>
-<hr>
-<h4 id="阶段三：RL-微调"><a href="#阶段三：RL-微调" class="headerlink" title="阶段三：RL 微调"></a>阶段三：RL 微调</h4><p><strong>RL 目标函数（核心）</strong>：</p>
-<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><hr>
-<h5 id="补充解释-1"><a href="#补充解释-1" class="headerlink" title="补充解释"></a>补充解释</h5><p>一句话解释：👉 让模型生成 奖励高的回答 👉 但不能偏离原始 SFT 模型太远</p>
-<p>$ \pi<em>{ref} $（即初始 SFT 模型 $ \pi</em>{SFT} $）实践中，语言模型策略 $ \pi<em>\theta $ 也被初始化为 $ \pi</em>{SFT} $。</p>
-<ul>
-<li><strong>初始状态</strong>：$ \pi<em>\theta = \pi</em>{ref} = \pi_{SFT} $</li>
-<li><strong>训练目标</strong>：在保持与原始 SFT 模型接近的前提下，优化奖励</li>
-<li><strong>KL 约束作用</strong>：确保模型不会偏离初始能力太远</li>
-</ul>
-<p><strong>KL 约束：</strong></p>
-<p>KL 散度（Kullback-Leibler 散度）衡量两个概率分布之间的差异：</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta(y|x) \| \pi_{SFT}(y|x)] = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>这表示：</p>
-<ul>
-<li>如果 $ \pi<em>\theta $ 和 $ \pi</em>{SFT} $ 相同：KL = 0</li>
-<li>如果 $ \pi<em>\theta $ 偏离 $ \pi</em>{SFT} $：KL &gt; 0</li>
-<li>目标函数中的 $ -\beta KL $ 惩罚偏离行为</li>
-</ul>
-<p><strong>KL 散度推导过程详解</strong></p>
-<p><strong>KL 散度的通用定义（离散型）</strong>：</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)}</script><p><strong>期望的定义</strong>：<br>对于随机变量 $ Y \sim P $，函数 $ f(Y) $ 的期望定义为：</p>
-<script type="math/tex; mode=display">\mathbb{E}_{Y \sim P}[f(Y)] = \sum_{y \in \mathcal{Y}} P(y) f(y)</script><p><strong>进行变量映射</strong></p>
-<p>在 RLHF 的语境下，我们要计算的是两个模型策略（概率分布）之间的差异：</p>
-<ul>
-<li>$ P $<strong> (当前分布)</strong>：$ \pi_\theta(y|x) $ —— 模型当前正在学习的策略</li>
-<li>$ Q $<strong> (参考分布)</strong>：$ \pi_{SFT}(y|x) $ —— 原始的 SFT 策略</li>
-<li><strong>样本空间</strong>：$ y $（模型生成的所有可能的回答序列）</li>
-</ul>
-<p>将这些代入通用公式：</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p><strong>转化为期望形式</strong></p>
-<ul>
-<li>外层的 $ \sum<em>y \pi</em>\theta(y|x)(\cdots) $ 表示我们在按照 $ \pi_\theta(y|x) $ 的概率分布对后面的项进行加权平均</li>
-<li>括号里的项 $ \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} $ 就是要计算期望的对象</li>
-</ul>
-<p>因此，根据期望的定义 $ \sum P \cdot f = \mathbb{E}_P[f] $，可以直接写成：</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p><strong>为什么实践中要写成期望形式？</strong></p>
-<p>在深度学习和强化学习中，写成期望形式有重大的工程意义：</p>
-<p><strong>无法全量求和</strong>：<br>对于语言模型，可能的回答 $ y $ 的组合是天文数字（由词表大小和序列长度决定），我们根本无法遍历所有的 $ y $ 来计算那个 $ \sum $ 符号。</p>
-<p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $ \pi<em>\theta $ 生成（Sample）一批句子 $ y $,计算这些句子的 $ \log \pi</em>\theta(y|x) - \log \pi_{SFT}(y|x) $,取这些值的平均值，就是对 KL 散度的无偏估计</p>
-<p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $ \mathbb{E}<em>{y \sim \pi</em>\theta}[r(x,y)] $。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
-<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r(x,y) - \beta \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} \right] $</p>
-<p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
-<p><strong>为什么这个目标函数不可导？</strong></p>
-<p>语言模型是<strong>离散生成</strong>的：</p>
-<ul>
-<li>输出是 token 序列 $ y = (y_1, y_2, \ldots) $</li>
-<li>采样 / argmax 都是离散操作</li>
-</ul>
-<p>无法像普通监督学习那样，对 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 直接对 $ \theta $ 求梯度。</p>
-<p>👉 所以不能用反向传播直接优化奖励<br>👉 必须用强化学习（policy gradient）</p>
-<p>这就是为什么要用 REINFORCE / PPO。</p>
-<p><strong>KL 约束是怎么变成”奖励”的？</strong></p>
-<p><strong>关键一步是：把公式 (3) KL 项写成 log-prob 的形式</strong></p>
-<p>对离散策略：</p>
-<p>$ D<em>{\text{KL}}(\pi</em>\theta | \pi<em>{ref}) = \mathbb{E}</em>{y \sim \pi<em>\theta} \left[ \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right] $</p>
-<p><strong>代回目标函数</strong>：</p>
-<p>$ \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) \right] $</p>
-<p><strong>于是可以定义一个新的 reward</strong>：</p>
-<p>$ r(x, y) = r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
-<p>即论文中的：</p>
-<p>$ r(x, y) = r<em>\phi(x, y) - \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
-<p>（论文里通常把 $ \beta $ 省略或吸收到系数里）</p>
-<p><strong>转换后的简化目标函数</strong></p>
-<p>通过这个变换，原来的约束优化问题变成了无约束的奖励最大化问题：</p>
-<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{x \sim \mathcal{D}, y \sim \pi</em>\theta(y|x)} \left[ r(x, y) \right] $</p>
-<p>其中 $ r(x, y) $ 已经包含了 KL 惩罚项。</p>
-<hr>
-<h2 id="直接偏好优化（Direct-Preference-Optimization）"><a href="#直接偏好优化（Direct-Preference-Optimization）" class="headerlink" title="直接偏好优化（Direct Preference Optimization）"></a>直接偏好优化（Direct Preference Optimization）</h2>
+        <script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{阶段概览} \\
+&\text{RLHF（Reinforcement Learning from Human Feedback）包含三大流程：} \\
+&\text{监督微调（SFT）} \rightarrow \text{偏好采样与奖励建模} \rightarrow \text{强化学习优化（RL）。} \\
+&\text{直观理解：先学“怎么说话”，再学“什么话更好”，最后推动模型输出更优回答。}
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{阶段一：监督微调（SFT）} \\
+&\text{起点是对一个预训练语言模型执行监督微调，以人工高质量数据构建 } \pi_{SFT}。 \\
+&\text{数据形式：}(x, y) \text{，其中 } x \text{ 为 prompt，} y \text{ 为人工答案。} \\
+&\text{目标：掌握基本对话与任务能力，即“怎么说话”。}
+\end{aligned}</script><script type="math/tex; mode=display">\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{阶段二：奖励模型（Reward Modeling）} \\
+&\text{用 } \pi_{SFT} \text{ 对同一 prompt } x \text{ 采样两个回答 } y_1, y_2。 \\
+&\text{人类标注给出偏好： } y_w \succ y_l \mid x。 \\
+&y_w: \text{赢家（preferred）}, \quad y_l: \text{输家（rejected）。} \\
+&\text{假设存在潜在真实奖励 } r^*(x,y)，\text{偏好来自该奖励差异。}
+\end{aligned}</script><script type="math/tex; mode=display">y_1, y_2 \sim \pi_{SFT}(y|x)</script><script type="math/tex; mode=display">y_w \succ y_l \mid x</script><script type="math/tex; mode=display">p^*(y_1 > y_2 | x) = \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}</script><script type="math/tex; mode=display">D = \{(x^{(i)}, y_w^{(i)}, y_l^{(i)})\}_{i=1}^N</script><script type="math/tex; mode=display">\mathcal{L}_\text{R}(r_\phi, \mathcal{D}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{Bradley-Terry（BT）模型说明} \\
+&\text{每个对象 } i \text{ 具有潜在实力 } \lambda_i。 \\
+&\text{比较 } i \text{ 与 } j \text{ 时，战胜概率：}
+\end{aligned}</script><script type="math/tex; mode=display">P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{在 RLHF 场景中：} r(x,y) \text{ 视作实力值，偏好数据即比较结果。} \\
+&\text{用概率模型刻画人类噪声，而非硬性“分数更大者必胜”。}
+\end{aligned}</script><script type="math/tex; mode=display">y_1 \succ y_2 \iff r^*(x,y_1) > r^*(x,y_2)</script><script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}</script><script type="math/tex; mode=display">\sigma(z) = \frac{1}{1 + e^{-z}}</script><script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))</script><script type="math/tex; mode=display">\log p_\theta(y_w \succ y_l \mid x) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))</script><script type="math/tex; mode=display">\max_\theta \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{对数把连乘变为连加，不改变最优解（单调递增）。} \\
+&\text{因此常等价为最小化负对数似然：}
+\end{aligned}</script><script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{有限数据集 } D = \{z_1,\ldots,z_N\} \text{ 上，期望等于平均值：}
+\end{aligned}</script><script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{设 } f(x,y_w,y_l) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))，\text{则：}
+\end{aligned}</script><script type="math/tex; mode=display">
+\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{乘以正的常数不改变最优解：}
+\end{aligned}</script><script type="math/tex; mode=display">\arg\max_\theta \sum_{i=1}^N f_i = \arg\max_\theta \frac{1}{N} \sum_{i=1}^N f_i</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\max_\theta \mathbb{E}_D[\log \sigma(\cdots)] = \min_\theta -\mathbb{E}_D[\log \sigma(\cdots)] \\
+&\text{因此记作 } L_R = -\mathbb{E}_D[\log \sigma(\cdots)]，\text{配合梯度下降习惯“最小化损失”。}
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{阶段三：RL 微调} \\
+&\text{策略在奖励模型指导下继续优化，同时受 KL 约束保持与 } \pi_{SFT} \text{ 接近。}
+\end{aligned}</script><script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{初始条件：} \pi_\theta = \pi_{ref} = \pi_{SFT}。 \\
+&\text{目标：保持与参考策略接近的同时最大化奖励。} \\
+&\text{KL 惩罚确保模型不过度偏离原始能力。}
+\end{aligned}</script><script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta(y|x) \| \pi_{SFT}(y|x)] = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{若 } \pi_\theta = \pi_{SFT} \Rightarrow KL = 0；\text{偏离越大，KL 越大，故需惩罚。}
+\end{aligned}</script><script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)}</script><script type="math/tex; mode=display">\mathbb{E}_{Y \sim P}[f(Y)] = \sum_{y \in \mathcal{Y}} P(y) f(y)</script><script type="math/tex; mode=display">
+\begin{aligned}
+&P = \pi_\theta(y|x), \quad Q = \pi_{SFT}(y|x), \quad \mathcal{Y} = \text{所有可能回答序列}。 \\
+&\text{代入得：}
+\end{aligned}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{写成期望的原因：} \\
+&1. \text{语言模型输出空间巨大，无法直接求和。} \\
+&2. \text{期望形式便于用蒙特卡洛采样近似。} \\
+&3. \text{与原目标 } \mathbb{E}_{y \sim \pi_\theta}[r(x,y)] \text{ 形式一致，便于合并。}
+\end{aligned}</script><script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{离散生成导致目标不可直接对 } \theta \text{ 求导；需借助策略梯度（REINFORCE/PPO）。}
+\end{aligned}</script><script type="math/tex; mode=display">D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right]</script><script type="math/tex; mode=display">\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right]</script><script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right]</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\text{上式中的 } r(x,y) \text{ 已包含 KL 惩罚，因此目标转化为无约束奖励最大化。}
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\textbf{直接偏好优化（DPO）提要} \\
+&\text{DPO 直接对偏好数据开展优化，省略显式奖励模型，} \\
+&\text{其核心同样可被写成纯粹的 LaTeX 目标函数与对偶形式。}
+\end{aligned}</script>
       </div>
 
       <!-- 版权声明 -->
@@ -370,13 +317,13 @@
       <!-- 上一篇 / 下一篇导航 -->
       <nav class="post-nav">
         
-          <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="post-nav-item prev">
-            <span class="post-nav-label"><i class="fas fa-chevron-left"></i> 上一篇</span>
+          <span class="post-nav-item prev disabled"></span>
+        
+        
+          <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="post-nav-item next">
+            <span class="post-nav-label">下一篇 <i class="fas fa-chevron-right"></i></span>
             <span class="post-nav-title">力扣 88：合并两个有序数组</span>
           </a>
-        
-        
-          <span class="post-nav-item next disabled"></span>
         
       </nav>
 
@@ -387,13 +334,6 @@
     </article>
 
     <!-- 侧边栏目录（桌面端） -->
-    
-      <aside class="post-sidebar" id="post-sidebar">
-        <div class="sidebar-toc">
-          <h3><i class="fas fa-list"></i> 文章目录</h3>
-          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-1"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></div>
-        </div>
-      </aside>
     
   </div>
 </div>
