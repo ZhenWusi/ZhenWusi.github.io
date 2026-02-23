@@ -222,7 +222,7 @@
 <p><strong>监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）</strong></p>
 <p>简单可以理解为：先学”怎么说话”，再学”什么话更好”，最后逼模型多说”好话”</p>
 <h4 id="阶段一：SFT（Supervised-Fine-Tuning）"><a href="#阶段一：SFT（Supervised-Fine-Tuning）" class="headerlink" title="阶段一：SFT（Supervised Fine-Tuning）"></a>阶段一：SFT（Supervised Fine-Tuning）</h4><p>RLHF 通常从对一个预训练语言模型进行监督微调开始，使用高质量的人工数据（如对话、摘要等），得到一个模型 $ \pi_{SFT} $。</p>
-<p><strong>数据形式</strong>：$ (\text{prompt } x, \text{高质量回答 } y) $</p>
+<p><strong>数据形式</strong>：$ (\text{prompt} x, \text{高质量回答} y) $</p>
 <p><strong>损失函数</strong>：标准的监督学习损失函数</p>
 <script type="math/tex; mode=display">\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)</script><ul>
 <li>$ \pi_\theta $：策略模型的参数化形式</li>
@@ -268,8 +268,10 @@
 <p>对一个有限数据集 $ D = {z_1, …, z_N} $，如果你均匀随机从中抽一个样本，那么：</p>
 <script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>👉 期望 = 平均值</p>
 <p>令 $ f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l)) $ 那么：</p>
-<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $ \sum<em>{i=1}^N f_i $ 和 $ \frac{1}{N} \sum</em>{i=1}^N f<em>i $ 只差一个常数 $ \frac{1}{N} $。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：$$ \arg\max</em>\theta \sum<em>{i=1}^N f_i = \arg\max</em>\theta \frac{1}{N} \sum_{i=1}^N f_i $$</p>
-<p>原目标：$ \max_\theta \mathbb{E}_D [\log \sigma(\cdots)] $</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>因为 $ \sum<em>{i=1}^N f_i $ 和 $ \frac{1}{N} \sum</em>{i=1}^N f_i $ 只差一个常数 $ \frac{1}{N} $。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：</p>
+<script type="math/tex; mode=display">
+\arg\max_\theta \sum_{i=1}^N f_i = \arg\max_\theta \frac{1}{N} \sum_{i=1}^N f_i</script><p>原目标：$ \max_\theta \mathbb{E}_D [\log \sigma(\cdots)] $</p>
 <p>等价于：$ \min_\theta -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
 <p>于是定义：$ L_R = -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
 <p><strong>为什么机器学习里”总是最小化”？</strong></p>
@@ -1149,7 +1151,7 @@
             }
           }
         };
-        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
+        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
         if (userCfg.tex) {
           userCfg.tex = Object.assign({}, defaults.tex, userCfg.tex);
         }
