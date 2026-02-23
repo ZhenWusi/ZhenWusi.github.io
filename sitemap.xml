@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://zhenwusi.github.io/categories/index.html</loc>
+    <loc>https://zhenwusi.github.io/friends/index.html</loc>
     
     <lastmod>2026-02-21</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://zhenwusi.github.io/friends/index.html</loc>
+    <loc>https://zhenwusi.github.io/categories/index.html</loc>
     
     <lastmod>2026-02-21</lastmod>
     
@@ -65,13 +65,6 @@
 
   
   <url>
-    <loc>https://zhenwusi.github.io/tags/LLM/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhenwusi.github.io/tags/%E5%8A%9B%E6%89%A3/</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,6 +73,13 @@
   
   <url>
     <loc>https://zhenwusi.github.io/tags/%E6%95%B0%E7%BB%84/</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhenwusi.github.io/tags/LLM/</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
