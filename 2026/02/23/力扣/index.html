@@ -7,16 +7,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <!-- SEO meta 标签 -->
-  <title>九九的个人博客 | JiuJiu&#39;s Blog</title>
+  <title>力扣 88：合并两个有序数组 | 九九的个人博客 | JiuJiu&#39;s Blog</title>
   <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
-  <meta name="keywords" content="大语言模型,编程学习">
+  <meta name="keywords" content="力扣,数组">
   <meta name="author" content="ZhenWusi">
 
   <!-- Open Graph 社交分享 -->
-  <meta property="og:title" content="九九的个人博客 | JiuJiu&#39;s Blog">
+  <meta property="og:title" content="力扣 88：合并两个有序数组">
   <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://zhenwusi.github.io/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenwusi.github.io/2026/02/23/%E5%8A%9B%E6%89%A3/index.html">
   <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
   <meta property="og:image:alt" content="ZhenWusi的头像">
 
@@ -55,7 +55,7 @@
     <!-- 桌面端导航菜单 -->
     <nav class="site-nav" id="site-nav">
       
-        <a href="/" class="nav-link active">
+        <a href="/" class="nav-link">
           
             <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
           
@@ -170,149 +170,125 @@
 
   <!-- 页面主内容 -->
   <main class="main-content">
-    <!-- 首页布局 -->
-
-<!-- 首页 Hero 横幅区域 -->
+    <!-- 文章详情页布局 -->
 
 
-<section class="hero" id="hero-section">
-  
-    <!-- 视频背景 -->
-    <video autoplay muted loop id="hero-video">
-      <source src="/img/background/Glowing-Star-Girl-4096x2160.mp4" type="video/mp4">
-    </video>
-  
+
+<!-- 文章顶部横幅 -->
+<section class="post-banner" style="background-image: url('/img/background/')">
   <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <img src="/img/头像.jpg" alt="头像" class="hero-avatar">
-    <h1 class="hero-title">九九的个人博客</h1>
-    <p class="hero-subtitle">龙出海，虎下山，世间万事，风云变幻。</p>
-    <!-- 社交图标 -->
-    <div class="hero-social">
-      
-        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-      
-      
-        <a href="mailto:zhenwusi@example.com"><i class="fas fa-envelope"></i></a>
-      
-    </div>
-    <!-- 向下滚动箭头 -->
-    <a href="#posts-section" class="hero-scroll-down">
-      <i class="fas fa-chevron-down"></i>
-    </a>
-  </div>
-</section>
-
-<!-- 文章列表区域 -->
-<section class="posts-section" id="posts-section">
-  <div class="container">
-    <h2 class="section-title"><i class="fas fa-feather-alt"></i> 最新文章</h2>
-    <div class="posts-grid">
-      
-        
-
-<article class="post-card">
-  <!-- 文章封面图 -->
-  
-
-  <!-- 文章信息 -->
-  <div class="post-card-info">
-    <!-- 分类标签 -->
+  <div class="post-banner-content">
+    <!-- 分类 -->
     
-      <div class="post-card-meta-top">
+      <div class="post-banner-cats">
         
-          <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-card-category">
-            <i class="fas fa-folder"></i> 算法
-          </a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="fas fa-folder"></i> 算法</a>
         
       </div>
     
-
-    <!-- 文章标题 -->
-    <h2 class="post-card-title">
-      <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/">力扣 88：合并两个有序数组</a>
-    </h2>
-
-    <!-- 文章摘要 -->
-    <p class="post-card-excerpt">
-      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
-    </p>
-
-    <!-- 文章元信息 -->
-    <div class="post-card-meta">
-      <span class="meta-item">
-        <i class="far fa-calendar-alt"></i>
-        2026-02-23
-      </span>
+    <h1 class="post-banner-title">力扣 88：合并两个有序数组</h1>
+    <div class="post-banner-meta">
+      <span><i class="far fa-calendar-alt"></i> 2026-02-23</span>
+      <span><i class="far fa-clock"></i> 阅读约 357 字</span>
       
-        <span class="meta-item">
-          <i class="fas fa-tags"></i>
+        <span><i class="fas fa-tags"></i>
           
           力扣 / 数组
         </span>
       
     </div>
   </div>
-</article>
+</section>
 
+<!-- 文章主体 -->
+<div class="reading-progress"><span class="reading-progress__bar"></span></div>
+<div class="container post-container">
+  <div class="post-layout">
+    <!-- 文章内容区域 -->
+    <article class="post-content-wrap">
+      <!-- 目录（TOC） -->
       
-        
+        <div class="post-toc-mobile" id="toc-mobile">
+          <details>
+            <summary><i class="fas fa-list"></i> 文章目录</summary>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-text">复杂度分析</span></a></li></ol></div>
+          </details>
+        </div>
+      
 
-<article class="post-card">
-  <!-- 文章封面图 -->
-  
+      <!-- 正文 -->
+      <div class="post-body markdown-body" id="post-body">
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给定两个按非递减顺序排列的整数数组 <code>nums1</code> 和 <code>nums2</code>，分别有长度 <code>m</code>、<code>n</code>。请将 <code>nums2</code> <strong>原地</strong> 合并到 <code>nums1</code>，使结果仍保持非递减顺序。<code>nums1</code> 的总长度为 <code>m + n</code>，末尾的 <code>n</code> 个位置初始化为 <code>0</code> 作为缓冲区。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>与其先拼接再整体排序，不如利用“两数组已排序”这一特性，从尾部开始归并：</p>
+<ol>
+<li>设 <code>p1 = m - 1</code>、<code>p2 = n - 1</code> 分别指向两个数组的最后一个有效元素，<code>tail = m + n - 1</code> 指向合并后数组的尾部；</li>
+<li>每轮比较 <code>nums1[p1]</code> 和 <code>nums2[p2]</code>，把较大的放入 <code>nums1[tail]</code>，然后移动对应指针以及 <code>tail</code>；</li>
+<li>若 <code>nums2</code> 还有剩余元素（<code>p2 &gt;= 0</code>），继续写入；如果只剩 <code>nums1</code> 元素，无需处理，因为它们已经在正确位置。</li>
+</ol>
+<p>双指针从后往前填充可以避免移动大量元素，时间复杂度为 $\mathcal{O}(m+n)$，空间复杂度为 $\mathcal{O}(1)$。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], m: <span class="built_in">int</span>, nums2: <span class="type">List</span>[<span class="built_in">int</span>], n: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        p1 = m - <span class="number">1</span></span><br><span class="line">        p2 = n - <span class="number">1</span></span><br><span class="line">        tail = m + n - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> p2 &gt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> p1 &gt;= <span class="number">0</span> <span class="keyword">and</span> nums1[p1] &gt; nums2[p2]:</span><br><span class="line">                nums1[tail] = nums1[p1]</span><br><span class="line">                p1 -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                nums1[tail] = nums2[p2]</span><br><span class="line">                p2 -= <span class="number">1</span></span><br><span class="line">            tail -= <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><ul>
+<li><strong>时间复杂度</strong>：$\mathcal{O}(m+n)$，每个元素只移动一次；</li>
+<li><strong>空间复杂度</strong>：$\mathcal{O}(1)$，原地合并未使用额外数组。</li>
+</ul>
 
-  <!-- 文章信息 -->
-  <div class="post-card-info">
-    <!-- 分类标签 -->
-    
-      <div class="post-card-meta-top">
+      </div>
+
+      <!-- 版权声明 -->
+      
+        <div class="post-copyright">
+          <p><strong><i class="fas fa-copyright"></i> 版权声明</strong></p>
+          <p>本文作者：ZhenWusi</p>
+          <p>本文链接：<a href="https://zhenwusi.github.io/2026/02/23/%E5%8A%9B%E6%89%A3/">https://zhenwusi.github.io/2026/02/23/%E5%8A%9B%E6%89%A3/</a></p>
+          <p>除特别声明外，本站所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</p>
+        </div>
+      
+
+      <!-- 文章标签 -->
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8A%9B%E6%89%A3/" class="tag-item">
+              <i class="fas fa-hashtag"></i>力扣
+            </a>
+          
+            <a href="/tags/%E6%95%B0%E7%BB%84/" class="tag-item">
+              <i class="fas fa-hashtag"></i>数组
+            </a>
+          
+        </div>
+      
+
+      <!-- 上一篇 / 下一篇导航 -->
+      <nav class="post-nav">
         
-          <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-card-category">
-            <i class="fas fa-folder"></i> 算法
+          <span class="post-nav-item prev disabled"></span>
+        
+        
+          <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/" class="post-nav-item next">
+            <span class="post-nav-label">下一篇 <i class="fas fa-chevron-right"></i></span>
+            <span class="post-nav-title">RLHF 的三阶段流程</span>
           </a>
         
-      </div>
+      </nav>
+
+      <!-- 评论区 -->
+      <!-- 评论系统组件 -->
+
+
+    </article>
+
+    <!-- 侧边栏目录（桌面端） -->
     
-
-    <!-- 文章标题 -->
-    <h2 class="post-card-title">
-      <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">RLHF 的三阶段流程</a>
-    </h2>
-
-    <!-- 文章摘要 -->
-    <p class="post-card-excerpt">
-      基础知识RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
-监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
-简单可以理解为...
-    </p>
-
-    <!-- 文章元信息 -->
-    <div class="post-card-meta">
-      <span class="meta-item">
-        <i class="far fa-calendar-alt"></i>
-        2026-02-23
-      </span>
-      
-        <span class="meta-item">
-          <i class="fas fa-tags"></i>
-          
-          LLM
-        </span>
-      
-    </div>
+      <aside class="post-sidebar" id="post-sidebar">
+        <div class="sidebar-toc">
+          <h3><i class="fas fa-list"></i> 文章目录</h3>
+          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-text">复杂度分析</span></a></li></ol></div>
+        </div>
+      </aside>
+    
   </div>
-</article>
-
-      
-    </div>
-
-    <!-- 分页 -->
-    <!-- 分页组件 -->
-
-
-  </div>
-</section>
+</div>
 
   </main>
 

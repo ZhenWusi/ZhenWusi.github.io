@@ -292,5 +292,25 @@
       });
     });
 
+    /* ========================================
+     * 阅读进度条
+     * ======================================== */
+    var progressBar = document.querySelector('.reading-progress__bar');
+    var postBody = document.getElementById('post-body');
+    function updateProgress() {
+      if (!progressBar || !postBody) return;
+      var scrollTop = window.scrollY;
+      var rect = postBody.getBoundingClientRect();
+      var offsetTop = rect.top + scrollTop;
+      var height = postBody.offsetHeight;
+      var percent = 0;
+      if (scrollTop > offsetTop) {
+        percent = Math.min(1, (scrollTop - offsetTop) / (height - window.innerHeight + 120));
+      }
+      progressBar.style.width = (percent * 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
   }); // DOMContentLoaded 结束
 })();

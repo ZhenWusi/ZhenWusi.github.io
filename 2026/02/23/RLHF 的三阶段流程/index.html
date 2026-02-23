@@ -7,16 +7,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <!-- SEO meta 标签 -->
-  <title>RLHF | 九九的个人博客 | JiuJiu&#39;s Blog</title>
-  <meta name="description" content="娣卞叆鐞嗚В RLHF锛圧einforcement Learning from Human Feedback锛夌殑涓変釜鏍稿績闃舵">
+  <title>RLHF 的三阶段流程 | 九九的个人博客 | JiuJiu&#39;s Blog</title>
+  <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta name="keywords" content="LLM">
   <meta name="author" content="ZhenWusi">
 
   <!-- Open Graph 社交分享 -->
-  <meta property="og:title" content="RLHF">
-  <meta property="og:description" content="娣卞叆鐞嗚В RLHF锛圧einforcement Learning from Human Feedback锛夌殑涓変釜鏍稿績闃舵">
+  <meta property="og:title" content="RLHF 的三阶段流程">
+  <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/index.html">
+  <meta property="og:url" content="https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/index.html">
   <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
   <meta property="og:image:alt" content="ZhenWusi的头像">
 
@@ -182,14 +182,14 @@
     
       <div class="post-banner-cats">
         
-          <a href="/categories/%E7%BB%A0%E6%A5%81%E7%A1%B6/"><i class="fas fa-folder"></i> 绠楁硶</a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="fas fa-folder"></i> 算法</a>
         
       </div>
     
-    <h1 class="post-banner-title">RLHF</h1>
+    <h1 class="post-banner-title">RLHF 的三阶段流程</h1>
     <div class="post-banner-meta">
-      <span><i class="far fa-calendar-alt"></i> 2026-02-12</span>
-      <span><i class="far fa-clock"></i> 阅读约 3k 字</span>
+      <span><i class="far fa-calendar-alt"></i> 2026-02-23</span>
+      <span><i class="far fa-clock"></i> 阅读约 2.3k 字</span>
       
         <span><i class="fas fa-tags"></i>
           
@@ -201,6 +201,7 @@
 </section>
 
 <!-- 文章主体 -->
+<div class="reading-progress"><span class="reading-progress__bar"></span></div>
 <div class="container post-container">
   <div class="post-layout">
     <!-- 文章内容区域 -->
@@ -210,131 +211,159 @@
         <div class="post-toc-mobile" id="toc-mobile">
           <details>
             <summary><i class="fas fa-list"></i> 文章目录</summary>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%8D%A9%E8%99%B9%EE%94%85%E9%90%AD%E3%83%A8%E7%98%91"><span class="toc-text">鍩虹鐭ヨ瘑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%80%9B%EF%B8%BF%E7%AF%84"><span class="toc-text">RLHF 瀛︿範</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E2%82%AC%E9%94%9B%E6%AD%8BFT%E9%94%9B%E5%9C%ABupervised-Fine-Tuning%E9%94%9B"><span class="toc-text">闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B5%9C%E5%B2%8B%E7%B4%B0%E6%BF%82%E6%A0%A7%E5%A7%B3%E5%A6%AF%E2%80%B3%E7%80%B7%E9%94%9B%E5%9C%A7eward-Modeling%E9%94%9B"><span class="toc-text">闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E5%A4%9B%E7%B4%B0RL-%E5%AF%B0%EE%86%BF%E7%9A%9F"><span class="toc-text">闃舵涓夛細RL 寰皟</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4-1"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-1"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></div>
           </details>
         </div>
       
 
       <!-- 正文 -->
-      <div class="post-body markdown-body">
-        <h2 id="鍩虹鐭ヨ瘑"><a href="#鍩虹鐭ヨ瘑" class="headerlink" title="鍩虹鐭ヨ瘑"></a>鍩虹鐭ヨ瘑</h2><h3 id="RLHF-瀛︿範"><a href="#RLHF-瀛︿範" class="headerlink" title="RLHF 瀛︿範"></a>RLHF 瀛︿範</h3><p>RLHF锛圧einforcement Learning from Human Feedback锛夐€氬父鍖呭惈涓変釜涓昏闃舵锛?</p>
-<p><em>*鐩戠潱寰皟锛圫FT锛夆啋 鍋忓ソ閲囨牱 + 濂栧姳妯″瀷瀛︿範 鈫?寮哄寲瀛︿範浼樺寲锛圧L锛?</em></p>
-<p>绠€鍗曞彲浠ョ悊瑙ｄ负锛氬厛瀛?鎬庝箞璇磋瘽”锛屽啀瀛?浠€涔堣瘽鏇村ソ”锛屾渶鍚庨€兼ā鍨嬪璇?濂借瘽”</p>
-<h4 id="闃舵涓€锛歋FT锛圫upervised-Fine-Tuning锛"><a href="#闃舵涓€锛歋FT锛圫upervised-Fine-Tuning锛" class="headerlink" title="闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?"></a>闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</h4><p>RLHF 閫氬父浠庡涓€涓璁粌璇█妯″瀷杩涜鐩戠潱寰皟寮€濮嬶紝浣跨敤楂樿川閲忕殑浜哄伐鏁版嵁锛堝瀵硅瘽銆佹憳瑕佺瓑锛夛紝寰楀埌涓€涓ā鍨?$\pi_{SFT}$銆?</p>
-<p><strong>鏁版嵁褰㈠紡</strong>锛?(\text{prompt } x, \text{楂樿川閲忓洖绛?} y)$</p>
-<p><strong>鎹熷け鍑芥暟</strong>锛氭爣鍑嗙殑鐩戠潱瀛︿範鎹熷け鍑芥暟</p>
-<script type="math/tex; mode=display">\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)</script><ul>
-<li>$\pi_\theta$锛氱瓥鐣ユā鍨嬬殑鍙傛暟鍖栧舰寮?</li>
-<li>$D$锛氱洃鐫ｅ井璋冩暟鎹泦</li>
-<li>$x$锛氳緭鍏ユ彁绀?</li>
-<li>$y$锛氱洰鏍囧洖绛?</li>
-</ul>
-<p><strong>鐩爣</strong>锛氳妯″瀷瀛︿細鍩烘湰鐨勫璇濊兘鍔涘拰浠诲姟瀹屾垚鑳藉姏锛屽嵆”鎬庝箞璇磋瘽”</p>
-<h4 id="闃舵浜岋細濂栧姳妯″瀷锛圧eward-Modeling锛"><a href="#闃舵浜岋細濂栧姳妯″瀷锛圧eward-Modeling锛" class="headerlink" title="闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?"></a>闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</h4><p>浣跨敤 SFT 妯″瀷锛屽鍚屼竴涓?prompt $x$ 閲囨牱涓や釜鍥炵瓟锛?</p>
-<script type="math/tex; mode=display">y_1, y_2 \sim \pi_{SFT}(y|x)</script><p>浜ょ粰浜虹被鏍囨敞鑰咃紝璁╀粬浠€夋洿濂界殑涓€涓細</p>
-<script type="math/tex; mode=display">y_w \succ y_l \mid x</script><ul>
-<li>$y_w$锛歸inner,preferred锛堣耽瀹讹級</li>
-<li>$y_l$锛歭oser,rejected锛堣緭瀹讹級</li>
-</ul>
-<p><strong>娼滃湪濂栧姳鍑芥暟鍋囪</strong>锛氬亣璁句汉绫诲亸濂芥槸鐢变竴涓湭鐭ョ殑鐪熷疄濂栧姳鍑芥暟 $r^*(x,y)$ 鐢熸垚鐨勩€傛垜浠苟涓嶇煡閬撳畠锛屼絾鍋囪瀹冨瓨鍦ㄣ€?</p>
-<p><strong>鍋忓ソ妯″瀷</strong>锛?</p>
-<script type="math/tex; mode=display">p^*(y_1 > y_2 | x) = \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}</script><p><em>*鏁版嵁闆嗗舰寮?</em>锛?</p>
-<script type="math/tex; mode=display">D = \{(x^{(i)}, y_w^{(i)}, y_l^{(i)})\}_{i=1}^N</script><p><strong>鎹熷け鍑芥暟</strong>锛?</p>
-<script type="math/tex; mode=display">\mathcal{L}_\text{R}(r_\phi, \mathcal{D}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}</script><hr>
-<h5 id="琛ュ厖瑙i噴"><a href="#琛ュ厖瑙i噴" class="headerlink" title="琛ュ厖瑙ｉ噴"></a>琛ュ厖瑙ｉ噴</h5><p>BT 妯″瀷锛?</p>
-<p>Bradley-Terry 妯″瀷鏄竴涓敤浜?<em>鎴愬姣旇緝*</em>鐨勬鐜囨ā鍨?</p>
-<p><strong>鏍稿績鎬濇兂</strong>锛?</p>
+      <div class="post-body markdown-body" id="post-body">
+        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="RLHF-的三阶段流程"><a href="#RLHF-的三阶段流程" class="headerlink" title="RLHF 的三阶段流程"></a>RLHF 的三阶段流程</h3><p>RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：</p>
+<p><strong>监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）</strong></p>
+<p>简单可以理解为：先学”怎么说话”，再学”什么话更好”，最后逼模型多说”好话”</p>
+<h4 id="阶段一：SFT（Supervised-Fine-Tuning）"><a href="#阶段一：SFT（Supervised-Fine-Tuning）" class="headerlink" title="阶段一：SFT（Supervised Fine-Tuning）"></a>阶段一：SFT（Supervised Fine-Tuning）</h4><p>RLHF 通常从对一个预训练语言模型进行监督微调开始，使用高质量的人工数据（如对话、摘要等），得到一个模型 $ \pi_{SFT} $。</p>
+<p><strong>数据形式</strong>：$ (\text{prompt } x, \text{高质量回答 } y) $</p>
+<p><strong>损失函数</strong>：标准的监督学习损失函数</p>
+<p>$ \max<em>{\theta} \sum</em>{(x,y) \in D} \log \pi_\theta(y|x) $</p>
 <ul>
-<li>姣忎釜瀵硅薄 $i$ 鏈変竴涓殣钘忕殑”瀹炲姏鍊?鍙傛暟 $\lambda_i$</li>
-<li>褰撲袱涓璞?$i$ 鍜?$j$ 姣旇緝鏃讹紝$i$ 鎴樿儨 $j$ 鐨勬鐜囦负锛?</li>
+<li>$ \pi_\theta $：策略模型的参数化形式</li>
+<li>$ D $：监督微调数据集</li>
+<li>$ x $：输入提示</li>
+<li>$ y $：目标回答</li>
 </ul>
-<script type="math/tex; mode=display">P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}</script><p><strong>鍦?DPO 涓殑搴旂敤</strong>锛?</p>
+<p><strong>目标</strong>：让模型学会基本的对话能力和任务完成能力，即”怎么说话”</p>
+<h4 id="阶段二：奖励模型（Reward-Modeling）"><a href="#阶段二：奖励模型（Reward-Modeling）" class="headerlink" title="阶段二：奖励模型（Reward Modeling）"></a>阶段二：奖励模型（Reward Modeling）</h4><p>使用 SFT 模型，对同一个 prompt $ x $ 采样两个回答：</p>
+<p>$ y<em>1, y_2 \sim \pi</em>{SFT}(y|x) $</p>
+<p>交给人类标注者，让他们选更好的一个：</p>
+<p>$ y_w \succ y_l \mid x $</p>
 <ul>
-<li>灏嗗鍔卞嚱鏁?$r(x,y)$ 鐪嬩綔”瀹炲姏鍊?</li>
-<li>浜虹被鍋忓ソ $ y_w \succ y_l $ 灏辨槸”姣旇緝缁撴灉”</li>
-<li>閫氳繃 BT 妯″瀷寤虹珛濂栧姳涓庡亸濂界殑妗ユ</li>
+<li>$ y_w $：winner,preferred（赢家）</li>
+<li>$ y_l $：loser,rejected（输家）</li>
 </ul>
-<p>涓轰粈涔堜笉鐢ㄣ€岃皝鍒嗘暟澶у氨閫夎皝銆嶏紵</p>
-<p>濡傛灉鐩存帴瑙勫畾锛?$y_1 \succ y_2 \iff r^<em>(x,y_1) &gt; r^</em>(x,y_2)$$<br>閭ｉ棶棰樻槸锛氫汉绫诲垽鏂湁鍣０锛屽悓涓€涓汉銆佸悓涓€涓棶棰橈紝涓嶄竴瀹氭瘡娆￠€夊悓鏍风殑銆傛墍浠ユ垜浠笉寤烘ā鎴愮‘瀹氭€ц鍒欙紝鑰屾槸锛氭鐜囨ā鍨?</p>
-<p>鎶婂叕寮?(1) 鏀瑰啓涓€涓嬶細</p>
-<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}</script><p>杩欏氨鏄啛鎮夌殑 Sigmoid 鍑芥暟锛?</p>
-<script type="math/tex; mode=display">\sigma(z) = \frac{1}{1 + e^{-z}}</script><p>浜庢槸锛?</p>
-<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))</script><p>鍥犱负鐪熷疄鏁版嵁閲屼汉纭疄閫夋嫨浜?$ y_w $锛屾墍浠ヨ浜嬩欢鐨勬鐜囨槸涓婂紡锛屽鏁颁技鐒舵槸锛?</p>
-<script type="math/tex; mode=display">\log p_\theta(y_w \succ y_l \mid x) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))</script><p>鏈€澶у寲鎵€鏈夋牱鏈殑瀵规暟浼肩劧锛?</p>
-<script type="math/tex; mode=display">\max_\theta \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>鎰忔€濇槸锛氬姣忎竴鏉℃暟鎹紝閮界畻涓€娆?妯″瀷璁や负浜虹被浼氶€夎耽瀹剁殑姒傜巼鐨勫鏁?锛岀劧鍚庢妸瀹冧滑鍔犺捣鏉ワ紝璁╄繖涓€诲拰灏藉彲鑳藉ぇ銆傚鏁版妸鈥滆繛涔樷€濆彉鎴愨€滆繛鍔犫€?鏈€浼樿В涓嶅彉(瀵规暟鏄崟璋冮€掑鍑芥暟)</p>
-<p>绛変环鍦帮紝鏈€灏忓寲璐熷鏁颁技鐒讹紙Likelihood锛夛細</p>
-<script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><p>杩欐鏄叕寮?(2)銆傛剰鎬濇槸锛氬鏁版嵁闆嗛噷鐨勬牱鏈彇骞冲潎锛岀劧鍚庡”瀵规暟姒傜巼”鍙栬礋鍙凤紝璁╄繖涓€煎敖鍙兘灏忋€?</p>
-<p>瀵逛竴涓湁闄愭暟鎹泦 $D = {z_1, …, z_N}$锛屽鏋滀綘鍧囧寑闅忔満浠庝腑鎶戒竴涓牱鏈紝閭ｄ箞锛?</p>
-<script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>馃憠 鏈熸湜 = 骞冲潎鍊?</p>
-<p>浠?$f(x,y_w,y_l) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$ 閭ｄ箞锛?</p>
-<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>鍥犱负 $\sum_{i=1}^N f_i$ 鍜?$\frac{1}{N} \sum_{i=1}^N f_i$ 鍙樊涓€涓父鏁?$\frac{1}{N}$銆傝€屽湪浼樺寲涓細涔樹互涓€涓鐨勫父鏁帮紝涓嶄細鏀瑰彉鏈€浼樿В鐨勪綅缃€備篃灏辨槸璇达細<script type="math/tex">\arg\max\_\theta \sum\_{i=1}^N f\_i = \arg\max\_\theta \frac{1}{N} \sum\_{i=1}^N f\_i</script></p>
-<p>鍘熺洰鏍囷細<script type="math/tex">\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]</script></p>
-<p>绛変环浜庯細<script type="math/tex">\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
-<p>浜庢槸瀹氫箟锛?$L_R = -\mathbb{E}_D [\log \sigma(\cdots)]$$</p>
-<p><em>*涓轰粈涔堟満鍣ㄥ涔犻噷”鎬绘槸鏈€灏忓寲”锛?</em></p>
-<p>鍥犱负姊害涓嬮檷锛圙radient Descent锛夐粯璁ゆ槸 minimize loss锛屾墍浠ュぇ瀹朵範鎯細鎶?鎯虫渶澶у寲鐨勭洰鏍?锛屽啓鎴?瑕佹渶灏忓寲鐨勬崯澶?銆?</p>
+<p><strong>潜在奖励函数假设</strong>：假设人类偏好是由一个未知的真实奖励函数 $ r^*(x,y) $ 生成的。我们并不知道它，但假设它存在。</p>
+<p><strong>偏好模型</strong>：</p>
+<p>$ p^<em>(y_1 &gt; y_2 | x) = \frac{\exp(r^</em>(x, y_1))}{\exp(r^<em>(x, y_1)) + \exp(r^</em>(x, y_2))} \tag{1} $</p>
+<p><strong>数据集形式</strong>：</p>
+<p>$ D = {(x^{(i)}, y<em>w^{(i)}, y_l^{(i)})}</em>{i=1}^N $</p>
+<p><strong>损失函数</strong>：</p>
+<p>$ \mathcal{L}<em>\text{R}(r</em>\phi, \mathcal{D}) = -\mathbb{E}<em>{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r</em>\phi(x, y<em>w) - r</em>\phi(x, y_l)) \right] \tag{2} $</p>
 <hr>
-<h4 id="闃舵涓夛細RL-寰皟"><a href="#闃舵涓夛細RL-寰皟" class="headerlink" title="闃舵涓夛細RL 寰皟"></a>闃舵涓夛細RL 寰皟</h4><p><strong>RL 鐩爣鍑芥暟锛堟牳蹇冿級</strong>锛?</p>
-<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><hr>
-<h5 id="琛ュ厖瑙i噴-1"><a href="#琛ュ厖瑙i噴-1" class="headerlink" title="琛ュ厖瑙ｉ噴"></a>琛ュ厖瑙ｉ噴</h5><p>涓€鍙ヨ瘽瑙ｉ噴锛氿煈?璁╂ā鍨嬬敓鎴?濂栧姳楂樼殑鍥炵瓟 馃憠 浣嗕笉鑳藉亸绂诲師濮?SFT 妯″瀷澶繙</p>
-<p>$\pi_{ref}$锛堝嵆鍒濆 SFT 妯″瀷 $\pi_{SFT}$锛夊疄璺典腑锛岃瑷€妯″瀷绛栫暐 $\pi_\theta$ 涔熻鍒濆鍖栦负 $\pi_{SFT}$銆?</p>
+<h5 id="补充解释"><a href="#补充解释" class="headerlink" title="补充解释"></a>补充解释</h5><p>BT 模型：</p>
+<p>Bradley-Terry 模型是一个用于<strong>成对比较</strong>的概率模型</p>
+<p><strong>核心思想</strong>：</p>
 <ul>
-<li><em>*鍒濆鐘舵€?</em>锛?\pi_\theta = \pi_{ref} = \pi_{SFT}$</li>
-<li><strong>璁粌鐩爣</strong>锛氬湪淇濇寔涓庡師濮?SFT 妯″瀷鎺ヨ繎鐨勫墠鎻愪笅锛屼紭鍖栧鍔?</li>
-<li><strong>KL 绾︽潫浣滅敤</strong>锛氱‘淇濇ā鍨嬩笉浼氬亸绂诲垵濮嬭兘鍔涘お杩?</li>
+<li>每个对象 $ i $ 有一个隐藏的”实力值”参数 $ \lambda_i $</li>
+<li>当两个对象 $ i $ 和 $ j $ 比较时，$ i $ 战胜 $ j $ 的概率为：</li>
 </ul>
-<p><em>*KL 绾︽潫锛?</em></p>
-<p>KL 鏁ｅ害锛圞ullback-Leibler 鏁ｅ害锛夎　閲忎袱涓鐜囧垎甯冧箣闂寸殑宸紓锛?</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta(y|x) \| \pi_{SFT}(y|x)] = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>杩欒〃绀猴細</p>
+<p>$ P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j} $</p>
+<p><strong>在 DPO 中的应用</strong>：</p>
 <ul>
-<li>濡傛灉 $\pi_\theta$ 鍜?$\pi_{SFT}$ 鐩稿悓锛欿L = 0</li>
-<li>濡傛灉 $\pi_\theta$ 鍋忕 $\pi_{SFT}$锛欿L &gt; 0</li>
-<li>鐩爣鍑芥暟涓殑 $-\beta KL$ 鎯╃綒鍋忕琛屼负</li>
+<li>将奖励函数 $ r(x,y) $ 看作”实力值”</li>
+<li>人类偏好 $ y_w \succ y_l $ 就是”比较结果”</li>
+<li>通过 BT 模型建立奖励与偏好的桥梁</li>
 </ul>
-<p><strong>KL 鏁ｅ害鎺ㄥ杩囩▼璇﹁В</strong></p>
-<p><em>*KL 鏁ｅ害鐨勯€氱敤瀹氫箟锛堢鏁ｅ瀷锛?</em>锛?</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)}</script><p><em>*鏈熸湜鐨勫畾涔?</em>锛?<br>瀵逛簬闅忔満鍙橀噺 $Y \sim P$锛屽嚱鏁?$f(Y)$ 鐨勬湡鏈涘畾涔変负锛?</p>
-<script type="math/tex; mode=display">\mathbb{E}_{Y \sim P}[f(Y)] = \sum_{y \in \mathcal{Y}} P(y) f(y)</script><p><strong>杩涜鍙橀噺鏄犲皠</strong></p>
-<p>鍦?RLHF 鐨勮澧冧笅锛屾垜浠璁＄畻鐨勬槸涓や釜妯″瀷绛栫暐锛堟鐜囧垎甯冿級涔嬮棿鐨勫樊寮傦細</p>
-<ul>
-<li>$P$<strong> (褰撳墠鍒嗗竷)</strong>锛?\pi_\theta(y|x)$ 鈥斺€?妯″瀷褰撳墠姝ｅ湪瀛︿範鐨勭瓥鐣?</li>
-<li>$Q$<strong> (鍙傝€冨垎甯?</strong>锛?\pi_{SFT}(y|x)$ 鈥斺€?鍘熷鐨?SFT 绛栫暐</li>
-<li><strong>鏍锋湰绌洪棿</strong>锛?y$锛堟ā鍨嬬敓鎴愮殑鎵€鏈夊彲鑳界殑鍥炵瓟搴忓垪锛?</li>
-</ul>
-<p>灏嗚繖浜涗唬鍏ラ€氱敤鍏紡锛?</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p><em>*杞寲涓烘湡鏈涘舰寮?</em></p>
-<ul>
-<li>澶栧眰鐨?$\sum_y \pi_\theta(y|x)(\cdots)$ 琛ㄧず鎴戜滑鍦ㄦ寜鐓?$\pi_\theta(y|x)$ 鐨勬鐜囧垎甯冨鍚庨潰鐨勯」杩涜鍔犳潈骞冲潎</li>
-<li>鎷彿閲岀殑椤?$\log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}$ 灏辨槸瑕佽绠楁湡鏈涚殑瀵硅薄</li>
-</ul>
-<p>鍥犳锛屾牴鎹湡鏈涚殑瀹氫箟 $ \sum P \cdot f = \mathbb{E}_P[f] $锛屽彲浠ョ洿鎺ュ啓鎴愶細</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p><strong>涓轰粈涔堝疄璺典腑瑕佸啓鎴愭湡鏈涘舰寮忥紵</strong></p>
-<p>鍦ㄦ繁搴﹀涔犲拰寮哄寲瀛︿範涓紝鍐欐垚鏈熸湜褰㈠紡鏈夐噸澶х殑宸ョ▼鎰忎箟锛?</p>
-<p><strong>鏃犳硶鍏ㄩ噺姹傚拰</strong>锛?<br>瀵逛簬璇█妯″瀷锛屽彲鑳界殑鍥炵瓟 $y$ 鐨勭粍鍚堟槸澶╂枃鏁板瓧锛堢敱璇嶈〃澶у皬鍜屽簭鍒楅暱搴﹀喅瀹氾級锛屾垜浠牴鏈棤娉曢亶鍘嗘墍鏈夌殑 $y$ 鏉ヨ绠楅偅涓?$\sum$ 绗﹀彿銆?</p>
-<p><em>*钂欑壒鍗℃礇閲囨牱锛圡onte Carlo Sampling锛?</em>锛?<br>鏈熸湜褰㈠紡鍛婅瘔鎴戜滑锛岃櫧鐒朵笉鑳介亶鍘嗘墍鏈夌粨鏋滐紝浣嗗彲浠ラ€氳繃閲囨牱鏉ヨ繎浼硷細璁╂ā鍨?$\pi_\theta$ 鐢熸垚锛圫ample锛変竴鎵瑰彞瀛?$y$,璁＄畻杩欎簺鍙ュ瓙鐨?$\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)$,鍙栬繖浜涘€肩殑骞冲潎鍊硷紝灏辨槸瀵?KL 鏁ｅ害鐨勬棤鍋忎及璁?</p>
-<p><strong>瀵归綈鐩爣鍑芥暟</strong>锛?<br>RL 鐨勭洰鏍囧嚱鏁版湰韬氨鏄渶澶у寲鏈熸湜濂栧姳 $\mathbb{E}_{y \sim \pi_\theta}[r(x,y)]$銆傚皢 KL 绾︽潫涔熷啓鎴愭湡鏈涘舰寮忥紝灏卞彲浠ュ悎骞跺埌涓€涓ぇ鎷彿閲岋細</p>
-<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>杩欐牱锛屾ā鍨嬪湪姣忎竴杞缁冮噰鏍锋椂锛屽氨鍙互鍚屾椂浼樺寲濂栧姳骞惰绠?KL 鎯╃綒銆?</p>
-<p><em>*涓轰粈涔堣繖涓洰鏍囧嚱鏁颁笉鍙锛?</em></p>
-<p>璇█妯″瀷鏄?<em>绂绘暎鐢熸垚*</em>鐨勶細</p>
-<ul>
-<li>杈撳嚭鏄?token 搴忓垪 $y = (y_1, y_2, \ldots)$</li>
-<li>閲囨牱 / argmax 閮芥槸绂绘暎鎿嶄綔</li>
-</ul>
-<p>鏃犳硶鍍忔櫘閫氱洃鐫ｅ涔犻偅鏍凤紝瀵?$\mathbb{E}_{y \sim \pi_\theta(y|x)}[r(x,y)]$ 鐩存帴瀵?$\theta$ 姹傛搴︺€?</p>
-<p>馃憠 鎵€浠ヤ笉鑳界敤鍙嶅悜浼犳挱鐩存帴浼樺寲濂栧姳<br>馃憠 蹇呴』鐢ㄥ己鍖栧涔狅紙policy gradient锛?</p>
-<p>杩欏氨鏄负浠€涔堣鐢?REINFORCE / PPO銆?</p>
-<p><strong>KL 绾︽潫鏄€庝箞鍙樻垚”濂栧姳”鐨勶紵</strong></p>
-<p><em>*鍏抽敭涓€姝ユ槸锛氭妸鍏紡 (3) KL 椤瑰啓鎴?log-prob 鐨勫舰寮?</em></p>
-<p>瀵圭鏁ｇ瓥鐣ワ細</p>
-<script type="math/tex; mode=display">D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right]</script><p><strong>浠ｅ洖鐩爣鍑芥暟</strong>锛?</p>
-<script type="math/tex; mode=display">\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right]</script><p><strong>浜庢槸鍙互瀹氫箟涓€涓柊鐨?reward</strong>锛?</p>
-<script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><p>鍗宠鏂囦腑鐨勶細</p>
-<script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><p>锛堣鏂囬噷閫氬父鎶?$\beta$ 鐪佺暐鎴栧惛鏀跺埌绯绘暟閲岋級</p>
-<p><em>*杞崲鍚庣殑绠€鍖栫洰鏍囧嚱鏁?</em></p>
-<p>閫氳繃杩欎釜鍙樻崲锛屽師鏉ョ殑绾︽潫浼樺寲闂鍙樻垚浜嗘棤绾︽潫鐨勫鍔辨渶澶у寲闂锛?</p>
-<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right]</script><p>鍏朵腑 $r(x, y)$ 宸茬粡鍖呭惈浜?KL 鎯╃綒椤广€?</p>
+<p>为什么不用「谁分数大就选谁」？</p>
+<p>如果直接规定：<script type="math/tex">y_1 \succ y_2 \iff r^*(x,y_1) > r^*(x,y_2)</script><br>那问题是：人类判断有噪声，同一个人、同一个问题，不一定每次选同样的。所以我们不建模成确定性规则，而是：概率模型</p>
+<p>把公式 (1) 改写一下：</p>
+<p>$ p^<em>(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^</em>(x,y_1) - r^*(x,y_2))}} $</p>
+<p>这就是熟悉的 Sigmoid 函数：</p>
+<p>$ \sigma(z) = \frac{1}{1 + e^{-z}} $</p>
+<p>于是：</p>
+<p>$ p^<em>(y_1 \succ y_2 \mid x) = \sigma(r^</em>(x,y_1) - r^*(x,y_2)) $</p>
+<p>因为真实数据里人确实选择了 $ y_w $，所以该事件的概率是上式，对数似然是：</p>
+<p>$ \log p<em>\theta(y_w \succ y_l \mid x) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l)) $</p>
+<p>最大化所有样本的对数似然：</p>
+<p>$ \max<em>\theta \sum</em>{i=1}^N \log \sigma(r<em>\theta(x^{(i)}, y_w^{(i)}) - r</em>\theta(x^{(i)}, y_l^{(i)})) $</p>
+<p>意思是：对每一条数据，都算一次”模型认为人类会选赢家的概率的对数”，然后把它们加起来，让这个总和尽可能大。对数把“连乘”变成“连加”,最优解不变(对数是单调递增函数)</p>
+<p>等价地，最小化负对数似然（Likelihood）：</p>
+<p>$ L<em>R = -\mathbb{E}</em>{(x,y<em>w,y_l) \sim D} [\log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l))] $</p>
+<p>这正是公式 (2)。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
+<p>对一个有限数据集 $ D = {z_1, …, z_N} $，如果你均匀随机从中抽一个样本，那么：</p>
+<p>$ \mathbb{E}<em>{z \sim D} [f(z)] = \frac{1}{N} \sum</em>{i=1}^N f(z_i) $</p>
+<p>👉 期望 = 平均值</p>
+<p>令 $ f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l)) $ 那么：</p>
+<p>$ \mathbb{E}<em>{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum</em>{i=1}^N \log \sigma(r<em>\theta(x^{(i)}, y_w^{(i)}) - r</em>\theta(x^{(i)}, y_l^{(i)})) $</p>
+<p>因为 $ \sum<em>{i=1}^N f_i $ 和 $ \frac{1}{N} \sum</em>{i=1}^N f<em>i $ 只差一个常数 $ \frac{1}{N} $。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：$$ \arg\max</em>\theta \sum<em>{i=1}^N f_i = \arg\max</em>\theta \frac{1}{N} \sum_{i=1}^N f_i $$</p>
+<p>原目标：$ \max_\theta \mathbb{E}_D [\log \sigma(\cdots)] $</p>
+<p>等价于：$ \min_\theta -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
+<p>于是定义：$ L_R = -\mathbb{E}_D [\log \sigma(\cdots)] $</p>
+<p><strong>为什么机器学习里”总是最小化”？</strong></p>
+<p>因为梯度下降（Gradient Descent）默认是 minimize loss，所以大家习惯：把”想最大化的目标”，写成”要最小化的损失”。</p>
 <hr>
-
+<h4 id="阶段三：RL-微调"><a href="#阶段三：RL-微调" class="headerlink" title="阶段三：RL 微调"></a>阶段三：RL 微调</h4><p><strong>RL 目标函数（核心）</strong>：</p>
+<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{x \sim \mathcal{D}, y \sim \pi</em>\theta(y|x)} \left[ r<em>\phi(x, y) - \beta D</em>{\text{KL}} \left[ \pi<em>\theta(y|x) \middle| \pi</em>{\text{ref}}(y|x) \right] \right] \tag{3} $</p>
+<hr>
+<h5 id="补充解释-1"><a href="#补充解释-1" class="headerlink" title="补充解释"></a>补充解释</h5><p>一句话解释：👉 让模型生成 奖励高的回答 👉 但不能偏离原始 SFT 模型太远</p>
+<p>$ \pi<em>{ref} $（即初始 SFT 模型 $ \pi</em>{SFT} $）实践中，语言模型策略 $ \pi<em>\theta $ 也被初始化为 $ \pi</em>{SFT} $。</p>
+<ul>
+<li><strong>初始状态</strong>：$ \pi<em>\theta = \pi</em>{ref} = \pi_{SFT} $</li>
+<li><strong>训练目标</strong>：在保持与原始 SFT 模型接近的前提下，优化奖励</li>
+<li><strong>KL 约束作用</strong>：确保模型不会偏离初始能力太远</li>
+</ul>
+<p><strong>KL 约束：</strong></p>
+<p>KL 散度（Kullback-Leibler 散度）衡量两个概率分布之间的差异：</p>
+<p>$ D_{\text{KL}}[P | Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)} $</p>
+<p>$ D<em>{\text{KL}}[\pi</em>\theta(y|x) | \pi<em>{SFT}(y|x)] = \mathbb{E}</em>{y \sim \pi<em>\theta} \left[ \log \frac{\pi</em>\theta(y|x)}{\pi_{SFT}(y|x)} \right] $</p>
+<p>这表示：</p>
+<ul>
+<li>如果 $ \pi<em>\theta $ 和 $ \pi</em>{SFT} $ 相同：KL = 0</li>
+<li>如果 $ \pi<em>\theta $ 偏离 $ \pi</em>{SFT} $：KL &gt; 0</li>
+<li>目标函数中的 $ -\beta KL $ 惩罚偏离行为</li>
+</ul>
+<p><strong>KL 散度推导过程详解</strong></p>
+<p><strong>KL 散度的通用定义（离散型）</strong>：</p>
+<p>$ D_{\text{KL}}[P | Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)} $</p>
+<p><strong>期望的定义</strong>：<br>对于随机变量 $ Y \sim P $，函数 $ f(Y) $ 的期望定义为：</p>
+<p>$ \mathbb{E}<em>{Y \sim P}[f(Y)] = \sum</em>{y \in \mathcal{Y}} P(y) f(y) $</p>
+<p><strong>进行变量映射</strong></p>
+<p>在 RLHF 的语境下，我们要计算的是两个模型策略（概率分布）之间的差异：</p>
+<ul>
+<li>$ P $<strong> (当前分布)</strong>：$ \pi_\theta(y|x) $ —— 模型当前正在学习的策略</li>
+<li>$ Q $<strong> (参考分布)</strong>：$ \pi_{SFT}(y|x) $ —— 原始的 SFT 策略</li>
+<li><strong>样本空间</strong>：$ y $（模型生成的所有可能的回答序列）</li>
+</ul>
+<p>将这些代入通用公式：</p>
+<p>$ D<em>{\text{KL}}[\pi</em>\theta | \pi<em>{SFT}] = \sum_y \pi</em>\theta(y|x) \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} $</p>
+<p><strong>转化为期望形式</strong></p>
+<ul>
+<li>外层的 $ \sum<em>y \pi</em>\theta(y|x)(\cdots) $ 表示我们在按照 $ \pi_\theta(y|x) $ 的概率分布对后面的项进行加权平均</li>
+<li>括号里的项 $ \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} $ 就是要计算期望的对象</li>
+</ul>
+<p>因此，根据期望的定义 $ \sum P \cdot f = \mathbb{E}_P[f] $，可以直接写成：</p>
+<p>$ D<em>{\text{KL}}[\pi</em>\theta | \pi<em>{SFT}] = \mathbb{E}</em>{y \sim \pi<em>\theta(y|x)} \left[ \log \frac{\pi</em>\theta(y|x)}{\pi_{SFT}(y|x)} \right] $</p>
+<p><strong>为什么实践中要写成期望形式？</strong></p>
+<p>在深度学习和强化学习中，写成期望形式有重大的工程意义：</p>
+<p><strong>无法全量求和</strong>：<br>对于语言模型，可能的回答 $ y $ 的组合是天文数字（由词表大小和序列长度决定），我们根本无法遍历所有的 $ y $ 来计算那个 $ \sum $ 符号。</p>
+<p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $ \pi<em>\theta $ 生成（Sample）一批句子 $ y $,计算这些句子的 $ \log \pi</em>\theta(y|x) - \log \pi_{SFT}(y|x) $,取这些值的平均值，就是对 KL 散度的无偏估计</p>
+<p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $ \mathbb{E}<em>{y \sim \pi</em>\theta}[r(x,y)] $。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
+<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r(x,y) - \beta \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} \right] $</p>
+<p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
+<p><strong>为什么这个目标函数不可导？</strong></p>
+<p>语言模型是<strong>离散生成</strong>的：</p>
+<ul>
+<li>输出是 token 序列 $ y = (y_1, y_2, \ldots) $</li>
+<li>采样 / argmax 都是离散操作</li>
+</ul>
+<p>无法像普通监督学习那样，对 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 直接对 $ \theta $ 求梯度。</p>
+<p>👉 所以不能用反向传播直接优化奖励<br>👉 必须用强化学习（policy gradient）</p>
+<p>这就是为什么要用 REINFORCE / PPO。</p>
+<p><strong>KL 约束是怎么变成”奖励”的？</strong></p>
+<p><strong>关键一步是：把公式 (3) KL 项写成 log-prob 的形式</strong></p>
+<p>对离散策略：</p>
+<p>$ D<em>{\text{KL}}(\pi</em>\theta | \pi<em>{ref}) = \mathbb{E}</em>{y \sim \pi<em>\theta} \left[ \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right] $</p>
+<p><strong>代回目标函数</strong>：</p>
+<p>$ \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) \right] $</p>
+<p><strong>于是可以定义一个新的 reward</strong>：</p>
+<p>$ r(x, y) = r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
+<p>即论文中的：</p>
+<p>$ r(x, y) = r<em>\phi(x, y) - \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
+<p>（论文里通常把 $ \beta $ 省略或吸收到系数里）</p>
+<p><strong>转换后的简化目标函数</strong></p>
+<p>通过这个变换，原来的约束优化问题变成了无约束的奖励最大化问题：</p>
+<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{x \sim \mathcal{D}, y \sim \pi</em>\theta(y|x)} \left[ r(x, y) \right] $</p>
+<p>其中 $ r(x, y) $ 已经包含了 KL 惩罚项。</p>
+<hr>
+<h2 id="直接偏好优化（Direct-Preference-Optimization）"><a href="#直接偏好优化（Direct-Preference-Optimization）" class="headerlink" title="直接偏好优化（Direct Preference Optimization）"></a>直接偏好优化（Direct Preference Optimization）</h2>
       </div>
 
       <!-- 版权声明 -->
@@ -342,7 +371,7 @@
         <div class="post-copyright">
           <p><strong><i class="fas fa-copyright"></i> 版权声明</strong></p>
           <p>本文作者：ZhenWusi</p>
-          <p>本文链接：<a href="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</a></p>
+          <p>本文链接：<a href="https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</a></p>
           <p>除特别声明外，本站所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</p>
         </div>
       
@@ -361,7 +390,10 @@
       <!-- 上一篇 / 下一篇导航 -->
       <nav class="post-nav">
         
-          <span class="post-nav-item prev disabled"></span>
+          <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="post-nav-item prev">
+            <span class="post-nav-label"><i class="fas fa-chevron-left"></i> 上一篇</span>
+            <span class="post-nav-title">力扣 88：合并两个有序数组</span>
+          </a>
         
         
           <span class="post-nav-item next disabled"></span>
@@ -379,7 +411,7 @@
       <aside class="post-sidebar" id="post-sidebar">
         <div class="sidebar-toc">
           <h3><i class="fas fa-list"></i> 文章目录</h3>
-          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%8D%A9%E8%99%B9%EE%94%85%E9%90%AD%E3%83%A8%E7%98%91"><span class="toc-text">鍩虹鐭ヨ瘑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%80%9B%EF%B8%BF%E7%AF%84"><span class="toc-text">RLHF 瀛︿範</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E2%82%AC%E9%94%9B%E6%AD%8BFT%E9%94%9B%E5%9C%ABupervised-Fine-Tuning%E9%94%9B"><span class="toc-text">闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B5%9C%E5%B2%8B%E7%B4%B0%E6%BF%82%E6%A0%A7%E5%A7%B3%E5%A6%AF%E2%80%B3%E7%80%B7%E9%94%9B%E5%9C%A7eward-Modeling%E9%94%9B"><span class="toc-text">闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E5%A4%9B%E7%B4%B0RL-%E5%AF%B0%EE%86%BF%E7%9A%9F"><span class="toc-text">闃舵涓夛細RL 寰皟</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4-1"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-1"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></div>
         </div>
       </aside>
     
@@ -1146,5 +1178,20 @@
     </script>
     <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -169,6 +169,87 @@ figure.highlight .code .line:hover {
   color: #fff;
 }
 
+/* ---------- 404 页面 ---------- */
+.not-found {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.not-found-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+.not-found-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.not-found-content {
+  text-align: center;
+  color: #fff;
+  padding: 40px;
+  max-width: 600px;
+}
+
+.not-found-content h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  text-shadow: 0 10px 35px rgba(0,0,0,0.35);
+}
+
+.not-found-content p {
+  font-size: 1.2rem;
+  opacity: .85;
+  margin-bottom: 28px;
+}
+
+.not-found-content .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  background: #fff;
+  color: var(--primary);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.not-found-content .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(15, 23, 42, .08);
+  z-index: 999;
+}
+
+.reading-progress__bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.1s ease-out;
+}
+
 a {
   color: var(--primary);
   text-decoration: none;
