@@ -179,7 +179,7 @@
   
     <!-- 视频背景 -->
     <video autoplay muted loop id="hero-video">
-      <source src="/img/background/二次元-动态壁纸.mp4" type="video/mp4">
+      <source src="/img/background/Glowing-Star-Girl-4096x2160.mp4" type="video/mp4">
     </video>
   
   <div class="hero-overlay"></div>
@@ -1067,7 +1067,7 @@
             }
           }
         };
-        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams"},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
+        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["script","noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}};
         if (userCfg.tex) {
           userCfg.tex = Object.assign({}, defaults.tex, userCfg.tex);
         }
@@ -1077,7 +1077,7 @@
         window.MathJax = Object.assign({}, defaults, userCfg);
       })();
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
