@@ -189,7 +189,7 @@
     <h1 class="post-banner-title">RLHF 的三阶段流程</h1>
     <div class="post-banner-meta">
       <span><i class="far fa-calendar-alt"></i> 2026-02-23</span>
-      <span><i class="far fa-clock"></i> 阅读约 2.4k 字</span>
+      <span><i class="far fa-clock"></i> 阅读约 2.1k 字</span>
       
         <span><i class="fas fa-tags"></i>
           
@@ -306,42 +306,39 @@
 </ul>
 <p>将这些代入通用公式：</p>
 <script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p><strong>转化为期望形式</strong></p>
-<ul>
-<li>外层的 $ \sum<em>y \pi</em>\theta(y|x)(\cdots) $ 表示我们在按照 $ \pi_\theta(y|x) $ 的概率分布对后面的项进行加权平均</li>
-<li>括号里的项 $ \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} $ 就是要计算期望的对象</li>
-</ul>
-<p>因此，根据期望的定义 $ \sum P \cdot f = \mathbb{E}_P[f] $，可以直接写成：</p>
-<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p><strong>为什么实践中要写成期望形式？</strong></p>
-<p>在深度学习和强化学习中，写成期望形式有重大的工程意义：</p>
-<p><strong>无法全量求和</strong>：<br>对于语言模型，可能的回答 $ y $ 的组合是天文数字（由词表大小和序列长度决定），我们根本无法遍历所有的 $ y $ 来计算那个 $ \sum $ 符号。</p>
-<p><strong>蒙特卡洛采样（Monte Carlo Sampling）</strong>：<br>期望形式告诉我们，虽然不能遍历所有结果，但可以通过采样来近似：让模型 $ \pi<em>\theta $ 生成（Sample）一批句子 $ y $,计算这些句子的 $ \log \pi</em>\theta(y|x) - \log \pi_{SFT}(y|x) $,取这些值的平均值，就是对 KL 散度的无偏估计</p>
-<p><strong>对齐目标函数</strong>：<br>RL 的目标函数本身就是最大化期望奖励 $ \mathbb{E}<em>{y \sim \pi</em>\theta}[r(x,y)] $。将 KL 约束也写成期望形式，就可以合并到一个大括号里：</p>
-<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r(x,y) - \beta \log \frac{\pi<em>\theta(y|x)}{\pi</em>{SFT}(y|x)} \right] $</p>
-<p>这样，模型在每一轮训练采样时，就可以同时优化奖励并计算 KL 惩罚。</p>
+<p>外层加权部分与被加权项改写如下：</p>
+<script type="math/tex; mode=display">
+\sum_{y} \pi_\theta(y|x) (\cdots) \quad \text{和} \quad \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p>前者表示“按照 $ \pi_\theta(y|x) $ 分布做加权平均”，后者是被取期望的对象。</p>
+<p>因此，根据 $ \sum P \cdot f = \mathbb{E}_P[f] $ 得：</p>
+<script type="math/tex; mode=display">
+D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].</script><p><strong>为什么实践中要写成期望形式？</strong></p>
+<ol>
+<li><strong>无法全量求和</strong>：语言模型的输出空间天文巨大，无法枚举 $ y $。</li>
+<li><p><strong>蒙特卡洛采样</strong>：通过采样 $ y \sim \pi_\theta $，计算</p>
+<script type="math/tex; mode=display">
+\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)</script><p>的平均值即可近似 KL。</p>
+</li>
+<li><p><strong>对齐目标函数</strong>：原始 RL 目标也是期望形式，可写成：</p>
+<script type="math/tex; mode=display">
+\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].</script></li>
+</ol>
+<p>这样每次采样就能同时更新奖励和 KL 惩罚。</p>
 <p><strong>为什么这个目标函数不可导？</strong></p>
-<p>语言模型是<strong>离散生成</strong>的：</p>
-<ul>
-<li>输出是 token 序列 $ y = (y_1, y_2, \ldots) $</li>
-<li>采样 / argmax 都是离散操作</li>
-</ul>
-<p>无法像普通监督学习那样，对 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 直接对 $ \theta $ 求梯度。</p>
-<p>👉 所以不能用反向传播直接优化奖励<br>👉 必须用强化学习（policy gradient）</p>
-<p>这就是为什么要用 REINFORCE / PPO。</p>
-<p><strong>KL 约束是怎么变成”奖励”的？</strong></p>
-<p><strong>关键一步是：把公式 (3) KL 项写成 log-prob 的形式</strong></p>
-<p>对离散策略：</p>
-<p>$ D<em>{\text{KL}}(\pi</em>\theta | \pi<em>{ref}) = \mathbb{E}</em>{y \sim \pi<em>\theta} \left[ \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right] $</p>
-<p><strong>代回目标函数</strong>：</p>
-<p>$ \mathbb{E}<em>{y \sim \pi</em>\theta} \left[ r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) \right] $</p>
-<p><strong>于是可以定义一个新的 reward</strong>：</p>
-<p>$ r(x, y) = r<em>\phi(x, y) - \beta \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
-<p>即论文中的：</p>
-<p>$ r(x, y) = r<em>\phi(x, y) - \left( \log \pi</em>\theta(y|x) - \log \pi_{ref}(y|x) \right) $</p>
-<p>（论文里通常把 $ \beta $ 省略或吸收到系数里）</p>
-<p><strong>转换后的简化目标函数</strong></p>
-<p>通过这个变换，原来的约束优化问题变成了无约束的奖励最大化问题：</p>
-<p>$ \max<em>{\pi</em>\theta} \mathbb{E}<em>{x \sim \mathcal{D}, y \sim \pi</em>\theta(y|x)} \left[ r(x, y) \right] $</p>
-<p>其中 $ r(x, y) $ 已经包含了 KL 惩罚项。</p>
+<p>语言模型生成序列是离散操作，导致 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 无法直接对 $ \theta $ 求导，只能用策略梯度（REINFORCE/PPO）。</p>
+<hr>
+<p><strong>KL 约束如何变成“奖励”？</strong></p>
+<p>先把公式 (3) 的 KL 项写成 log-prob 形式：</p>
+<script type="math/tex; mode=display">
+D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right].</script><p>代回目标：</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right].</script><p>于是可以定义新的奖励：</p>
+<script type="math/tex; mode=display">
+r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),</script><p>即论文中常见的：</p>
+<script type="math/tex; mode=display">
+r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),</script><p>其中 $ \beta $ 可被吸收到系数里。</p>
+<p><strong>转换后的简化目标</strong></p>
+<script type="math/tex; mode=display">
+\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right],</script><p>此时 $ r(x,y) $ 已含 KL 惩罚，成为无约束奖励最大化问题。</p>
 <hr>
 <h2 id="直接偏好优化（Direct-Preference-Optimization）"><a href="#直接偏好优化（Direct-Preference-Optimization）" class="headerlink" title="直接偏好优化（Direct Preference Optimization）"></a>直接偏好优化（Direct Preference Optimization）</h2>
       </div>
