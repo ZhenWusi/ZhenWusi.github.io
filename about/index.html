@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 基本 meta 标签 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO meta 标签 -->
+  <title>关于我 | 九九的个人博客 | JiuJiu&#39;s Blog</title>
+  <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta name="keywords" content="大语言模型,编程学习">
+  <meta name="author" content="ZhenWusi">
+
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="关于我">
+  <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zhenwusi.github.io/about/index.html">
+  <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
+  <meta property="og:image:alt" content="ZhenWusi的头像">
+
+  <!-- 图标 -->
+  <link rel="icon" href="/img/头像.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="/img/头像.jpg">
+  <link rel="shortcut icon" href="/img/头像.jpg">
+
+  <!-- Google Fonts - Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+
+  <!-- 主样式表 -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="九九的个人博客 | JiuJiu's Blog" type="application/atom+xml">
+</head>
+<body>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 顶部导航栏 -->
+  
+
+<!-- 顶部导航栏 -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- 桌面端导航菜单 -->
+    <nav class="site-nav" id="site-nav">
+      
+        <a href="/" class="nav-link">
+          
+            <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
+          
+          <span class="nav-text">首页</span>
+        </a>
+      
+        <a href="/archives" class="nav-link">
+          
+            <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
+          
+          <span class="nav-text">文章</span>
+        </a>
+      
+        <a href="/about" class="nav-link active">
+          
+            <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
+          
+          <span class="nav-text">关于</span>
+        </a>
+      
+        <a href="/categories" class="nav-link">
+          
+            <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
+          
+          <span class="nav-text">分类</span>
+        </a>
+      
+        <a href="/tags" class="nav-link">
+          
+            <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+          
+          <span class="nav-text">标签</span>
+        </a>
+      
+    </nav>
+
+    <!-- 功能按钮区域 -->
+    <div class="header-actions">
+      <!-- 搜索按钮 -->
+      <button class="action-btn" id="search-toggle" title="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+      <!-- 移动端菜单按钮 -->
+      <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜索弹窗 -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索文章..." autocomplete="off">
+      <button id="search-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</header>
+
+<!-- 移动端侧滑菜单 -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    
+      <img src="/img/头像.jpg" alt="头像" class="mobile-avatar">
+    
+    <h3>ZhenWusi</h3>
+    
+      <p>龙出海，虎下山…… | Exploring code &amp; AI</p>
+    
+  </div>
+  <nav class="mobile-nav">
+    
+      <a href="/" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
+        
+        <span class="nav-text">首页</span>
+      </a>
+    
+      <a href="/archives" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
+        
+        <span class="nav-text">文章</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
+        
+        <span class="nav-text">关于</span>
+      </a>
+    
+      <a href="/categories" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
+        
+        <span class="nav-text">分类</span>
+      </a>
+    
+      <a href="/tags" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+        
+        <span class="nav-text">标签</span>
+      </a>
+    
+  </nav>
+</aside>
+
+
+  <!-- 页面主内容 -->
+  <main class="main-content">
+    <!-- 独立页面布局（关于、友链等） -->
+
+
+
+<!-- 页面顶部横幅 -->
+<section class="page-banner" style="background-image: url('/img/background/')">
+  <div class="hero-overlay"></div>
+  <div class="page-banner-content">
+    <h1>关于我</h1>
+  </div>
+</section>
+
+<div class="container page-container">
+  
+    <!-- ========== 普通页面（关于等） ========== -->
+    <article class="page-body markdown-body">
+      <h2 id="👋-你好，我是-ZhenWusi"><a href="#👋-你好，我是-ZhenWusi" class="headerlink" title="👋 你好，我是 ZhenWusi"></a>👋 你好，我是 ZhenWusi</h2><p>一个热爱技术、喜欢折腾的开发者。</p>
+<blockquote>
+<p>代码改变世界，技术点亮生活。</p>
+</blockquote>
+<h2 id="🛠️-技术栈"><a href="#🛠️-技术栈" class="headerlink" title="🛠️ 技术栈"></a>🛠️ 技术栈</h2><ul>
+<li><strong>前端</strong>：HTML5 / CSS3 / JavaScript / Vue / React</li>
+<li><strong>后端</strong>：Node.js / Python / Java</li>
+<li><strong>工具</strong>：Git / Docker / Linux / VS Code</li>
+<li><strong>其他</strong>：Markdown / Hexo / GitHub Pages</li>
+</ul>
+<h2 id="🎯-关于本站"><a href="#🎯-关于本站" class="headerlink" title="🎯 关于本站"></a>🎯 关于本站</h2><p>这个博客基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> 构建，托管在 <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a> 上。</p>
+<p>主要记录：</p>
+<ul>
+<li>📝 技术学习笔记</li>
+<li>💡 项目开发经验</li>
+<li>🔧 实用工具分享</li>
+<li>🌱 个人成长感悟</li>
+</ul>
+<h2 id="📬-联系方式"><a href="#📬-联系方式" class="headerlink" title="📬 联系方式"></a>📬 联系方式</h2><ul>
+<li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/ZhenWusi">ZhenWusi</a></li>
+<li><strong>邮箱</strong>：zhenwusi@example.com</li>
+</ul>
+<hr>
+<p>感谢你的来访，欢迎交流！✨</p>
+
+    </article>
+
+    <!-- 页面也可以有评论 -->
+    <!-- 评论系统组件 -->
+
+
+  
+</div>
+
+  </main>
+
+  <!-- 页脚 -->
+  <!-- 页脚区域 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+      <p>
+        &copy; 2025 - 2026
+        <a href="/">ZhenWusi</a>
+      </p>
+      <p class="footer-powered">
+        
+          由 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 驱动 |
+          主题 <a href="/">NINE</a>
+        
+      </p>
+      
+    </div>
+
+    <!-- 页脚社交链接 -->
+    <div class="footer-social">
+      
+      
+        
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="Github">
+          
+            <iconify-icon icon="mingcute:github-fill"></iconify-icon>
+          
+        </a>
+      
+        
+        <a href="https://www.zhihu.com" target="_blank" rel="noopener" title="ZhiHu">
+          
+            <iconify-icon icon="ri:zhihu-line"></iconify-icon>
+          
+        </a>
+      
+        
+        <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter">
+          
+            <iconify-icon icon="mingcute:social-x-fill"></iconify-icon>
+          
+        </a>
+      
+      <a href="/atom.xml" target="_blank" title="RSS 订阅">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" title="回到顶部">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- 音乐播放器 -->
+  
+    <!-- 左下角音乐播放器 -->
+
+<div class="mini-music-player" id="mini-music-player">
+  <!-- 音乐按钮 -->
+  <button class="music-toggle-btn" id="music-toggle-btn" title="音乐播放器">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- 播放器面板 -->
+  <div class="music-panel" id="music-panel">
+    <div class="music-content">
+      <!-- 自定义播放器 -->
+      <div class="custom-player">
+        <div class="player-header">
+          <div class="song-info">
+            <div class="song-title" id="song-title">加载中...</div>
+            <div class="song-artist" id="song-artist">请稍候</div>
+          </div>
+          <div class="player-controls">
+            <button class="control-btn" id="prev-btn" title="上一首">
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="control-btn play-btn" id="play-btn" title="播放/暂停">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn" id="next-btn" title="下一首">
+              <i class="fas fa-step-forward"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-time" id="current-time">0:00</div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-time" id="total-time">0:00</div>
+        </div>
+        
+        <div class="playlist-container">
+          <div class="playlist-header">
+            <span>歌单列表</span>
+            <span class="song-count" id="song-count">0首</span>
+          </div>
+          <div class="playlist-list" id="playlist-list">
+            <!-- 歌曲列表将在这里动态生成 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 音乐播放器控制
+  const musicToggleBtn = document.getElementById('music-toggle-btn');
+  const musicPanel = document.getElementById('music-panel');
+  const playBtn = document.getElementById('play-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const songTitle = document.getElementById('song-title');
+  const songArtist = document.getElementById('song-artist');
+  const currentTime = document.getElementById('current-time');
+  const totalTime = document.getElementById('total-time');
+  const progressFill = document.getElementById('progress-fill');
+  const playlistList = document.getElementById('playlist-list');
+  const songCount = document.getElementById('song-count');
+  
+  let songs = [];
+  let currentSongIndex = 0;
+  let isPlaying = false;
+  let audioElement = null;
+  
+  // 音乐播放器状态管理
+  const MUSIC_PLAYER_STATE_KEY = 'musicPlayerState';
+  
+  // 保存播放器状态
+  function savePlayerState() {
+    const state = {
+      currentSongIndex: currentSongIndex,
+      isPlaying: isPlaying,
+      currentTime: audioElement ? audioElement.currentTime : 0,
+      panelVisible: musicPanel ? musicPanel.classList.contains('active') : false
+    };
+    localStorage.setItem(MUSIC_PLAYER_STATE_KEY, JSON.stringify(state));
+    console.log('保存播放器状态:', state);
+  }
+  
+  // 恢复播放器状态
+  function restorePlayerState() {
+    try {
+      const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        console.log('恢复播放器状态:', state);
+        
+        // 恢复歌曲索引
+        if (state.currentSongIndex !== undefined) {
+          currentSongIndex = state.currentSongIndex;
+        }
+        
+        // 恢复播放状态
+        if (state.isPlaying !== undefined) {
+          isPlaying = state.isPlaying;
+        }
+        
+        // 恢复面板显示状态
+        if (state.panelVisible && musicPanel) {
+          musicPanel.classList.add('active');
+        }
+        
+        return true;
+      }
+    } catch (error) {
+      console.error('恢复播放器状态失败:', error);
+    }
+    return false;
+  }
+  
+  // 定期保存状态
+  function setupAutoSave() {
+    // 每5秒保存一次状态
+    setInterval(savePlayerState, 5000);
+    
+    // 页面卸载时保存状态
+    window.addEventListener('beforeunload', savePlayerState);
+    
+    // 页面隐藏时保存状态
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        savePlayerState();
+      }
+    });
+  }
+  
+  // 创建音频元素
+  function createAudioElement() {
+    audioElement = new Audio();
+    audioElement.addEventListener('timeupdate', updateProgress);
+    audioElement.addEventListener('ended', playNext);
+    audioElement.addEventListener('error', handleAudioError);
+  }
+  
+  // 处理音频错误
+  function handleAudioError() {
+    console.error('音频播放失败:', audioElement.error);
+    // 尝试下一首
+    if (currentSongIndex < songs.length - 1) {
+      playNext();
+    }
+  }
+  
+  // 更新进度
+  function updateProgress() {
+    if (audioElement && audioElement.duration) {
+      const progress = (audioElement.currentTime / audioElement.duration) * 100;
+      progressFill.style.width = progress + '%';
+      
+      currentTime.textContent = formatTime(Math.floor(audioElement.currentTime));
+      totalTime.textContent = formatTime(Math.floor(audioElement.duration));
+    }
+  }
+  
+  // 播放当前歌曲
+  function playCurrentSong() {
+    if (songs.length > 0 && songs[currentSongIndex]) {
+      const song = songs[currentSongIndex];
+      
+      if (!audioElement) {
+        createAudioElement();
+      }
+      
+      if (song.url) {
+        audioElement.src = song.url;
+        
+        // 恢复播放位置
+        const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+        if (savedState && isPlaying) {
+          const state = JSON.parse(savedState);
+          if (state.currentTime > 0) {
+            audioElement.currentTime = state.currentTime;
+          }
+        }
+        
+        audioElement.play().then(() => {
+          isPlaying = true;
+          updatePlayButton();
+        }).catch(error => {
+          console.error('播放失败:', error);
+          // 如果播放失败，尝试下一首
+          if (currentSongIndex < songs.length - 1) {
+            playNext();
+          }
+        });
+      } else {
+        console.error('歌曲URL为空:', song);
+        // 如果URL为空，尝试下一首
+        if (currentSongIndex < songs.length - 1) {
+          playNext();
+        }
+      }
+    }
+  }
+  
+  // 播放下一首
+  function playNext() {
+    if (songs.length > 0) {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      updateSongInfo();
+      updatePlaylist();
+      if (isPlaying) {
+        playCurrentSong();
+      }
+    }
+  }
+  
+  // 播放上一首
+  function playPrev() {
+    if (songs.length > 0) {
+      currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      updateSongInfo();
+      updatePlaylist();
+      if (isPlaying) {
+        playCurrentSong();
+      }
+    }
+  }
+  
+  // 暂停播放
+  function pauseCurrentSong() {
+    if (audioElement) {
+      audioElement.pause();
+    }
+    isPlaying = false;
+    updatePlayButton();
+  }
+  
+  // 更新播放按钮
+  function updatePlayButton() {
+    const icon = playBtn.querySelector('i');
+    if (isPlaying) {
+      icon.className = 'fas fa-pause';
+      musicToggleBtn.classList.add('playing');
+    } else {
+      icon.className = 'fas fa-play';
+      musicToggleBtn.classList.remove('playing');
+    }
+  }
+  
+  // 更新歌曲信息
+  function updateSongInfo() {
+    if (songs.length > 0 && songs[currentSongIndex]) {
+      const song = songs[currentSongIndex];
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+    }
+  }
+  
+  // 更新播放列表
+  function updatePlaylist() {
+    playlistList.innerHTML = songs.map((song, index) => `
+      <div class="playlist-item ${index === currentSongIndex ? 'active' : ''}" data-index="${index}">
+        <div class="song-info">
+          <div class="song-name">${song.title}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+      </div>
+    `).join('');
+    
+    // 添加点击事件
+    document.querySelectorAll('.playlist-item').forEach(item => {
+      item.addEventListener('click', function() {
+        currentSongIndex = parseInt(this.dataset.index);
+        updateSongInfo();
+        updatePlaylist();
+        if (isPlaying) {
+          playCurrentSong();
+        }
+      });
+    });
+  }
+  
+  // 获取网易云歌单数据
+  async function fetchPlaylist() {
+    try {
+      console.log('正在获取歌单数据...');
+      // 从配置文件中获取歌单 ID
+      const playlistId = '2993057618';
+      console.log('使用歌单 ID:', playlistId);
+      
+      const response = await fetch(`https://api.injahow.cn/meting/?type=playlist&id=${playlistId}`);
+      const data = await response.json();
+      
+      console.log('歌单数据:', data);
+      
+      if (data && data.length > 0) {
+        songs = data.map(song => ({
+          title: song.name || song.title,
+          artist: song.artist || song.ar?.[0]?.name || '未知艺术家',
+          url: song.url,
+          pic: song.pic
+        }));
+        
+        updatePlaylist();
+        updateSongInfo();
+        songCount.textContent = `${songs.length}首`;
+      }
+    } catch (error) {
+      console.error('获取歌单失败:', error);
+      // 使用备用数据
+      songs = [
+        { title: "加载失败", artist: "请检查网络", url: "", pic: "" }
+      ];
+      updatePlaylist();
+      updateSongInfo();
+    }
+  }
+  
+  // 切换音乐面板
+  if (musicToggleBtn && musicPanel) {
+    musicToggleBtn.addEventListener('click', function() {
+      console.log('音乐按钮被点击');
+      musicPanel.classList.toggle('active');
+      if (songs.length === 0) {
+        fetchPlaylist().then(() => {
+          // 歌单加载完成后，如果有保存的状态，恢复播放
+          const stateRestored = restorePlayerState();
+          if (stateRestored && songs.length > 0) {
+            updateSongInfo();
+            updatePlaylist();
+            if (isPlaying) {
+              playCurrentSong();
+            }
+          }
+        });
+      }
+      savePlayerState(); // 保存面板状态
+    });
+  }
+  
+  // 点击面板外部关闭
+  document.addEventListener('click', function(e) {
+    if (musicPanel && !musicPanel.contains(e.target) && !musicToggleBtn.contains(e.target)) {
+      musicPanel.classList.remove('active');
+    }
+  });
+  
+  // 播放控制
+  if (playBtn) {
+    playBtn.addEventListener('click', function() {
+      if (isPlaying) {
+        pauseCurrentSong();
+      } else {
+        playCurrentSong();
+      }
+    });
+  }
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      playPrev();
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      playNext();
+    });
+  }
+  
+  // 页面初始化时恢复状态
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('页面加载完成，初始化音乐播放器');
+    
+    // 尝试恢复保存的状态
+    const stateRestored = restorePlayerState();
+    
+    // 如果有保存的状态，先加载歌单然后恢复播放
+    if (stateRestored) {
+      fetchPlaylist().then(() => {
+        if (songs.length > 0) {
+          updateSongInfo();
+          updatePlaylist();
+          if (isPlaying) {
+            playCurrentSong();
+          }
+        }
+      });
+    }
+    
+    // 设置自动保存
+    setupAutoSave();
+  });
+  
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  }
+</script>
+
+<style>
+  .mini-music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  
+  .music-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .music-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+  }
+  
+  .music-toggle-btn.playing {
+    animation: musicPulse 2s infinite;
+  }
+  
+  .music-panel {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 320px;
+    max-height: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .music-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .custom-player {
+    padding: 16px;
+  }
+  
+  .player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .song-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .song-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  
+  .song-artist {
+    font-size: 0.8rem;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .player-controls {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .control-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  }
+  
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+  }
+  
+  .progress-time {
+    font-size: 0.7rem;
+    color: #666;
+    min-width: 30px;
+    text-align: center;
+  }
+  
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4f46e5, #3730a3);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  .playlist-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #fff;
+  }
+  
+  .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .song-count {
+    color: #666;
+    font-size: 0.7rem;
+  }
+  
+  .playlist-list {
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  
+  .playlist-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .playlist-item:hover {
+    background: #f8f9fa;
+  }
+  
+  .playlist-item.active {
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+  }
+  
+  .playlist-item .song-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item .song-artist {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item.active .song-artist {
+    opacity: 0.9;
+  }
+  
+  @keyframes musicPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .music-panel {
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .progress-bar {
+      background: #2d2d2d;
+      color: #ccc;
+    }
+    
+    .playlist-header {
+      background: #2d2d2d;
+      color: #fff;
+      border-bottom-color: #404040;
+    }
+    
+    .playlist-item {
+      border-bottom-color: #404040;
+      color: #fff;
+    }
+    
+    .playlist-item:hover {
+      background: #3d3d3d;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mini-music-player {
+      bottom: 16px;
+      left: 16px;
+    }
+    
+    .music-panel {
+      width: 300px;
+      max-height: 400px;
+    }
+    
+    .music-toggle-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+
+  
+
+  <!-- 主脚本 -->
+  
+<script src="/js/main.js"></script>
+
+
+  
+    <!-- MathJax v2 配置（用户指定） -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: { autoNumber: 'AMS' }
+        },
+        extensions: ['tex2jax.js', 'MathZoom.js'],
+        jax: ['input/TeX', 'output/HTML-CSS'],
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$'], ['\\[','\\]']],
+          processEscapes: true,
+          'HTML-CSS': { fonts: ['TeX'] }
+        }
+      });
+      MathJax.Hub.Register.MessageHook('Math Processing Error', function(message) {
+        alert('Math Processing Error: ' + message[1]);
+      });
+      MathJax.Hub.Register.MessageHook('TeX Jax - parse error', function(message) {
+        alert('Math Processing Error: ' + message[1]);
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+</body>
+</html>

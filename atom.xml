@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>九九的个人博客 | JiuJiu&#39;s Blog</title>
+  
+  <subtitle>龙出海，虎下山…… | Exploring code &amp; AI</subtitle>
+  <link href="https://zhenwusi.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://zhenwusi.github.io/"/>
+  <updated>2026-02-23T11:44:31.450Z</updated>
+  <id>https://zhenwusi.github.io/</id>
+  
+  <author>
+    <name>ZhenWusi</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RLHF</title>
+    <link href="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/"/>
+    <id>https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</id>
+    <published>2026-02-11T16:00:00.000Z</published>
+    <updated>2026-02-23T11:44:31.450Z</updated>
+    
+    
+    <summary type="html">娣卞叆鐞嗚В RLHF锛圧einforcement Learning from Human Feedback锛夌殑涓変釜鏍稿績闃舵</summary>
+    
+    
+    
+    <category term="绠楁硶" scheme="https://zhenwusi.github.io/categories/%E7%BB%A0%E6%A5%81%E7%A1%B6/"/>
+    
+    
+    <category term="LLM" scheme="https://zhenwusi.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+</feed>

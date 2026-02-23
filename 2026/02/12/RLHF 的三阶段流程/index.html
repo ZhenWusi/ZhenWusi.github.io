@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 基本 meta 标签 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO meta 标签 -->
+  <title>RLHF | 九九的个人博客 | JiuJiu&#39;s Blog</title>
+  <meta name="description" content="娣卞叆鐞嗚В RLHF锛圧einforcement Learning from Human Feedback锛夌殑涓変釜鏍稿績闃舵">
+  <meta name="keywords" content="LLM">
+  <meta name="author" content="ZhenWusi">
+
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="RLHF">
+  <meta property="og:description" content="娣卞叆鐞嗚В RLHF锛圧einforcement Learning from Human Feedback锛夌殑涓変釜鏍稿績闃舵">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/index.html">
+  <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
+  <meta property="og:image:alt" content="ZhenWusi的头像">
+
+  <!-- 图标 -->
+  <link rel="icon" href="/img/头像.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="/img/头像.jpg">
+  <link rel="shortcut icon" href="/img/头像.jpg">
+
+  <!-- Google Fonts - Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+
+  <!-- 主样式表 -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="九九的个人博客 | JiuJiu's Blog" type="application/atom+xml">
+</head>
+<body>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 顶部导航栏 -->
+  
+
+<!-- 顶部导航栏 -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <!-- 桌面端导航菜单 -->
+    <nav class="site-nav" id="site-nav">
+      
+        <a href="/" class="nav-link">
+          
+            <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
+          
+          <span class="nav-text">首页</span>
+        </a>
+      
+        <a href="/archives" class="nav-link">
+          
+            <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
+          
+          <span class="nav-text">文章</span>
+        </a>
+      
+        <a href="/about" class="nav-link">
+          
+            <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
+          
+          <span class="nav-text">关于</span>
+        </a>
+      
+        <a href="/categories" class="nav-link">
+          
+            <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
+          
+          <span class="nav-text">分类</span>
+        </a>
+      
+        <a href="/tags" class="nav-link">
+          
+            <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+          
+          <span class="nav-text">标签</span>
+        </a>
+      
+    </nav>
+
+    <!-- 功能按钮区域 -->
+    <div class="header-actions">
+      <!-- 搜索按钮 -->
+      <button class="action-btn" id="search-toggle" title="搜索">
+        <i class="fas fa-search"></i>
+      </button>
+      <!-- 移动端菜单按钮 -->
+      <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜索弹窗 -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索文章..." autocomplete="off">
+      <button id="search-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</header>
+
+<!-- 移动端侧滑菜单 -->
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    
+      <img src="/img/头像.jpg" alt="头像" class="mobile-avatar">
+    
+    <h3>ZhenWusi</h3>
+    
+      <p>龙出海，虎下山…… | Exploring code &amp; AI</p>
+    
+  </div>
+  <nav class="mobile-nav">
+    
+      <a href="/" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
+        
+        <span class="nav-text">首页</span>
+      </a>
+    
+      <a href="/archives" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
+        
+        <span class="nav-text">文章</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
+        
+        <span class="nav-text">关于</span>
+      </a>
+    
+      <a href="/categories" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
+        
+        <span class="nav-text">分类</span>
+      </a>
+    
+      <a href="/tags" class="mobile-nav-link">
+        
+          <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+        
+        <span class="nav-text">标签</span>
+      </a>
+    
+  </nav>
+</aside>
+
+
+  <!-- 页面主内容 -->
+  <main class="main-content">
+    <!-- 文章详情页布局 -->
+
+
+
+<!-- 文章顶部横幅 -->
+<section class="post-banner" style="background-image: url('/img/background/')">
+  <div class="hero-overlay"></div>
+  <div class="post-banner-content">
+    <!-- 分类 -->
+    
+      <div class="post-banner-cats">
+        
+          <a href="/categories/%E7%BB%A0%E6%A5%81%E7%A1%B6/"><i class="fas fa-folder"></i> 绠楁硶</a>
+        
+      </div>
+    
+    <h1 class="post-banner-title">RLHF</h1>
+    <div class="post-banner-meta">
+      <span><i class="far fa-calendar-alt"></i> 2026-02-12</span>
+      <span><i class="far fa-clock"></i> 阅读约 3k 字</span>
+      
+        <span><i class="fas fa-tags"></i>
+          
+          LLM
+        </span>
+      
+    </div>
+  </div>
+</section>
+
+<!-- 文章主体 -->
+<div class="container post-container">
+  <div class="post-layout">
+    <!-- 文章内容区域 -->
+    <article class="post-content-wrap">
+      <!-- 目录（TOC） -->
+      
+        <div class="post-toc-mobile" id="toc-mobile">
+          <details>
+            <summary><i class="fas fa-list"></i> 文章目录</summary>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%8D%A9%E8%99%B9%EE%94%85%E9%90%AD%E3%83%A8%E7%98%91"><span class="toc-text">鍩虹鐭ヨ瘑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%80%9B%EF%B8%BF%E7%AF%84"><span class="toc-text">RLHF 瀛︿範</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E2%82%AC%E9%94%9B%E6%AD%8BFT%E9%94%9B%E5%9C%ABupervised-Fine-Tuning%E9%94%9B"><span class="toc-text">闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B5%9C%E5%B2%8B%E7%B4%B0%E6%BF%82%E6%A0%A7%E5%A7%B3%E5%A6%AF%E2%80%B3%E7%80%B7%E9%94%9B%E5%9C%A7eward-Modeling%E9%94%9B"><span class="toc-text">闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E5%A4%9B%E7%B4%B0RL-%E5%AF%B0%EE%86%BF%E7%9A%9F"><span class="toc-text">闃舵涓夛細RL 寰皟</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4-1"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          </details>
+        </div>
+      
+
+      <!-- 正文 -->
+      <div class="post-body markdown-body">
+        <h2 id="鍩虹鐭ヨ瘑"><a href="#鍩虹鐭ヨ瘑" class="headerlink" title="鍩虹鐭ヨ瘑"></a>鍩虹鐭ヨ瘑</h2><h3 id="RLHF-瀛︿範"><a href="#RLHF-瀛︿範" class="headerlink" title="RLHF 瀛︿範"></a>RLHF 瀛︿範</h3><p>RLHF锛圧einforcement Learning from Human Feedback锛夐€氬父鍖呭惈涓変釜涓昏闃舵锛?</p>
+<p><em>*鐩戠潱寰皟锛圫FT锛夆啋 鍋忓ソ閲囨牱 + 濂栧姳妯″瀷瀛︿範 鈫?寮哄寲瀛︿範浼樺寲锛圧L锛?</em></p>
+<p>绠€鍗曞彲浠ョ悊瑙ｄ负锛氬厛瀛?鎬庝箞璇磋瘽”锛屽啀瀛?浠€涔堣瘽鏇村ソ”锛屾渶鍚庨€兼ā鍨嬪璇?濂借瘽”</p>
+<h4 id="闃舵涓€锛歋FT锛圫upervised-Fine-Tuning锛"><a href="#闃舵涓€锛歋FT锛圫upervised-Fine-Tuning锛" class="headerlink" title="闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?"></a>闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</h4><p>RLHF 閫氬父浠庡涓€涓璁粌璇█妯″瀷杩涜鐩戠潱寰皟寮€濮嬶紝浣跨敤楂樿川閲忕殑浜哄伐鏁版嵁锛堝瀵硅瘽銆佹憳瑕佺瓑锛夛紝寰楀埌涓€涓ā鍨?$\pi_{SFT}$銆?</p>
+<p><strong>鏁版嵁褰㈠紡</strong>锛?(\text{prompt } x, \text{楂樿川閲忓洖绛?} y)$</p>
+<p><strong>鎹熷け鍑芥暟</strong>锛氭爣鍑嗙殑鐩戠潱瀛︿範鎹熷け鍑芥暟</p>
+<script type="math/tex; mode=display">\max_{\theta} \sum_{(x,y) \in D} \log \pi_\theta(y|x)</script><ul>
+<li>$\pi_\theta$锛氱瓥鐣ユā鍨嬬殑鍙傛暟鍖栧舰寮?</li>
+<li>$D$锛氱洃鐫ｅ井璋冩暟鎹泦</li>
+<li>$x$锛氳緭鍏ユ彁绀?</li>
+<li>$y$锛氱洰鏍囧洖绛?</li>
+</ul>
+<p><strong>鐩爣</strong>锛氳妯″瀷瀛︿細鍩烘湰鐨勫璇濊兘鍔涘拰浠诲姟瀹屾垚鑳藉姏锛屽嵆”鎬庝箞璇磋瘽”</p>
+<h4 id="闃舵浜岋細濂栧姳妯″瀷锛圧eward-Modeling锛"><a href="#闃舵浜岋細濂栧姳妯″瀷锛圧eward-Modeling锛" class="headerlink" title="闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?"></a>闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</h4><p>浣跨敤 SFT 妯″瀷锛屽鍚屼竴涓?prompt $x$ 閲囨牱涓や釜鍥炵瓟锛?</p>
+<script type="math/tex; mode=display">y_1, y_2 \sim \pi_{SFT}(y|x)</script><p>浜ょ粰浜虹被鏍囨敞鑰咃紝璁╀粬浠€夋洿濂界殑涓€涓細</p>
+<script type="math/tex; mode=display">y_w \succ y_l \mid x</script><ul>
+<li>$y_w$锛歸inner,preferred锛堣耽瀹讹級</li>
+<li>$y_l$锛歭oser,rejected锛堣緭瀹讹級</li>
+</ul>
+<p><strong>娼滃湪濂栧姳鍑芥暟鍋囪</strong>锛氬亣璁句汉绫诲亸濂芥槸鐢变竴涓湭鐭ョ殑鐪熷疄濂栧姳鍑芥暟 $r^*(x,y)$ 鐢熸垚鐨勩€傛垜浠苟涓嶇煡閬撳畠锛屼絾鍋囪瀹冨瓨鍦ㄣ€?</p>
+<p><strong>鍋忓ソ妯″瀷</strong>锛?</p>
+<script type="math/tex; mode=display">p^*(y_1 > y_2 | x) = \frac{\exp(r^*(x, y_1))}{\exp(r^*(x, y_1)) + \exp(r^*(x, y_2))} \tag{1}</script><p><em>*鏁版嵁闆嗗舰寮?</em>锛?</p>
+<script type="math/tex; mode=display">D = \{(x^{(i)}, y_w^{(i)}, y_l^{(i)})\}_{i=1}^N</script><p><strong>鎹熷け鍑芥暟</strong>锛?</p>
+<script type="math/tex; mode=display">\mathcal{L}_\text{R}(r_\phi, \mathcal{D}) = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}} \left[ \log \sigma (r_\phi(x, y_w) - r_\phi(x, y_l)) \right] \tag{2}</script><hr>
+<h5 id="琛ュ厖瑙i噴"><a href="#琛ュ厖瑙i噴" class="headerlink" title="琛ュ厖瑙ｉ噴"></a>琛ュ厖瑙ｉ噴</h5><p>BT 妯″瀷锛?</p>
+<p>Bradley-Terry 妯″瀷鏄竴涓敤浜?<em>鎴愬姣旇緝*</em>鐨勬鐜囨ā鍨?</p>
+<p><strong>鏍稿績鎬濇兂</strong>锛?</p>
+<ul>
+<li>姣忎釜瀵硅薄 $i$ 鏈変竴涓殣钘忕殑”瀹炲姏鍊?鍙傛暟 $\lambda_i$</li>
+<li>褰撲袱涓璞?$i$ 鍜?$j$ 姣旇緝鏃讹紝$i$ 鎴樿儨 $j$ 鐨勬鐜囦负锛?</li>
+</ul>
+<script type="math/tex; mode=display">P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}</script><p><strong>鍦?DPO 涓殑搴旂敤</strong>锛?</p>
+<ul>
+<li>灏嗗鍔卞嚱鏁?$r(x,y)$ 鐪嬩綔”瀹炲姏鍊?</li>
+<li>浜虹被鍋忓ソ $ y_w \succ y_l $ 灏辨槸”姣旇緝缁撴灉”</li>
+<li>閫氳繃 BT 妯″瀷寤虹珛濂栧姳涓庡亸濂界殑妗ユ</li>
+</ul>
+<p>涓轰粈涔堜笉鐢ㄣ€岃皝鍒嗘暟澶у氨閫夎皝銆嶏紵</p>
+<p>濡傛灉鐩存帴瑙勫畾锛?$y_1 \succ y_2 \iff r^<em>(x,y_1) &gt; r^</em>(x,y_2)$$<br>閭ｉ棶棰樻槸锛氫汉绫诲垽鏂湁鍣０锛屽悓涓€涓汉銆佸悓涓€涓棶棰橈紝涓嶄竴瀹氭瘡娆￠€夊悓鏍风殑銆傛墍浠ユ垜浠笉寤烘ā鎴愮‘瀹氭€ц鍒欙紝鑰屾槸锛氭鐜囨ā鍨?</p>
+<p>鎶婂叕寮?(1) 鏀瑰啓涓€涓嬶細</p>
+<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}</script><p>杩欏氨鏄啛鎮夌殑 Sigmoid 鍑芥暟锛?</p>
+<script type="math/tex; mode=display">\sigma(z) = \frac{1}{1 + e^{-z}}</script><p>浜庢槸锛?</p>
+<script type="math/tex; mode=display">p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))</script><p>鍥犱负鐪熷疄鏁版嵁閲屼汉纭疄閫夋嫨浜?$ y_w $锛屾墍浠ヨ浜嬩欢鐨勬鐜囨槸涓婂紡锛屽鏁颁技鐒舵槸锛?</p>
+<script type="math/tex; mode=display">\log p_\theta(y_w \succ y_l \mid x) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))</script><p>鏈€澶у寲鎵€鏈夋牱鏈殑瀵规暟浼肩劧锛?</p>
+<script type="math/tex; mode=display">\max_\theta \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>鎰忔€濇槸锛氬姣忎竴鏉℃暟鎹紝閮界畻涓€娆?妯″瀷璁や负浜虹被浼氶€夎耽瀹剁殑姒傜巼鐨勫鏁?锛岀劧鍚庢妸瀹冧滑鍔犺捣鏉ワ紝璁╄繖涓€诲拰灏藉彲鑳藉ぇ銆傚鏁版妸鈥滆繛涔樷€濆彉鎴愨€滆繛鍔犫€?鏈€浼樿В涓嶅彉(瀵规暟鏄崟璋冮€掑鍑芥暟)</p>
+<p>绛変环鍦帮紝鏈€灏忓寲璐熷鏁颁技鐒讹紙Likelihood锛夛細</p>
+<script type="math/tex; mode=display">L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]</script><p>杩欐鏄叕寮?(2)銆傛剰鎬濇槸锛氬鏁版嵁闆嗛噷鐨勬牱鏈彇骞冲潎锛岀劧鍚庡”瀵规暟姒傜巼”鍙栬礋鍙凤紝璁╄繖涓€煎敖鍙兘灏忋€?</p>
+<p>瀵逛竴涓湁闄愭暟鎹泦 $D = {z_1, …, z_N}$锛屽鏋滀綘鍧囧寑闅忔満浠庝腑鎶戒竴涓牱鏈紝閭ｄ箞锛?</p>
+<script type="math/tex; mode=display">\mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)</script><p>馃憠 鏈熸湜 = 骞冲潎鍊?</p>
+<p>浠?$f(x,y_w,y_l) = \log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))$ 閭ｄ箞锛?</p>
+<script type="math/tex; mode=display">\mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))</script><p>鍥犱负 $\sum_{i=1}^N f_i$ 鍜?$\frac{1}{N} \sum_{i=1}^N f_i$ 鍙樊涓€涓父鏁?$\frac{1}{N}$銆傝€屽湪浼樺寲涓細涔樹互涓€涓鐨勫父鏁帮紝涓嶄細鏀瑰彉鏈€浼樿В鐨勪綅缃€備篃灏辨槸璇达細<script type="math/tex">\arg\max\_\theta \sum\_{i=1}^N f\_i = \arg\max\_\theta \frac{1}{N} \sum\_{i=1}^N f\_i</script></p>
+<p>鍘熺洰鏍囷細<script type="math/tex">\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]</script></p>
+<p>绛変环浜庯細<script type="math/tex">\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]</script></p>
+<p>浜庢槸瀹氫箟锛?$L_R = -\mathbb{E}_D [\log \sigma(\cdots)]$$</p>
+<p><em>*涓轰粈涔堟満鍣ㄥ涔犻噷”鎬绘槸鏈€灏忓寲”锛?</em></p>
+<p>鍥犱负姊害涓嬮檷锛圙radient Descent锛夐粯璁ゆ槸 minimize loss锛屾墍浠ュぇ瀹朵範鎯細鎶?鎯虫渶澶у寲鐨勭洰鏍?锛屽啓鎴?瑕佹渶灏忓寲鐨勬崯澶?銆?</p>
+<hr>
+<h4 id="闃舵涓夛細RL-寰皟"><a href="#闃舵涓夛細RL-寰皟" class="headerlink" title="闃舵涓夛細RL 寰皟"></a>闃舵涓夛細RL 寰皟</h4><p><strong>RL 鐩爣鍑芥暟锛堟牳蹇冿級</strong>锛?</p>
+<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r_\phi(x, y) - \beta D_{\text{KL}} \left[ \pi_\theta(y|x) \middle\| \pi_{\text{ref}}(y|x) \right] \right] \tag{3}</script><hr>
+<h5 id="琛ュ厖瑙i噴-1"><a href="#琛ュ厖瑙i噴-1" class="headerlink" title="琛ュ厖瑙ｉ噴"></a>琛ュ厖瑙ｉ噴</h5><p>涓€鍙ヨ瘽瑙ｉ噴锛氿煈?璁╂ā鍨嬬敓鎴?濂栧姳楂樼殑鍥炵瓟 馃憠 浣嗕笉鑳藉亸绂诲師濮?SFT 妯″瀷澶繙</p>
+<p>$\pi_{ref}$锛堝嵆鍒濆 SFT 妯″瀷 $\pi_{SFT}$锛夊疄璺典腑锛岃瑷€妯″瀷绛栫暐 $\pi_\theta$ 涔熻鍒濆鍖栦负 $\pi_{SFT}$銆?</p>
+<ul>
+<li><em>*鍒濆鐘舵€?</em>锛?\pi_\theta = \pi_{ref} = \pi_{SFT}$</li>
+<li><strong>璁粌鐩爣</strong>锛氬湪淇濇寔涓庡師濮?SFT 妯″瀷鎺ヨ繎鐨勫墠鎻愪笅锛屼紭鍖栧鍔?</li>
+<li><strong>KL 绾︽潫浣滅敤</strong>锛氱‘淇濇ā鍨嬩笉浼氬亸绂诲垵濮嬭兘鍔涘お杩?</li>
+</ul>
+<p><em>*KL 绾︽潫锛?</em></p>
+<p>KL 鏁ｅ害锛圞ullback-Leibler 鏁ｅ害锛夎　閲忎袱涓鐜囧垎甯冧箣闂寸殑宸紓锛?</p>
+<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_x P(x) \log \frac{P(x)}{Q(x)}</script><script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta(y|x) \| \pi_{SFT}(y|x)] = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>杩欒〃绀猴細</p>
+<ul>
+<li>濡傛灉 $\pi_\theta$ 鍜?$\pi_{SFT}$ 鐩稿悓锛欿L = 0</li>
+<li>濡傛灉 $\pi_\theta$ 鍋忕 $\pi_{SFT}$锛欿L &gt; 0</li>
+<li>鐩爣鍑芥暟涓殑 $-\beta KL$ 鎯╃綒鍋忕琛屼负</li>
+</ul>
+<p><strong>KL 鏁ｅ害鎺ㄥ杩囩▼璇﹁В</strong></p>
+<p><em>*KL 鏁ｅ害鐨勯€氱敤瀹氫箟锛堢鏁ｅ瀷锛?</em>锛?</p>
+<script type="math/tex; mode=display">D_{\text{KL}}[P \| Q] = \sum_i P(i) \log \frac{P(i)}{Q(i)}</script><p><em>*鏈熸湜鐨勫畾涔?</em>锛?<br>瀵逛簬闅忔満鍙橀噺 $Y \sim P$锛屽嚱鏁?$f(Y)$ 鐨勬湡鏈涘畾涔変负锛?</p>
+<script type="math/tex; mode=display">\mathbb{E}_{Y \sim P}[f(Y)] = \sum_{y \in \mathcal{Y}} P(y) f(y)</script><p><strong>杩涜鍙橀噺鏄犲皠</strong></p>
+<p>鍦?RLHF 鐨勮澧冧笅锛屾垜浠璁＄畻鐨勬槸涓や釜妯″瀷绛栫暐锛堟鐜囧垎甯冿級涔嬮棿鐨勫樊寮傦細</p>
+<ul>
+<li>$P$<strong> (褰撳墠鍒嗗竷)</strong>锛?\pi_\theta(y|x)$ 鈥斺€?妯″瀷褰撳墠姝ｅ湪瀛︿範鐨勭瓥鐣?</li>
+<li>$Q$<strong> (鍙傝€冨垎甯?</strong>锛?\pi_{SFT}(y|x)$ 鈥斺€?鍘熷鐨?SFT 绛栫暐</li>
+<li><strong>鏍锋湰绌洪棿</strong>锛?y$锛堟ā鍨嬬敓鎴愮殑鎵€鏈夊彲鑳界殑鍥炵瓟搴忓垪锛?</li>
+</ul>
+<p>灏嗚繖浜涗唬鍏ラ€氱敤鍏紡锛?</p>
+<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p><em>*杞寲涓烘湡鏈涘舰寮?</em></p>
+<ul>
+<li>澶栧眰鐨?$\sum_y \pi_\theta(y|x)(\cdots)$ 琛ㄧず鎴戜滑鍦ㄦ寜鐓?$\pi_\theta(y|x)$ 鐨勬鐜囧垎甯冨鍚庨潰鐨勯」杩涜鍔犳潈骞冲潎</li>
+<li>鎷彿閲岀殑椤?$\log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}$ 灏辨槸瑕佽绠楁湡鏈涚殑瀵硅薄</li>
+</ul>
+<p>鍥犳锛屾牴鎹湡鏈涚殑瀹氫箟 $ \sum P \cdot f = \mathbb{E}_P[f] $锛屽彲浠ョ洿鎺ュ啓鎴愶細</p>
+<script type="math/tex; mode=display">D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p><strong>涓轰粈涔堝疄璺典腑瑕佸啓鎴愭湡鏈涘舰寮忥紵</strong></p>
+<p>鍦ㄦ繁搴﹀涔犲拰寮哄寲瀛︿範涓紝鍐欐垚鏈熸湜褰㈠紡鏈夐噸澶х殑宸ョ▼鎰忎箟锛?</p>
+<p><strong>鏃犳硶鍏ㄩ噺姹傚拰</strong>锛?<br>瀵逛簬璇█妯″瀷锛屽彲鑳界殑鍥炵瓟 $y$ 鐨勭粍鍚堟槸澶╂枃鏁板瓧锛堢敱璇嶈〃澶у皬鍜屽簭鍒楅暱搴﹀喅瀹氾級锛屾垜浠牴鏈棤娉曢亶鍘嗘墍鏈夌殑 $y$ 鏉ヨ绠楅偅涓?$\sum$ 绗﹀彿銆?</p>
+<p><em>*钂欑壒鍗℃礇閲囨牱锛圡onte Carlo Sampling锛?</em>锛?<br>鏈熸湜褰㈠紡鍛婅瘔鎴戜滑锛岃櫧鐒朵笉鑳介亶鍘嗘墍鏈夌粨鏋滐紝浣嗗彲浠ラ€氳繃閲囨牱鏉ヨ繎浼硷細璁╂ā鍨?$\pi_\theta$ 鐢熸垚锛圫ample锛変竴鎵瑰彞瀛?$y$,璁＄畻杩欎簺鍙ュ瓙鐨?$\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)$,鍙栬繖浜涘€肩殑骞冲潎鍊硷紝灏辨槸瀵?KL 鏁ｅ害鐨勬棤鍋忎及璁?</p>
+<p><strong>瀵归綈鐩爣鍑芥暟</strong>锛?<br>RL 鐨勭洰鏍囧嚱鏁版湰韬氨鏄渶澶у寲鏈熸湜濂栧姳 $\mathbb{E}_{y \sim \pi_\theta}[r(x,y)]$銆傚皢 KL 绾︽潫涔熷啓鎴愭湡鏈涘舰寮忥紝灏卞彲浠ュ悎骞跺埌涓€涓ぇ鎷彿閲岋細</p>
+<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right]</script><p>杩欐牱锛屾ā鍨嬪湪姣忎竴杞缁冮噰鏍锋椂锛屽氨鍙互鍚屾椂浼樺寲濂栧姳骞惰绠?KL 鎯╃綒銆?</p>
+<p><em>*涓轰粈涔堣繖涓洰鏍囧嚱鏁颁笉鍙锛?</em></p>
+<p>璇█妯″瀷鏄?<em>绂绘暎鐢熸垚*</em>鐨勶細</p>
+<ul>
+<li>杈撳嚭鏄?token 搴忓垪 $y = (y_1, y_2, \ldots)$</li>
+<li>閲囨牱 / argmax 閮芥槸绂绘暎鎿嶄綔</li>
+</ul>
+<p>鏃犳硶鍍忔櫘閫氱洃鐫ｅ涔犻偅鏍凤紝瀵?$\mathbb{E}_{y \sim \pi_\theta(y|x)}[r(x,y)]$ 鐩存帴瀵?$\theta$ 姹傛搴︺€?</p>
+<p>馃憠 鎵€浠ヤ笉鑳界敤鍙嶅悜浼犳挱鐩存帴浼樺寲濂栧姳<br>馃憠 蹇呴』鐢ㄥ己鍖栧涔狅紙policy gradient锛?</p>
+<p>杩欏氨鏄负浠€涔堣鐢?REINFORCE / PPO銆?</p>
+<p><strong>KL 绾︽潫鏄€庝箞鍙樻垚”濂栧姳”鐨勶紵</strong></p>
+<p><em>*鍏抽敭涓€姝ユ槸锛氭妸鍏紡 (3) KL 椤瑰啓鎴?log-prob 鐨勫舰寮?</em></p>
+<p>瀵圭鏁ｇ瓥鐣ワ細</p>
+<script type="math/tex; mode=display">D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right]</script><p><strong>浠ｅ洖鐩爣鍑芥暟</strong>锛?</p>
+<script type="math/tex; mode=display">\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right]</script><p><strong>浜庢槸鍙互瀹氫箟涓€涓柊鐨?reward</strong>锛?</p>
+<script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><p>鍗宠鏂囦腑鐨勶細</p>
+<script type="math/tex; mode=display">r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right)</script><p>锛堣鏂囬噷閫氬父鎶?$\beta$ 鐪佺暐鎴栧惛鏀跺埌绯绘暟閲岋級</p>
+<p><em>*杞崲鍚庣殑绠€鍖栫洰鏍囧嚱鏁?</em></p>
+<p>閫氳繃杩欎釜鍙樻崲锛屽師鏉ョ殑绾︽潫浼樺寲闂鍙樻垚浜嗘棤绾︽潫鐨勫鍔辨渶澶у寲闂锛?</p>
+<script type="math/tex; mode=display">\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right]</script><p>鍏朵腑 $r(x, y)$ 宸茬粡鍖呭惈浜?KL 鎯╃綒椤广€?</p>
+<hr>
+
+      </div>
+
+      <!-- 版权声明 -->
+      
+        <div class="post-copyright">
+          <p><strong><i class="fas fa-copyright"></i> 版权声明</strong></p>
+          <p>本文作者：ZhenWusi</p>
+          <p>本文链接：<a href="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</a></p>
+          <p>除特别声明外，本站所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</p>
+        </div>
+      
+
+      <!-- 文章标签 -->
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LLM/" class="tag-item">
+              <i class="fas fa-hashtag"></i>LLM
+            </a>
+          
+        </div>
+      
+
+      <!-- 上一篇 / 下一篇导航 -->
+      <nav class="post-nav">
+        
+          <span class="post-nav-item prev disabled"></span>
+        
+        
+          <span class="post-nav-item next disabled"></span>
+        
+      </nav>
+
+      <!-- 评论区 -->
+      <!-- 评论系统组件 -->
+
+
+    </article>
+
+    <!-- 侧边栏目录（桌面端） -->
+    
+      <aside class="post-sidebar" id="post-sidebar">
+        <div class="sidebar-toc">
+          <h3><i class="fas fa-list"></i> 文章目录</h3>
+          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%8D%A9%E8%99%B9%EE%94%85%E9%90%AD%E3%83%A8%E7%98%91"><span class="toc-text">鍩虹鐭ヨ瘑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%80%9B%EF%B8%BF%E7%AF%84"><span class="toc-text">RLHF 瀛︿範</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E2%82%AC%E9%94%9B%E6%AD%8BFT%E9%94%9B%E5%9C%ABupervised-Fine-Tuning%E9%94%9B"><span class="toc-text">闃舵涓€锛歋FT锛圫upervised Fine-Tuning锛?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B5%9C%E5%B2%8B%E7%B4%B0%E6%BF%82%E6%A0%A7%E5%A7%B3%E5%A6%AF%E2%80%B3%E7%80%B7%E9%94%9B%E5%9C%A7eward-Modeling%E9%94%9B"><span class="toc-text">闃舵浜岋細濂栧姳妯″瀷锛圧eward Modeling锛?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%83%E8%88%B5%EE%86%8C%E6%B6%93%E5%A4%9B%E7%B4%B0RL-%E5%AF%B0%EE%86%BF%E7%9A%9F"><span class="toc-text">闃舵涓夛細RL 寰皟</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%9B%E3%83%A5%E5%8E%96%E7%91%99i%E5%99%B4-1"><span class="toc-text">琛ュ厖瑙ｉ噴</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+      </aside>
+    
+  </div>
+</div>
+
+  </main>
+
+  <!-- 页脚 -->
+  <!-- 页脚区域 -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- 页脚信息 -->
+    <div class="footer-info">
+      <p>
+        &copy; 2025 - 2026
+        <a href="/">ZhenWusi</a>
+      </p>
+      <p class="footer-powered">
+        
+          由 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 驱动 |
+          主题 <a href="/">NINE</a>
+        
+      </p>
+      
+    </div>
+
+    <!-- 页脚社交链接 -->
+    <div class="footer-social">
+      
+      
+        
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="Github">
+          
+            <iconify-icon icon="mingcute:github-fill"></iconify-icon>
+          
+        </a>
+      
+        
+        <a href="https://www.zhihu.com" target="_blank" rel="noopener" title="ZhiHu">
+          
+            <iconify-icon icon="ri:zhihu-line"></iconify-icon>
+          
+        </a>
+      
+        
+        <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter">
+          
+            <iconify-icon icon="mingcute:social-x-fill"></iconify-icon>
+          
+        </a>
+      
+      <a href="/atom.xml" target="_blank" title="RSS 订阅">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" title="回到顶部">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- 音乐播放器 -->
+  
+    <!-- 左下角音乐播放器 -->
+
+<div class="mini-music-player" id="mini-music-player">
+  <!-- 音乐按钮 -->
+  <button class="music-toggle-btn" id="music-toggle-btn" title="音乐播放器">
+    <i class="fas fa-music"></i>
+  </button>
+
+  <!-- 播放器面板 -->
+  <div class="music-panel" id="music-panel">
+    <div class="music-content">
+      <!-- 自定义播放器 -->
+      <div class="custom-player">
+        <div class="player-header">
+          <div class="song-info">
+            <div class="song-title" id="song-title">加载中...</div>
+            <div class="song-artist" id="song-artist">请稍候</div>
+          </div>
+          <div class="player-controls">
+            <button class="control-btn" id="prev-btn" title="上一首">
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="control-btn play-btn" id="play-btn" title="播放/暂停">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn" id="next-btn" title="下一首">
+              <i class="fas fa-step-forward"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-time" id="current-time">0:00</div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-time" id="total-time">0:00</div>
+        </div>
+        
+        <div class="playlist-container">
+          <div class="playlist-header">
+            <span>歌单列表</span>
+            <span class="song-count" id="song-count">0首</span>
+          </div>
+          <div class="playlist-list" id="playlist-list">
+            <!-- 歌曲列表将在这里动态生成 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 音乐播放器控制
+  const musicToggleBtn = document.getElementById('music-toggle-btn');
+  const musicPanel = document.getElementById('music-panel');
+  const playBtn = document.getElementById('play-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const songTitle = document.getElementById('song-title');
+  const songArtist = document.getElementById('song-artist');
+  const currentTime = document.getElementById('current-time');
+  const totalTime = document.getElementById('total-time');
+  const progressFill = document.getElementById('progress-fill');
+  const playlistList = document.getElementById('playlist-list');
+  const songCount = document.getElementById('song-count');
+  
+  let songs = [];
+  let currentSongIndex = 0;
+  let isPlaying = false;
+  let audioElement = null;
+  
+  // 音乐播放器状态管理
+  const MUSIC_PLAYER_STATE_KEY = 'musicPlayerState';
+  
+  // 保存播放器状态
+  function savePlayerState() {
+    const state = {
+      currentSongIndex: currentSongIndex,
+      isPlaying: isPlaying,
+      currentTime: audioElement ? audioElement.currentTime : 0,
+      panelVisible: musicPanel ? musicPanel.classList.contains('active') : false
+    };
+    localStorage.setItem(MUSIC_PLAYER_STATE_KEY, JSON.stringify(state));
+    console.log('保存播放器状态:', state);
+  }
+  
+  // 恢复播放器状态
+  function restorePlayerState() {
+    try {
+      const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        console.log('恢复播放器状态:', state);
+        
+        // 恢复歌曲索引
+        if (state.currentSongIndex !== undefined) {
+          currentSongIndex = state.currentSongIndex;
+        }
+        
+        // 恢复播放状态
+        if (state.isPlaying !== undefined) {
+          isPlaying = state.isPlaying;
+        }
+        
+        // 恢复面板显示状态
+        if (state.panelVisible && musicPanel) {
+          musicPanel.classList.add('active');
+        }
+        
+        return true;
+      }
+    } catch (error) {
+      console.error('恢复播放器状态失败:', error);
+    }
+    return false;
+  }
+  
+  // 定期保存状态
+  function setupAutoSave() {
+    // 每5秒保存一次状态
+    setInterval(savePlayerState, 5000);
+    
+    // 页面卸载时保存状态
+    window.addEventListener('beforeunload', savePlayerState);
+    
+    // 页面隐藏时保存状态
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        savePlayerState();
+      }
+    });
+  }
+  
+  // 创建音频元素
+  function createAudioElement() {
+    audioElement = new Audio();
+    audioElement.addEventListener('timeupdate', updateProgress);
+    audioElement.addEventListener('ended', playNext);
+    audioElement.addEventListener('error', handleAudioError);
+  }
+  
+  // 处理音频错误
+  function handleAudioError() {
+    console.error('音频播放失败:', audioElement.error);
+    // 尝试下一首
+    if (currentSongIndex < songs.length - 1) {
+      playNext();
+    }
+  }
+  
+  // 更新进度
+  function updateProgress() {
+    if (audioElement && audioElement.duration) {
+      const progress = (audioElement.currentTime / audioElement.duration) * 100;
+      progressFill.style.width = progress + '%';
+      
+      currentTime.textContent = formatTime(Math.floor(audioElement.currentTime));
+      totalTime.textContent = formatTime(Math.floor(audioElement.duration));
+    }
+  }
+  
+  // 播放当前歌曲
+  function playCurrentSong() {
+    if (songs.length > 0 && songs[currentSongIndex]) {
+      const song = songs[currentSongIndex];
+      
+      if (!audioElement) {
+        createAudioElement();
+      }
+      
+      if (song.url) {
+        audioElement.src = song.url;
+        
+        // 恢复播放位置
+        const savedState = localStorage.getItem(MUSIC_PLAYER_STATE_KEY);
+        if (savedState && isPlaying) {
+          const state = JSON.parse(savedState);
+          if (state.currentTime > 0) {
+            audioElement.currentTime = state.currentTime;
+          }
+        }
+        
+        audioElement.play().then(() => {
+          isPlaying = true;
+          updatePlayButton();
+        }).catch(error => {
+          console.error('播放失败:', error);
+          // 如果播放失败，尝试下一首
+          if (currentSongIndex < songs.length - 1) {
+            playNext();
+          }
+        });
+      } else {
+        console.error('歌曲URL为空:', song);
+        // 如果URL为空，尝试下一首
+        if (currentSongIndex < songs.length - 1) {
+          playNext();
+        }
+      }
+    }
+  }
+  
+  // 播放下一首
+  function playNext() {
+    if (songs.length > 0) {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      updateSongInfo();
+      updatePlaylist();
+      if (isPlaying) {
+        playCurrentSong();
+      }
+    }
+  }
+  
+  // 播放上一首
+  function playPrev() {
+    if (songs.length > 0) {
+      currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      updateSongInfo();
+      updatePlaylist();
+      if (isPlaying) {
+        playCurrentSong();
+      }
+    }
+  }
+  
+  // 暂停播放
+  function pauseCurrentSong() {
+    if (audioElement) {
+      audioElement.pause();
+    }
+    isPlaying = false;
+    updatePlayButton();
+  }
+  
+  // 更新播放按钮
+  function updatePlayButton() {
+    const icon = playBtn.querySelector('i');
+    if (isPlaying) {
+      icon.className = 'fas fa-pause';
+      musicToggleBtn.classList.add('playing');
+    } else {
+      icon.className = 'fas fa-play';
+      musicToggleBtn.classList.remove('playing');
+    }
+  }
+  
+  // 更新歌曲信息
+  function updateSongInfo() {
+    if (songs.length > 0 && songs[currentSongIndex]) {
+      const song = songs[currentSongIndex];
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+    }
+  }
+  
+  // 更新播放列表
+  function updatePlaylist() {
+    playlistList.innerHTML = songs.map((song, index) => `
+      <div class="playlist-item ${index === currentSongIndex ? 'active' : ''}" data-index="${index}">
+        <div class="song-info">
+          <div class="song-name">${song.title}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+      </div>
+    `).join('');
+    
+    // 添加点击事件
+    document.querySelectorAll('.playlist-item').forEach(item => {
+      item.addEventListener('click', function() {
+        currentSongIndex = parseInt(this.dataset.index);
+        updateSongInfo();
+        updatePlaylist();
+        if (isPlaying) {
+          playCurrentSong();
+        }
+      });
+    });
+  }
+  
+  // 获取网易云歌单数据
+  async function fetchPlaylist() {
+    try {
+      console.log('正在获取歌单数据...');
+      // 从配置文件中获取歌单 ID
+      const playlistId = '2993057618';
+      console.log('使用歌单 ID:', playlistId);
+      
+      const response = await fetch(`https://api.injahow.cn/meting/?type=playlist&id=${playlistId}`);
+      const data = await response.json();
+      
+      console.log('歌单数据:', data);
+      
+      if (data && data.length > 0) {
+        songs = data.map(song => ({
+          title: song.name || song.title,
+          artist: song.artist || song.ar?.[0]?.name || '未知艺术家',
+          url: song.url,
+          pic: song.pic
+        }));
+        
+        updatePlaylist();
+        updateSongInfo();
+        songCount.textContent = `${songs.length}首`;
+      }
+    } catch (error) {
+      console.error('获取歌单失败:', error);
+      // 使用备用数据
+      songs = [
+        { title: "加载失败", artist: "请检查网络", url: "", pic: "" }
+      ];
+      updatePlaylist();
+      updateSongInfo();
+    }
+  }
+  
+  // 切换音乐面板
+  if (musicToggleBtn && musicPanel) {
+    musicToggleBtn.addEventListener('click', function() {
+      console.log('音乐按钮被点击');
+      musicPanel.classList.toggle('active');
+      if (songs.length === 0) {
+        fetchPlaylist().then(() => {
+          // 歌单加载完成后，如果有保存的状态，恢复播放
+          const stateRestored = restorePlayerState();
+          if (stateRestored && songs.length > 0) {
+            updateSongInfo();
+            updatePlaylist();
+            if (isPlaying) {
+              playCurrentSong();
+            }
+          }
+        });
+      }
+      savePlayerState(); // 保存面板状态
+    });
+  }
+  
+  // 点击面板外部关闭
+  document.addEventListener('click', function(e) {
+    if (musicPanel && !musicPanel.contains(e.target) && !musicToggleBtn.contains(e.target)) {
+      musicPanel.classList.remove('active');
+    }
+  });
+  
+  // 播放控制
+  if (playBtn) {
+    playBtn.addEventListener('click', function() {
+      if (isPlaying) {
+        pauseCurrentSong();
+      } else {
+        playCurrentSong();
+      }
+    });
+  }
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      playPrev();
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      playNext();
+    });
+  }
+  
+  // 页面初始化时恢复状态
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('页面加载完成，初始化音乐播放器');
+    
+    // 尝试恢复保存的状态
+    const stateRestored = restorePlayerState();
+    
+    // 如果有保存的状态，先加载歌单然后恢复播放
+    if (stateRestored) {
+      fetchPlaylist().then(() => {
+        if (songs.length > 0) {
+          updateSongInfo();
+          updatePlaylist();
+          if (isPlaying) {
+            playCurrentSong();
+          }
+        }
+      });
+    }
+    
+    // 设置自动保存
+    setupAutoSave();
+  });
+  
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  }
+</script>
+
+<style>
+  .mini-music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  
+  .music-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .music-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+  }
+  
+  .music-toggle-btn.playing {
+    animation: musicPulse 2s infinite;
+  }
+  
+  .music-panel {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 320px;
+    max-height: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .music-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .custom-player {
+    padding: 16px;
+  }
+  
+  .player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .song-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .song-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  
+  .song-artist {
+    font-size: 0.8rem;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .player-controls {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .control-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  }
+  
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+  }
+  
+  .progress-time {
+    font-size: 0.7rem;
+    color: #666;
+    min-width: 30px;
+    text-align: center;
+  }
+  
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4f46e5, #3730a3);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  .playlist-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #fff;
+  }
+  
+  .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .song-count {
+    color: #666;
+    font-size: 0.7rem;
+  }
+  
+  .playlist-list {
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  
+  .playlist-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .playlist-item:hover {
+    background: #f8f9fa;
+  }
+  
+  .playlist-item.active {
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+    color: #fff;
+  }
+  
+  .playlist-item .song-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item .song-artist {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item.active .song-artist {
+    opacity: 0.9;
+  }
+  
+  @keyframes musicPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .music-panel {
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .progress-bar {
+      background: #2d2d2d;
+      color: #ccc;
+    }
+    
+    .playlist-header {
+      background: #2d2d2d;
+      color: #fff;
+      border-bottom-color: #404040;
+    }
+    
+    .playlist-item {
+      border-bottom-color: #404040;
+      color: #fff;
+    }
+    
+    .playlist-item:hover {
+      background: #3d3d3d;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mini-music-player {
+      bottom: 16px;
+      left: 16px;
+    }
+    
+    .music-panel {
+      width: 300px;
+      max-height: 400px;
+    }
+    
+    .music-toggle-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+
+  
+
+  <!-- 主脚本 -->
+  
+<script src="/js/main.js"></script>
+
+
+  
+    <!-- MathJax v2 配置（用户指定） -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: { autoNumber: 'AMS' }
+        },
+        extensions: ['tex2jax.js', 'MathZoom.js'],
+        jax: ['input/TeX', 'output/HTML-CSS'],
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$'], ['\\[','\\]']],
+          processEscapes: true,
+          'HTML-CSS': { fonts: ['TeX'] }
+        }
+      });
+      MathJax.Hub.Register.MessageHook('Math Processing Error', function(message) {
+        alert('Math Processing Error: ' + message[1]);
+      });
+      MathJax.Hub.Register.MessageHook('TeX Jax - parse error', function(message) {
+        alert('Math Processing Error: ' + message[1]);
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+</body>
+</html>
