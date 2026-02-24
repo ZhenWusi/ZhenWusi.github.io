@@ -31,6 +31,8 @@
 
   <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  
 
   <!-- Font Awesome / Iconify -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -175,7 +177,7 @@
   
     <!-- 视频背景 -->
     <video autoplay muted loop id="hero-video">
-      <source src="/img/background/Glowing-Star-Girl-4096x2160.mp4" type="video/mp4">
+      <source src="/img/background/二次元-动态壁纸.mp4" type="video/mp4">
     </video>
   
   <div class="hero-overlay"></div>
@@ -231,9 +233,12 @@
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      1基础知识3RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
+      1
+基础知识3
+RLHF 的三阶段流程
+RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
 监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
-简单可以理...
+简单...
     </p>
 
     <!-- 文章元信息 -->
@@ -280,7 +285,8 @@
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
+      题目描述
+给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区...
     </p>
 
     <!-- 文章元信息 -->
@@ -1109,20 +1115,5 @@
 </script>
 
   
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
