@@ -430,13 +430,13 @@
       <!-- 上一篇 / 下一篇导航 -->
       <nav class="post-nav">
         
-          <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="post-nav-item prev">
-            <span class="post-nav-label"><i class="fas fa-chevron-left"></i> 上一篇</span>
+          <span class="post-nav-item prev disabled"></span>
+        
+        
+          <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="post-nav-item next">
+            <span class="post-nav-label">下一篇 <i class="fas fa-chevron-right"></i></span>
             <span class="post-nav-title">力扣 88：合并两个有序数组</span>
           </a>
-        
-        
-          <span class="post-nav-item next disabled"></span>
         
       </nav>
 
@@ -1190,6 +1190,18 @@
 
 
   <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
+  
+    
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {"delimiters":[{"left":"$$","right":"$$","display":true},{"left":"\\[","right":"\\]","display":true},{"left":"$","right":"$","display":false},{"left":"\\(","right":"\\)","display":false}],"throwOnError":true});
+    }
+  });
+</script>
+
   
 
   <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
