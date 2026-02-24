@@ -346,37 +346,46 @@ D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \sum_y \pi_\theta(y|x) \log \frac{\pi_\
 \end{equation}</script><p><strong>转化为期望形式</strong></p>
 <p>外层加权部分与被加权项改写如下：</p>
 <script type="math/tex; mode=display">
-\sum_{y} \pi_\theta(y|x) (\cdots) \quad \text{和} \quad \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p>前者表示“按照 $ \pi_\theta(y|x) $ 分布做加权平均”，后者是被取期望的对象。</p>
-<p>因此，根据 $ \sum P \cdot f = \mathbb{E}_P[f] $ 得：</p>
-<script type="math/tex; mode=display">
-D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].</script><p><strong>为什么实践中要写成期望形式？</strong></p>
+\sum_{y} \pi_\theta(y|x) (\cdots) \quad \text{和} \quad \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)}</script><p>前者表示”按照 $\pi_\theta(y|x)$ 分布做加权平均”，后者是被取期望的对象。</p>
+<p>因此，根据 $\sum P \cdot f = \mathbb{E}_P[f]$ 得：</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:kl_expectation_form}
+D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].
+\end{equation}</script><p><strong>为什么实践中要写成期望形式？</strong></p>
 <ol>
 <li><strong>无法全量求和</strong>：语言模型的输出空间天文巨大，无法枚举 $ y $。</li>
-<li><p><strong>蒙特卡洛采样</strong>：通过采样 $ y \sim \pi_\theta $，计算</p>
-<script type="math/tex; mode=display">
-\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)</script><p>的平均值即可近似 KL。</p>
-</li>
+<li><strong>蒙特卡洛采样</strong>：通过采样 $y \sim \pi_\theta$，计算</li>
+</ol>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:kl_sample}
+\log \pi_\theta(y|x) - \log \pi_{SFT}(y|x)
+\end{equation}</script><p>   的平均值即可近似 KL。</p>
+<ol>
 <li><p><strong>对齐目标函数</strong>：原始 RL 目标也是期望形式，可写成：</p>
-<script type="math/tex; mode=display">
-\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].</script></li>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:rl_aligned}
+\max_{\pi_\theta} \mathbb{E}_{y \sim \pi_\theta} \left[ r(x,y) - \beta \log \frac{\pi_\theta(y|x)}{\pi_{SFT}(y|x)} \right].
+\end{equation}</script></li>
 </ol>
 <p>这样每次采样就能同时更新奖励和 KL 惩罚。</p>
 <p><strong>为什么这个目标函数不可导？</strong></p>
 <p>语言模型生成序列是离散操作，导致 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 无法直接对 $ \theta $ 求导，只能用策略梯度（REINFORCE/PPO）。</p>
 <hr>
 <p><strong>KL 约束如何变成“奖励”？</strong></p>
-<p>先把公式 (3) 的 KL 项写成 log-prob 形式：</p>
-<script type="math/tex; mode=display">
-D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right].</script><p>代回目标：</p>
-<script type="math/tex; mode=display">
-\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right].</script><p>于是可以定义新的奖励：</p>
-<script type="math/tex; mode=display">
-r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),</script><p>即论文中常见的：</p>
-<script type="math/tex; mode=display">
-r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),</script><p>其中 $ \beta $ 可被吸收到系数里。</p>
+<p>先把公式 \eqref{eq:rl_objective} 的 KL 项写成 log-prob 形式：</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:kl_logprob}
+D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right].
+\end{equation}</script><p>代回目标：</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:objective_substituted}
+\mathbb{E}_{y \sim \pi_\theta} \left[ r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right) \right].
+\end{equation}</script><p>于是可以定义新的奖励：</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:new_reward}
+r(x, y) = r_\phi(x, y) - \beta \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),
+\end{equation}</script><p>即论文中常见的：</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:new_reward_simplified}
+r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right),
+\end{equation}</script><p>其中 $\beta$ 可被吸收到系数里。</p>
 <p><strong>转换后的简化目标</strong></p>
-<script type="math/tex; mode=display">
-\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right],</script><p>此时 $ r(x,y) $ 已含 KL 惩罚，成为无约束奖励最大化问题。</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eq:simplified_objective}
+\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi_\theta(y|x)} \left[ r(x, y) \right],
+\end{equation}</script><p>此时 $r(x,y)$ 已含 KL 惩罚，成为无约束奖励最大化问题。</p>
 <hr>
 <h2 id="直接偏好优化（Direct-Preference-Optimization）"><a href="#直接偏好优化（Direct-Preference-Optimization）" class="headerlink" title="直接偏好优化（Direct Preference Optimization）"></a>直接偏好优化（Direct Preference Optimization）</h2>
       </div>
