@@ -226,12 +226,14 @@
 
     <!-- 文章标题 -->
     <h2 class="post-card-title">
-      <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/">力扣 88：合并两个有序数组</a>
+      <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">RLHF 的三阶段流程</a>
     </h2>
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
+      1基础知识1RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
+监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
+简单可以理...
     </p>
 
     <!-- 文章元信息 -->
@@ -244,7 +246,7 @@
         <span class="meta-item">
           <i class="fas fa-tags"></i>
           
-          力扣 / 数组
+          LLM
         </span>
       
     </div>
@@ -273,14 +275,12 @@
 
     <!-- 文章标题 -->
     <h2 class="post-card-title">
-      <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/">RLHF 的三阶段流程</a>
+      <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/">力扣 88：合并两个有序数组</a>
     </h2>
 
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
-      1基础知识RLHF 的三阶段流程RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
-监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
-简单可以理解...
+      题目描述给定两个按非递减顺序排列的整数数组 nums1 和 nums2，分别有长度 m、n。请将 nums2 原地 合并到 nums1，使结果仍保持非递减顺序。nums1 的总长度为 m + n，末尾的 n 个位置初始化为 0 作为缓冲区。...
     </p>
 
     <!-- 文章元信息 -->
@@ -293,7 +293,7 @@
         <span class="meta-item">
           <i class="fas fa-tags"></i>
           
-          LLM
+          力扣 / 数组
         </span>
       
     </div>
@@ -1085,5 +1085,20 @@
 </script>
 
   
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
