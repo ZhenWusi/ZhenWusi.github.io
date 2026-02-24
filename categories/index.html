@@ -31,8 +31,6 @@
 
   <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  
 
   <!-- Font Awesome / Iconify -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -933,20 +931,62 @@
 
   <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
   
-    
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (window.renderMathInElement) {
-      renderMathInElement(document.body, {"delimiters":[{"left":"$$","right":"$$","display":true},{"left":"\\[","right":"\\]","display":true},{"left":"$","right":"$","display":false},{"left":"\\(","right":"\\)","display":false}],"throwOnError":true});
-    }
-  });
-</script>
-
-  
 
   <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
   
+    
+<script>
+  (function () {
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        tags: 'none',
+        processEscapes: true
+      },
+      chtml: { scale: 1.05 },
+      options: {
+        enableMenu: false,
+        renderActions: {
+          findScript: [10, function (doc) {
+            var nodes = document.querySelectorAll('script[type^="math/tex"]');
+            for (var i = 0; i < nodes.length; i++) {
+              var node = nodes[i];
+              var display = !!node.type.match(/; *mode=display/);
+              var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              var text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = { node: text, delim: '', n: 0 };
+              math.end = { node: text, delim: '', n: 0 };
+              doc.math.push(math);
+            }
+          }, '']
+        }
+      }
+    };
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+    s.id = 'MathJax-script';
+    s.async = true;
+    document.head.appendChild(s);
+  })();
+</script>
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
