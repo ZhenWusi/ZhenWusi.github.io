@@ -291,7 +291,7 @@ L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x
 <script type="math/tex; mode=display">\begin{equation}\label{eq:expectation}
 \mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)
 \end{equation}</script><p>👉 期望 = 平均值</p>
-<p>令 $f(x,y<em>w,y_l) = \log\sigma(r</em>\theta(x,y<em>w)-r</em>\theta(x,y_l))$ 那么：</p>
+<p>令 $f(x,y_w,y_l) = \log\sigma(r_\theta(x,y_w)-r_\theta(x,y_l))$ 那么：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:expectation_rm}
 \mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))
 \end{equation}</script><p>因为 $\sum<em>{i=1}^N f_i$ 和 $\frac{1}{N} \sum</em>{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中: 乘以一个正的常数，不会改变最优解的位置。也就是说:</p>
