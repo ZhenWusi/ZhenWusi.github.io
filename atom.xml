@@ -6,7 +6,7 @@
   <link href="https://zhenwusi.github.io/atom.xml" rel="self"/>
   
   <link href="https://zhenwusi.github.io/"/>
-  <updated>2026-02-23T16:09:50.458Z</updated>
+  <updated>2026-02-23T12:24:24.107Z</updated>
   <id>https://zhenwusi.github.io/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>RLHF 的三阶段流程</title>
-    <link href="https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/"/>
-    <id>https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</id>
-    <published>2026-02-23T11:10:00.000Z</published>
-    <updated>2026-02-23T16:09:50.458Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="算法" scheme="https://zhenwusi.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="LLM" scheme="https://zhenwusi.github.io/tags/LLM/"/>
-    
-  </entry>
   
   <entry>
     <title>力扣 88：合并两个有序数组</title>
@@ -65,6 +40,31 @@
     <category term="力扣" scheme="https://zhenwusi.github.io/tags/%E5%8A%9B%E6%89%A3/"/>
     
     <category term="数组" scheme="https://zhenwusi.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RLHF 的三阶段流程</title>
+    <link href="https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/"/>
+    <id>https://zhenwusi.github.io/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</id>
+    <published>2026-02-23T11:10:00.000Z</published>
+    <updated>2026-02-23T16:09:50.458Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://zhenwusi.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="LLM" scheme="https://zhenwusi.github.io/tags/LLM/"/>
     
   </entry>
   

@@ -1,63 +1,51 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- 基本 meta 标签 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <!-- SEO meta 标签 -->
   <title>九九的个人博客 | JiuJiu&#39;s Blog</title>
   <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta name="keywords" content="大语言模型,编程学习">
   <meta name="author" content="ZhenWusi">
 
-  <!-- Open Graph 社交分享 -->
   <meta property="og:title" content="九九的个人博客 | JiuJiu&#39;s Blog">
   <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zhenwusi.github.io/archives/2026/02/index.html">
   <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
-  <meta property="og:image:alt" content="ZhenWusi的头像">
 
-  <!-- 图标 -->
-  <link rel="icon" href="/img/头像.jpg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="/img/头像.jpg">
-  <link rel="shortcut icon" href="/img/头像.jpg">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
 
-  <!-- Google Fonts - Noto Sans SC -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
-  
-
+  <!-- highlight.js CSS（Hexo 构建时已完成语法高亮，只需加载样式） -->
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
   
 
+  <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   
 
-  <!-- Font Awesome 图标 -->
+  <!-- Font Awesome / Iconify -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script defer src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 
-  <!-- 主样式表 -->
   
 <link rel="stylesheet" href="/css/style.css">
 
 <meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="九九的个人博客 | JiuJiu's Blog" type="application/atom+xml">
 </head>
 <body>
-  <!-- 全局加载动画 -->
-  <div id="loading-mask">
-    <div class="spinner"></div>
-  </div>
+  <div id="loading-mask"><div class="spinner"></div></div>
 
-  <!-- 顶部导航栏 -->
   
 
 <!-- 顶部导航栏 -->
@@ -179,7 +167,6 @@
 </aside>
 
 
-  <!-- 页面主内容 -->
   <main class="main-content">
     <!-- 归档页面布局 -->
 
@@ -205,7 +192,7 @@
           
             <li class="archive-item">
               <span class="archive-date">02-23</span>
-              <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/" class="archive-link">RLHF 的三阶段流程</a>
+              <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="archive-link">力扣 88：合并两个有序数组</a>
               
                 
                   <span class="archive-cat"><i class="fas fa-folder"></i> 算法</span>
@@ -215,7 +202,7 @@
           
             <li class="archive-item">
               <span class="archive-date">02-23</span>
-              <a href="/2026/02/23/%E5%8A%9B%E6%89%A3/" class="archive-link">力扣 88：合并两个有序数组</a>
+              <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/" class="archive-link">RLHF 的三阶段流程</a>
               
                 
                   <span class="archive-cat"><i class="fas fa-folder"></i> 算法</span>
@@ -236,7 +223,6 @@
 
   </main>
 
-  <!-- 页脚 -->
   <!-- 页脚区域 -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -288,12 +274,10 @@
 </footer>
 
 
-  <!-- 回到顶部按钮 -->
   <button id="back-to-top" title="回到顶部">
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- 音乐播放器 -->
   
     <!-- 左下角音乐播放器 -->
 
@@ -964,48 +948,14 @@
 
   
 
-  <!-- 主脚本 -->
   
 <script src="/js/main.js"></script>
 
 
-  
-    <script>
-      window.addEventListener('load', function () {
-        if (window.hljs) {
-          document.querySelectorAll('pre code').forEach(function (block) {
-            window.hljs.highlightElement(block);
-          });
-        }
-      });
-    </script>
+  <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
   
 
+  <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
   
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script>
-      window.addEventListener('load', function () {
-        if (window.renderMathInElement) {
-          renderMathInElement(document.body, {"delimiters":[{"left":"$$","right":"$$","display":true},{"left":"\\\\[","right":"\\\\]","display":true},{"left":"$","right":"$","display":false},{"left":"\\\\(","right":"\\\\)","display":false}],"throwOnError":false});
-        }
-      });
-    </script>
-  
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -318,18 +318,27 @@
     var codeBlocks = document.querySelectorAll('figure.highlight');
 
     function createCopyBtn(block) {
-      var lang = 'CODE';
+      var lang = 'code';
       block.className.split(' ').forEach(function (cls) {
-        if (cls && cls !== 'highlight') {
-          lang = cls.toUpperCase();
+        var c = cls.trim();
+        if (c && c !== 'highlight' && c !== 'hljs') {
+          lang = c;
         }
       });
 
       var header = document.createElement('div');
       header.className = 'code-header';
+
+      var dots = document.createElement('span');
+      dots.className = 'code-dots';
+      dots.innerHTML =
+        '<span class="code-dot code-dot-red"></span>' +
+        '<span class="code-dot code-dot-yellow"></span>' +
+        '<span class="code-dot code-dot-green"></span>';
+
       var langTag = document.createElement('span');
       langTag.className = 'code-lang';
-      langTag.textContent = lang;
+      langTag.textContent = lang.toUpperCase();
 
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -338,7 +347,8 @@
 
       btn.addEventListener('click', function () {
         var codeTd = block.querySelector('td.code');
-        var code = codeTd ? codeTd.innerText : block.innerText;
+        var raw = codeTd ? codeTd.innerText : block.innerText;
+        var code = raw.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
         if (!code) return;
 
         function setCopied(state) {
@@ -355,24 +365,30 @@
           navigator.clipboard.writeText(code).then(function () {
             setCopied(true);
             setTimeout(function () { setCopied(false); }, 2000);
+          }).catch(function () {
+            fallbackCopy(code, setCopied);
           });
         } else {
-          var textarea = document.createElement('textarea');
-          textarea.value = code;
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          document.body.appendChild(textarea);
-          textarea.select();
-          try { document.execCommand('copy'); } catch (err) { /* ignore */ }
-          document.body.removeChild(textarea);
-          setCopied(true);
-          setTimeout(function () { setCopied(false); }, 2000);
+          fallbackCopy(code, setCopied);
         }
       });
 
+      header.appendChild(dots);
       header.appendChild(langTag);
       header.appendChild(btn);
       block.insertBefore(header, block.firstChild);
+    }
+
+    function fallbackCopy(text, setCopied) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try { document.execCommand('copy'); setCopied(true); } catch (e) { /* ignore */ }
+      document.body.removeChild(textarea);
+      setTimeout(function () { setCopied(false); }, 2000);
     }
 
     if (codeBlocks.length) {
