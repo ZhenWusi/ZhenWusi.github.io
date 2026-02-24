@@ -210,30 +210,25 @@ figure.highlight .code .line:hover {
   box-shadow: var(--shadow-sm);
 }
 
-/* ---------- MathJax 样式 ---------- */
-.post-body mjx-container {
+/* ---------- KaTeX 样式 ---------- */
+.post-body .katex {
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace !important;
+}
+
+.post-body .katex-display {
+  margin: 1.5em auto;
+  text-align: center;
   overflow-x: auto;
   overflow-y: hidden;
-  max-width: 100%;
-  font-size: 1.02em;
+  padding: 0.3em 0;
 }
 
-.post-body mjx-container[display] {
-  display: block !important;
-  margin: 1.5em auto;
-  padding: 0.5em 0;
-  text-align: center;
+.post-body .katex-display > .katex {
+  display: inline-block;
 }
 
-.post-body mjx-container:not([display]) {
-  display: inline-flex !important;
-  align-items: center;
+.post-body .katex-inline {
   margin: 0 2px;
-  padding: 0 2px;
-}
-
-.post-body mjx-container mjx-math {
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
 }
 
 mjx-assistive-mml {

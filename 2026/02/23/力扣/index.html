@@ -30,6 +30,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  
+
   <!-- Font Awesome 图标 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script defer src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
@@ -226,7 +237,7 @@
 <li>若 <code>nums2</code> 还有剩余元素（<code>p2 &gt;= 0</code>），继续写入；如果只剩 <code>nums1</code> 元素，无需处理，因为它们已经在正确位置。</li>
 </ol>
 <p>双指针从后往前填充可以避免移动大量元素，时间复杂度为 $\mathcal{O}(m+n)$，空间复杂度为 $\mathcal{O}(1)$。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], m: <span class="built_in">int</span>, nums2: <span class="type">List</span>[<span class="built_in">int</span>], n: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        p1 = m - <span class="number">1</span></span><br><span class="line">        p2 = n - <span class="number">1</span></span><br><span class="line">        tail = m + n - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> p2 &gt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> p1 &gt;= <span class="number">0</span> <span class="keyword">and</span> nums1[p1] &gt; nums2[p2]:</span><br><span class="line">                nums1[tail] = nums1[p1]</span><br><span class="line">                p1 -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                nums1[tail] = nums2[p2]</span><br><span class="line">                p2 -= <span class="number">1</span></span><br><span class="line">            tail -= <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">merge</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], m: <span class="hljs-built_in">int</span>, nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        p1 = m - <span class="hljs-number">1</span><br>        p2 = n - <span class="hljs-number">1</span><br>        tail = m + n - <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">while</span> p2 &gt;= <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">if</span> p1 &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> nums1[p1] &gt; nums2[p2]:<br>                nums1[tail] = nums1[p1]<br>                p1 -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                nums1[tail] = nums2[p2]<br>                p2 -= <span class="hljs-number">1</span><br>            tail -= <span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
 <h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><ul>
 <li><strong>时间复杂度</strong>：$\mathcal{O}(m+n)$，每个元素只移动一次；</li>
 <li><strong>空间复杂度</strong>：$\mathcal{O}(1)$，原地合并未使用额外数组。</li>
@@ -1026,65 +1037,26 @@
 
 
   
-  
     <script>
-      (function() {
-        var userCfg = {"tex":{"inlineMath":[["$","$"],["\\\\(","\\\\)"]],"displayMath":[["$$","$$"],["\\\\[","\\\\]"]],"tags":"ams","packages":{"[+]":["noerrors"]}},"options":{"skipHtmlTags":["noscript","style","textarea","pre","code"],"ignoreHtmlClass":"tex2jax_ignore","processHtmlClass":"tex2jax_process"}} || {};
-        var baseCfg = {
-          loader: {
-            load: ['[tex]/noerrors']
-          },
-          tex: Object.assign({
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            tags: 'ams',
-            packages: {'[+]': ['noerrors']}
-          }, userCfg.tex || {}),
-          chtml: Object.assign({
-            scale: 1.05
-          }, userCfg.chtml || {}),
-          options: Object.assign({
-            skipHtmlTags: ['noscript', 'style', 'textarea', 'pre', 'code'],
-            enableMenu: false,
-            renderActions: {
-              findScript: [10, function(doc) {
-                var scripts = document.querySelectorAll('script[type^="math/tex"]');
-                scripts.forEach(function(node) {
-                  var display = /mode=display/.test(node.type);
-                  var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                  var text = document.createTextNode('');
-                  node.parentNode.replaceChild(text, node);
-                  math.start = { node: text, delim: '', n: 0 };
-                  math.end = { node: text, delim: '', n: 0 };
-                  doc.math.push(math);
-                });
-              }, '']
-            }
-          }, userCfg.options || {})
-        };
-
-        function loadMathjax() {
-          if (window.MathJax && window.MathJax.typesetPromise) {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typesetPromise();
-            return;
-          }
-
-          window.MathJax = baseCfg;
-          var script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-          script.id = 'MathJax-script';
-          script.async = true;
-          document.head.appendChild(script);
+      window.addEventListener('load', function () {
+        if (window.hljs) {
+          document.querySelectorAll('pre code').forEach(function (block) {
+            window.hljs.highlightElement(block);
+          });
         }
+      });
+    </script>
+  
 
-        if (document.readyState === 'complete') {
-          loadMathjax();
-        } else {
-          window.addEventListener('load', loadMathjax);
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+      window.addEventListener('load', function () {
+        if (window.renderMathInElement) {
+          renderMathInElement(document.body, {"delimiters":[{"left":"$$","right":"$$","display":true},{"left":"\\\\[","right":"\\\\]","display":true},{"left":"$","right":"$","display":false},{"left":"\\\\(","right":"\\\\)","display":false}],"throwOnError":false});
         }
-      })();
+      });
     </script>
   
 <script type="text/x-mathjax-config">
