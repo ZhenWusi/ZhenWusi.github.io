@@ -295,19 +295,24 @@ figure.highlight .line:hover {
 
 /* MathJax v3 容器 */
 mjx-container {
-  overflow-x: auto;
-  max-width: 100%;
-  padding-bottom: 4px;
+  overflow: visible !important;
+  max-width: none !important;
+  white-space: nowrap !important;
 }
 
 mjx-container[display] {
   display: block !important;
   margin: 1.4em auto !important;
   text-align: center;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
 }
 
 mjx-container:not([display]) {
   display: inline-grid !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+  max-width: none !important;
 }
 
 mjx-assistive-mml {
