@@ -266,34 +266,7 @@ figure.highlight .line:hover {
   background: rgba(255,255,255,.04);
 }
 
-/* ---------- KaTeX 样式（构建时 / CDN 通用） ---------- */
-.katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.5em 0;
-  margin: 1.4em 0 !important;
-}
-
-.katex-display > .katex {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-/* 行内公式垂直对齐修正 */
-.katex {
-  font-size: 1.05em;
-}
-
-/* 滚动条美化 */
-.katex-display::-webkit-scrollbar {
-  height: 4px;
-}
-.katex-display::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 2px;
-}
-
-/* MathJax v3 容器 */
+/* ---------- MathJax v3 ---------- */
 mjx-container {
   overflow: visible !important;
   max-width: none !important;
