@@ -29,9 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
   
 
-  <!-- KaTeX CSS（构建时渲染） -->
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
   
 
   <!-- Font Awesome / Iconify -->
@@ -187,7 +185,7 @@
     <h1 class="post-banner-title">力扣 88：合并两个有序数组</h1>
     <div class="post-banner-meta">
       <span><i class="far fa-calendar-alt"></i> 2026-02-23</span>
-      <span><i class="far fa-clock"></i> 阅读约 377 字</span>
+      <span><i class="far fa-clock"></i> 阅读约 357 字</span>
       
         <span><i class="fas fa-tags"></i>
           
@@ -225,13 +223,13 @@
 <li>每轮比较 <code>nums1[p1]</code> 和 <code>nums2[p2]</code>，把较大的放入 <code>nums1[tail]</code>，然后移动对应指针以及 <code>tail</code>；</li>
 <li>若 <code>nums2</code> 还有剩余元素（<code>p2 &gt;= 0</code>），继续写入；如果只剩 <code>nums1</code> 元素，无需处理，因为它们已经在正确位置。</li>
 </ol>
-<p>双指针从后往前填充可以避免移动大量元素，时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(m+n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mbin">+</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>，空间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>。</p>
+<p>双指针从后往前填充可以避免移动大量元素，时间复杂度为 $\mathcal{O}(m+n)$，空间复杂度为 $\mathcal{O}(1)$。</p>
 <h2 id="代码实现">代码实现</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">List</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">merge</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], m: <span class="hljs-built_in">int</span>, nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        p1 = m - <span class="hljs-number">1</span><br>        p2 = n - <span class="hljs-number">1</span><br>        tail = m + n - <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">while</span> p2 &gt;= <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">if</span> p1 &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> nums1[p1] &gt; nums2[p2]:<br>                nums1[tail] = nums1[p1]<br>                p1 -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                nums1[tail] = nums2[p2]<br>                p2 -= <span class="hljs-number">1</span><br>            tail -= <span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
 <h2 id="复杂度分析">复杂度分析</h2>
 <ul>
-<li><strong>时间复杂度</strong>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(m+n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mbin">+</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>，每个元素只移动一次；</li>
-<li><strong>空间复杂度</strong>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>，原地合并未使用额外数组。</li>
+<li><strong>时间复杂度</strong>：$\mathcal{O}(m+n)$，每个元素只移动一次；</li>
+<li><strong>空间复杂度</strong>：$\mathcal{O}(1)$，原地合并未使用额外数组。</li>
 </ul>
 
       </div>
@@ -1023,6 +1021,88 @@
 <script src="/js/main.js"></script>
 
 
-  <!-- 数学公式：使用 KaTeX 构建时渲染，无需客户端 JS -->
+  <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
+  
+
+  <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
+  
+    
+<script>
+  // 禁用 hexo-renderer-mathjax 的自动配置
+  if (typeof window.MathJax === 'undefined') {
+    (function () {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          tags: 'ams',
+          processEscapes: true,
+          packages: ['base', 'ams', 'amssymb', 'newcommand']
+        },
+        chtml: { 
+          scale: 1.05,
+          overflow: 'visible'
+        },
+        options: {
+          enableMenu: false,
+          processEscapes: true,
+          processEnvironments: true,
+          renderActions: {
+            findScript: [10, function (doc) {
+              var nodes = document.querySelectorAll('script[type^="math/tex"]');
+              for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              }
+            }, '']
+          }
+        }
+      };
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      s.id = 'MathJax-script';
+      s.async = true;
+      document.head.appendChild(s);
+    })();
+  }
+  
+  // 移除所有过时的 MathJax v2 配置
+  document.addEventListener('DOMContentLoaded', function() {
+    // 移除 x-mathjax-config 脚本标签
+    const oldConfigs = document.querySelectorAll('script[type="text/x-mathjax-config"]');
+    oldConfigs.forEach(config => config.remove());
+    
+    // 移除过时的 MathJax.Hub 脚本
+    const oldScripts = document.querySelectorAll('script[src*="MathJax.js"]');
+    oldScripts.forEach(script => {
+      if (!script.id || script.id !== 'MathJax-script') {
+        script.remove();
+      }
+    });
+  });
+</script>
+
+  
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
