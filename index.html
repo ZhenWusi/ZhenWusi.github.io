@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
   
 
-  <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
+  <!-- KaTeX CSS（构建时渲染） -->
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   
@@ -177,7 +177,7 @@
   
     <!-- 视频背景 -->
     <video autoplay muted loop id="hero-video">
-      <source src="/img/background/二次元-动态壁纸.mp4" type="video/mp4">
+      <source src="/img/background/太空人-宇宙遨游.mp4" type="video/mp4">
     </video>
   
   <div class="hero-overlay"></div>
@@ -234,7 +234,7 @@
     <!-- 文章摘要 -->
     <p class="post-card-excerpt">
       1
-基础知识3
+基础知识5
 RLHF 的三阶段流程
 RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：
 监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）
@@ -1047,73 +1047,6 @@ RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶�
 <script src="/js/main.js"></script>
 
 
-  <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
-  
-
-  <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
-  
-    
-<script>
-  // 禁用 hexo-renderer-mathjax 的自动配置
-  if (typeof window.MathJax === 'undefined') {
-    (function () {
-      window.MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          tags: 'ams',
-          processEscapes: true,
-          packages: ['base', 'ams', 'amssymb', 'newcommand']
-        },
-        chtml: { 
-          scale: 1.05,
-          overflow: 'visible'
-        },
-        options: {
-          enableMenu: false,
-          processEscapes: true,
-          processEnvironments: true,
-          renderActions: {
-            findScript: [10, function (doc) {
-              var nodes = document.querySelectorAll('script[type^="math/tex"]');
-              for (var i = 0; i < nodes.length; i++) {
-                var node = nodes[i];
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              }
-            }, '']
-          }
-        }
-      };
-      var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      s.id = 'MathJax-script';
-      s.async = true;
-      document.head.appendChild(s);
-    })();
-  }
-  
-  // 移除所有过时的 MathJax v2 配置
-  document.addEventListener('DOMContentLoaded', function() {
-    // 移除 x-mathjax-config 脚本标签
-    const oldConfigs = document.querySelectorAll('script[type="text/x-mathjax-config"]');
-    oldConfigs.forEach(config => config.remove());
-    
-    // 移除过时的 MathJax.Hub 脚本
-    const oldScripts = document.querySelectorAll('script[src*="MathJax.js"]');
-    oldScripts.forEach(script => {
-      if (!script.id || script.id !== 'MathJax-script') {
-        script.remove();
-      }
-    });
-  });
-</script>
-
-  
+  <!-- 数学公式：使用 KaTeX 构建时渲染，无需客户端 JS -->
 </body>
 </html>

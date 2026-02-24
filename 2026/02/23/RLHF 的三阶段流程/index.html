@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
   
 
-  <!-- KaTeX CSS（方式 A 和 B 共用，只加载一次） -->
+  <!-- KaTeX CSS（构建时渲染） -->
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   
@@ -209,7 +209,7 @@
         <div class="post-toc-mobile" id="toc-mobile">
           <details>
             <summary><i class="fas fa-list"></i> 文章目录</summary>
-            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863"><span class="toc-text">基础知识3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-2"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></li></ol></div>
+            <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%865"><span class="toc-text">基础知识5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-2"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></li></ol></div>
           </details>
         </div>
       
@@ -217,7 +217,7 @@
       <!-- 正文 -->
       <div class="post-body markdown-body" id="post-body">
         <h1>1</h1>
-<h2 id="基础知识3">基础知识3</h2>
+<h2 id="基础知识5">基础知识5</h2>
 <h3 id="RLHF-的三阶段流程">RLHF 的三阶段流程</h3>
 <p>RLHF（Reinforcement Learning from Human Feedback）通常包含三个主要阶段：</p>
 <p><strong>监督微调（SFT）→ 偏好采样 + 奖励模型学习 → 强化学习优化（RL）</strong></p>
@@ -476,7 +476,7 @@ r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \righ
       <aside class="post-sidebar" id="post-sidebar">
         <div class="sidebar-toc">
           <h3><i class="fas fa-list"></i> 文章目录</h3>
-          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863"><span class="toc-text">基础知识3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-2"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></li></ol></div>
+          <div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%865"><span class="toc-text">基础知识5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RLHF-%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B"><span class="toc-text">RLHF 的三阶段流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80%EF%BC%9ASFT%EF%BC%88Supervised-Fine-Tuning%EF%BC%89"><span class="toc-text">阶段一：SFT（Supervised Fine-Tuning）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C%EF%BC%9A%E5%A5%96%E5%8A%B1%E6%A8%A1%E5%9E%8B%EF%BC%88Reward-Modeling%EF%BC%89"><span class="toc-text">阶段二：奖励模型（Reward Modeling）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A"><span class="toc-text">补充解释</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%89%EF%BC%9ARL-%E5%BE%AE%E8%B0%83"><span class="toc-text">阶段三：RL 微调</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%A7%A3%E9%87%8A-2"><span class="toc-text">补充解释</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%81%8F%E5%A5%BD%E4%BC%98%E5%8C%96%EF%BC%88Direct-Preference-Optimization%EF%BC%89"><span class="toc-text">直接偏好优化（Direct Preference Optimization）</span></a></li></ol></li></ol></div>
         </div>
       </aside>
     
@@ -1214,73 +1214,6 @@ r(x, y) = r_\phi(x, y) - \left( \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \righ
 <script src="/js/main.js"></script>
 
 
-  <!-- 方式 B：KaTeX CDN 客户端自动渲染 -->
-  
-
-  <!-- 方式 C：MathJax v3 CDN（含 findScript，兼容 hexo-renderer-mathjax 输出） -->
-  
-    
-<script>
-  // 禁用 hexo-renderer-mathjax 的自动配置
-  if (typeof window.MathJax === 'undefined') {
-    (function () {
-      window.MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          tags: 'ams',
-          processEscapes: true,
-          packages: ['base', 'ams', 'amssymb', 'newcommand']
-        },
-        chtml: { 
-          scale: 1.05,
-          overflow: 'visible'
-        },
-        options: {
-          enableMenu: false,
-          processEscapes: true,
-          processEnvironments: true,
-          renderActions: {
-            findScript: [10, function (doc) {
-              var nodes = document.querySelectorAll('script[type^="math/tex"]');
-              for (var i = 0; i < nodes.length; i++) {
-                var node = nodes[i];
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              }
-            }, '']
-          }
-        }
-      };
-      var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      s.id = 'MathJax-script';
-      s.async = true;
-      document.head.appendChild(s);
-    })();
-  }
-  
-  // 移除所有过时的 MathJax v2 配置
-  document.addEventListener('DOMContentLoaded', function() {
-    // 移除 x-mathjax-config 脚本标签
-    const oldConfigs = document.querySelectorAll('script[type="text/x-mathjax-config"]');
-    oldConfigs.forEach(config => config.remove());
-    
-    // 移除过时的 MathJax.Hub 脚本
-    const oldScripts = document.querySelectorAll('script[src*="MathJax.js"]');
-    oldScripts.forEach(script => {
-      if (!script.id || script.id !== 'MathJax-script') {
-        script.remove();
-      }
-    });
-  });
-</script>
-
-  
+  <!-- 数学公式：使用 KaTeX 构建时渲染，无需客户端 JS -->
 </body>
 </html>
