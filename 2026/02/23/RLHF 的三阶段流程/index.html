@@ -267,7 +267,7 @@ P(i \succ j) = \frac{\lambda_i}{\lambda_i + \lambda_j}
 </ul>
 <p>为什么不用「谁分数大就选谁」？</p>
 <p>如果直接规定：<script type="math/tex">y_1 \succ y_2 \iff r^*(x,y_1) > r^*(x,y_2)</script><br>那问题是：人类判断有噪声，同一个人、同一个问题，不一定每次选同样的。所以我们不建模成确定性规则，而是：概率模型</p>
-<p>把公式 \eqref{eq:bt_model} 改写一下：</p>
+<p>把公式 $\eqref{eq:bt_model}$ 改写一下：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:bt_sigmoid}
 p^*(y_1 \succ y_2 \mid x) = \frac{1}{1 + e^{-(r^*(x,y_1) - r^*(x,y_2))}}
 \end{equation}</script><p>这就是熟悉的 Sigmoid 函数：</p>
@@ -286,20 +286,20 @@ p^*(y_1 \succ y_2 \mid x) = \sigma(r^*(x,y_1) - r^*(x,y_2))
 <p>等价地，最小化负对数似然（Likelihood）：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:negative_likelihood}
 L_R = -\mathbb{E}_{(x,y_w,y_l) \sim D} [\log \sigma(r_\theta(x,y_w) - r_\theta(x,y_l))]
-\end{equation}</script><p>这正是公式 \eqref{eq:rm_loss}。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
+\end{equation}</script><p>这正是公式 $\eqref{eq:rm_loss}$。意思是：对数据集里的样本取平均，然后对”对数概率”取负号，让这个值尽可能小。</p>
 <p>对一个有限数据集 $D = {z_1, …, z_N}$，如果你均匀随机从中抽一个样本，那么：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:expectation}
 \mathbb{E}_{z \sim D} [f(z)] = \frac{1}{N} \sum_{i=1}^N f(z_i)
 \end{equation}</script><p>👉 期望 = 平均值</p>
-<p>令 $f(x,y<em>w,y_l) = \log \sigma(r</em>\theta(x,y<em>w) - r</em>\theta(x,y_l))$ 那么：</p>
+<p>令 $f(x,y<em>w,y_l) = \log\sigma(r</em>\theta(x,y<em>w)-r</em>\theta(x,y_l))$ 那么：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:expectation_rm}
 \mathbb{E}_{(x,y_w,y_l) \sim D} [f] = \frac{1}{N} \sum_{i=1}^N \log \sigma(r_\theta(x^{(i)}, y_w^{(i)}) - r_\theta(x^{(i)}, y_l^{(i)}))
-\end{equation}</script><p>因为 $\sum<em>{i=1}^N f_i$ 和 $\frac{1}{N} \sum</em>{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中：乘以一个正的常数，不会改变最优解的位置。也就是说：</p>
+\end{equation}</script><p>因为 $\sum<em>{i=1}^N f_i$ 和 $\frac{1}{N} \sum</em>{i=1}^N f_i$ 只差一个常数 $\frac{1}{N}$。而在优化中: 乘以一个正的常数，不会改变最优解的位置。也就是说:</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:argmax_equiv}
 \arg\max_\theta \sum_{i=1}^N f_i = \arg\max_\theta \frac{1}{N} \sum_{i=1}^N f_i
-\end{equation}</script><p>原目标：$\max_\theta \mathbb{E}_D [\log \sigma(\cdots)]$</p>
-<p>等价于：$\min_\theta -\mathbb{E}_D [\log \sigma(\cdots)]$</p>
-<p>于是定义：$L_R = -\mathbb{E}_D [\log \sigma(\cdots)]$</p>
+\end{equation}</script><p>原目标：$\max_\theta \mathbb{E}_D [\log \sigma(\cdot)]$</p>
+<p>等价于：$\min_\theta -\mathbb{E}_D [\log \sigma(\cdot)]$</p>
+<p>于是定义：$L_R = -\mathbb{E}_D [\log \sigma(\cdot)]$</p>
 <p><strong>为什么机器学习里”总是最小化”？</strong></p>
 <p>因为梯度下降（Gradient Descent）默认是 minimize loss，所以大家习惯：把”想最大化的目标”，写成”要最小化的损失”。</p>
 <hr>
@@ -369,7 +369,7 @@ D_{\text{KL}}[\pi_\theta \| \pi_{SFT}] = \mathbb{E}_{y \sim \pi_\theta(y|x)} \le
 <p>语言模型生成序列是离散操作，导致 $ \mathbb{E}<em>{y \sim \pi</em>\theta(y|x)}[r(x,y)] $ 无法直接对 $ \theta $ 求导，只能用策略梯度（REINFORCE/PPO）。</p>
 <hr>
 <p><strong>KL 约束如何变成“奖励”？</strong></p>
-<p>先把公式 \eqref{eq:rl_objective} 的 KL 项写成 log-prob 形式：</p>
+<p>先把公式 $\eqref{eq:rl_objective}$ 的 KL 项写成 log-prob 形式：</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eq:kl_logprob}
 D_{\text{KL}}(\pi_\theta \| \pi_{ref}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \pi_\theta(y|x) - \log \pi_{ref}(y|x) \right].
 \end{equation}</script><p>代回目标：</p>
