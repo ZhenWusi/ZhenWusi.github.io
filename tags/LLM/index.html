@@ -1,87 +1,97 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <!-- 基本 meta 标签 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title>九九的个人博客 | JiuJiu&#39;s Blog</title>
+  <!-- SEO meta 标签 -->
+  <title>九九的个人博客</title>
   <meta name="description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta name="keywords" content="大语言模型,编程学习">
   <meta name="author" content="ZhenWusi">
 
-  <meta property="og:title" content="九九的个人博客 | JiuJiu&#39;s Blog">
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="九九的个人博客">
   <meta property="og:description" content="一个热爱技术的开发者的个人博客，分享编程、技术和生活感悟。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://zhenwusi.github.io/tags/LLM/index.html">
   <meta property="og:image" content="/img/%E5%A4%B4%E5%83%8F.jpg">
+  <meta property="og:image:alt" content="ZhenWusi的头像">
 
-  <link rel="icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
+  <!-- 图标 -->
+  <link rel="icon" href="/img/头像.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="/img/头像.jpg">
+  <link rel="shortcut icon" href="/img/头像.jpg">
 
+  <!-- Google Fonts - Noto Sans SC -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- highlight.js CSS（Hexo 构建时已完成语法高亮，只需加载样式） -->
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
-  
-
-  <!-- Font Awesome / Iconify -->
+  <!-- Font Awesome 图标 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script defer src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 
+  <!-- 主样式表 -->
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="九九的个人博客 | JiuJiu's Blog" type="application/atom+xml">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="九九的个人博客" type="application/atom+xml">
 </head>
 <body>
-  <div id="loading-mask"><div class="spinner"></div></div>
+  <!-- 全局加载动画 -->
+  <div id="loading-mask">
+    <div class="spinner"></div>
+  </div>
 
-  
-
-<!-- 顶部导航栏 -->
+  <!-- 顶部导航栏 -->
+  <!-- 顶部导航栏 -->
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <!-- 桌面端导航菜单 -->
     <nav class="site-nav" id="site-nav">
       
-        <a href="/" class="nav-link">
+        <a href="/"
+           class="nav-link">
+          <i class="fas fa-home"></i>
           
-            <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
-          
-          <span class="nav-text">首页</span>
+          <span>首页</span>
         </a>
       
-        <a href="/archives" class="nav-link">
+        <a href="/archives"
+           class="nav-link">
+          <i class="fas fa-archive"></i>
           
-            <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
-          
-          <span class="nav-text">文章</span>
+          <span>归档</span>
         </a>
       
-        <a href="/about" class="nav-link">
+        <a href="/categories"
+           class="nav-link">
+          <i class="fas fa-folder"></i>
           
-            <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
-          
-          <span class="nav-text">关于</span>
+          <span>分类</span>
         </a>
       
-        <a href="/categories" class="nav-link">
+        <a href="/tags"
+           class="nav-link active">
+          <i class="fas fa-tags"></i>
           
-            <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
-          
-          <span class="nav-text">分类</span>
+          <span>标签</span>
         </a>
       
-        <a href="/tags" class="nav-link active">
+        <a href="/friends"
+           class="nav-link">
+          <i class="fas fa-link"></i>
           
-            <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+          <span>友链</span>
+        </a>
+      
+        <a href="/about"
+           class="nav-link">
+          <i class="fas fa-user"></i>
           
-          <span class="nav-text">标签</span>
+          <span>关于</span>
         </a>
       
     </nav>
@@ -91,6 +101,10 @@
       <!-- 搜索按钮 -->
       <button class="action-btn" id="search-toggle" title="搜索">
         <i class="fas fa-search"></i>
+      </button>
+      <!-- 深色模式切换 -->
+      <button class="action-btn" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
       </button>
       <!-- 移动端菜单按钮 -->
       <button class="action-btn mobile-menu-btn" id="mobile-menu-toggle">
@@ -113,55 +127,53 @@
 <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
 <aside class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-header">
-    
-      <img src="/img/头像.jpg" alt="头像" class="mobile-avatar">
-    
+    <img src="/img/头像.jpg" alt="头像" class="mobile-avatar">
     <h3>ZhenWusi</h3>
-    
-      <p>龙出海，虎下山…… | Exploring code &amp; AI</p>
-    
+    <p>龙出海，虎下山，世间万事，风云变幻，苍黄翻覆。纵使波谲云诡，但制心一处，便无事不办。天定胜人，人定兮胜天。</p>
   </div>
   <nav class="mobile-nav">
     
       <a href="/" class="mobile-nav-link">
+        <i class="fas fa-home"></i>
         
-          <iconify-icon icon="mingcute:home-2-fill"></iconify-icon>
-        
-        <span class="nav-text">首页</span>
+        <span>首页</span>
       </a>
     
       <a href="/archives" class="mobile-nav-link">
+        <i class="fas fa-archive"></i>
         
-          <iconify-icon icon="mingcute:inbox-fill"></iconify-icon>
-        
-        <span class="nav-text">文章</span>
-      </a>
-    
-      <a href="/about" class="mobile-nav-link">
-        
-          <iconify-icon icon="mingcute:user-info-fill"></iconify-icon>
-        
-        <span class="nav-text">关于</span>
+        <span>归档</span>
       </a>
     
       <a href="/categories" class="mobile-nav-link">
+        <i class="fas fa-folder"></i>
         
-          <iconify-icon icon="mingcute:classify-2-fill"></iconify-icon>
-        
-        <span class="nav-text">分类</span>
+        <span>分类</span>
       </a>
     
       <a href="/tags" class="mobile-nav-link">
+        <i class="fas fa-tags"></i>
         
-          <iconify-icon icon="mingcute:tag-fill"></iconify-icon>
+        <span>标签</span>
+      </a>
+    
+      <a href="/friends" class="mobile-nav-link">
+        <i class="fas fa-link"></i>
         
-        <span class="nav-text">标签</span>
+        <span>友链</span>
+      </a>
+    
+      <a href="/about" class="mobile-nav-link">
+        <i class="fas fa-user"></i>
+        
+        <span>关于</span>
       </a>
     
   </nav>
 </aside>
 
 
+  <!-- 页面主内容 -->
   <main class="main-content">
     <!-- 归档页面布局 -->
 
@@ -186,8 +198,8 @@
         <ul class="archive-list">
           
             <li class="archive-item">
-              <span class="archive-date">02-23</span>
-              <a href="/2026/02/23/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/" class="archive-link">RLHF 的三阶段流程</a>
+              <span class="archive-date">02-12</span>
+              <a href="/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/" class="archive-link">RLHF 的三阶段流程</a>
               
                 
                   <span class="archive-cat"><i class="fas fa-folder"></i> 算法</span>
@@ -208,6 +220,7 @@
 
   </main>
 
+  <!-- 页脚 -->
   <!-- 页脚区域 -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -229,26 +242,13 @@
     <!-- 页脚社交链接 -->
     <div class="footer-social">
       
-      
-        
-        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="Github">
-          
-            <iconify-icon icon="mingcute:github-fill"></iconify-icon>
-          
+        <a href="https://github.com/ZhenWusi" target="_blank" rel="noopener" title="GitHub">
+          <i class="fab fa-github"></i>
         </a>
       
-        
-        <a href="https://www.zhihu.com" target="_blank" rel="noopener" title="ZhiHu">
-          
-            <iconify-icon icon="ri:zhihu-line"></iconify-icon>
-          
-        </a>
       
-        
-        <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter">
-          
-            <iconify-icon icon="mingcute:social-x-fill"></iconify-icon>
-          
+        <a href="mailto:zhenwusi@example.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
         </a>
       
       <a href="/atom.xml" target="_blank" title="RSS 订阅">
@@ -259,10 +259,12 @@
 </footer>
 
 
+  <!-- 回到顶部按钮 -->
   <button id="back-to-top" title="回到顶部">
     <i class="fas fa-chevron-up"></i>
   </button>
 
+  <!-- 音乐播放器 -->
   
     <!-- 左下角音乐播放器 -->
 
@@ -933,75 +935,10 @@
 
   
 
+  <!-- 主脚本 -->
   
 <script src="/js/main.js"></script>
 
-
-  <!-- MathJax v3 -->
-  
-    
-<script>
-  // 禁用 hexo-renderer-mathjax 的自动配置
-  if (typeof window.MathJax === 'undefined') {
-    (function () {
-      window.MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          tags: 'ams',
-          processEscapes: true,
-          packages: ['base', 'ams', 'amssymb', 'newcommand']
-        },
-        chtml: { 
-          scale: 1.05,
-          overflow: 'visible'
-        },
-        options: {
-          enableMenu: false,
-          processEscapes: true,
-          processEnvironments: true,
-          renderActions: {
-            findScript: [10, function (doc) {
-              var nodes = document.querySelectorAll('script[type^="math/tex"]');
-              for (var i = 0; i < nodes.length; i++) {
-                var node = nodes[i];
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              }
-            }, '']
-          }
-        }
-      };
-      var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      s.id = 'MathJax-script';
-      s.async = true;
-      document.head.appendChild(s);
-    })();
-  }
-  
-  // 移除所有过时的 MathJax v2 配置
-  document.addEventListener('DOMContentLoaded', function() {
-    // 移除 x-mathjax-config 脚本标签
-    const oldConfigs = document.querySelectorAll('script[type="text/x-mathjax-config"]');
-    oldConfigs.forEach(config => config.remove());
-    
-    // 移除过时的 MathJax.Hub 脚本
-    const oldScripts = document.querySelectorAll('script[src*="MathJax.js"]');
-    oldScripts.forEach(script => {
-      if (!script.id || script.id !== 'MathJax-script') {
-        script.remove();
-      }
-    });
-  });
-</script>
-
-  
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {

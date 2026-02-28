@@ -89,296 +89,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-code,
-pre,
-.highlight {
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, 'Courier New', monospace;
-}
-
-pre,
-code {
-  background: var(--bg-code);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-}
-
-pre {
-  padding: 18px 20px;
-  overflow-x: auto;
-  border: 1px solid rgba(15, 23, 42, .06);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
-  position: relative;
-}
-
-.markdown-body pre code {
-  display: block;
-  background: transparent;
-  padding: 0;
-  font-size: .92rem;
-  line-height: 1.6;
-}
-
-/* ==========================================
- * 代码块 — Mac 风格
- * ========================================== */
-figure.highlight {
-  background: #1e2433;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, .06);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, .18);
-  margin: 24px 0;
-  overflow: hidden;
-  position: relative;
-}
-
-[data-theme="dark"] figure.highlight {
-  background: #0d1117;
-  border-color: rgba(255,255,255,.08);
-}
-
-/* Mac 风格顶部工具栏 */
-.code-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: #252b3b;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  user-select: none;
-}
-
-[data-theme="dark"] .code-header {
-  background: #161b22;
-}
-
-/* Mac 三点 */
-.code-dots {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.code-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.code-dot-red    { background: #ff5f57; }
-.code-dot-yellow { background: #febc2e; }
-.code-dot-green  { background: #28c840; }
-
-.code-lang {
-  flex: 1;
-  text-align: center;
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: .08em;
-  color: rgba(255,255,255,.45);
-  text-transform: uppercase;
-  font-family: 'Fira Code', monospace;
-}
-
-.copy-btn {
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: var(--radius-full);
-  padding: 3px 12px;
-  font-size: .72rem;
-  background: rgba(255,255,255,.08);
-  color: rgba(255,255,255,.6);
-  cursor: pointer;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-}
-
-.copy-btn:hover {
-  background: rgba(79,70,229,.7);
-  color: #fff;
-  border-color: transparent;
-}
-
-.copy-btn.copied {
-  background: rgba(40,200,64,.7);
-  color: #fff;
-  border-color: transparent;
-}
-
-/* 代码内容区 */
-figure.highlight table {
-  margin: 0;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-figure.highlight td {
-  border: none;
-  padding: 0;
-  vertical-align: top;
-}
-
-figure.highlight .gutter {
-  width: 42px;
-  background: rgba(255,255,255,.03);
-  border-right: 1px solid rgba(255,255,255,.06);
-  padding: 18px 10px;
-  text-align: right;
-  font-size: .82rem;
-  line-height: 1.65;
-  color: rgba(255,255,255,.25);
-  font-family: 'Fira Code', monospace;
-  user-select: none;
-}
-
-figure.highlight .code {
-  padding: 18px 20px;
-  overflow-x: auto;
-}
-
-figure.highlight pre {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  overflow: visible;
-}
-
-figure.highlight code {
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-  font-size: .88rem;
-  line-height: 1.65;
-  color: #abb2bf;
-}
-
-figure.highlight .hljs {
-  background: transparent;
-  padding: 0;
-}
-
-/* 行高亮 */
-figure.highlight .line:hover {
-  background: rgba(255,255,255,.04);
-}
-
-/* ---------- MathJax v3 ---------- */
-mjx-container {
-  overflow: visible !important;
-  max-width: none !important;
-  white-space: nowrap !important;
-}
-
-mjx-container[display] {
-  display: block !important;
-  margin: 1.4em auto !important;
-  text-align: center;
-  overflow-x: visible !important;
-  overflow-y: visible !important;
-}
-
-mjx-container:not([display]) {
-  display: inline-grid !important;
-  overflow-x: visible !important;
-  overflow-y: visible !important;
-  max-width: none !important;
-}
-
-mjx-assistive-mml {
-  position: absolute;
-  top: 0;
-  left: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 1px 0 0;
-  width: 1px;
-  overflow: hidden;
-}
-
-/* ---------- 404 页面 ---------- */
-.not-found {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.not-found-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-}
-
-.not-found-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-
-.not-found-content {
-  text-align: center;
-  color: #fff;
-  padding: 40px;
-  max-width: 600px;
-}
-
-.not-found-content h1 {
-  font-size: 3rem;
-  margin-bottom: 16px;
-  text-shadow: 0 10px 35px rgba(0,0,0,0.35);
-}
-
-.not-found-content p {
-  font-size: 1.2rem;
-  opacity: .85;
-  margin-bottom: 28px;
-}
-
-.not-found-content .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 28px;
-  border-radius: var(--radius-full);
-  background: #fff;
-  color: var(--primary);
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-.not-found-content .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-}
-
-.reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: rgba(15, 23, 42, .08);
-  z-index: 999;
-}
-
-.reading-progress__bar {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  transition: width 0.1s ease-out;
-}
-
 a {
   color: var(--primary);
   text-decoration: none;
@@ -1658,6 +1368,136 @@ img {
 
 .comment-title i {
   color: var(--primary);
+}
+
+/* ==========================================
+ * 数学公式样式
+ * ========================================== */
+.math-display {
+  margin: 1.5em 0;
+  padding: 1em;
+  background: var(--bg-code);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+  text-align: center; /* 居中显示 */
+}
+
+.math-inline {
+  font-family: 'Fira Code', monospace;
+  background: var(--bg-code);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* MathJax 公式样式 */
+.MJX-TEX {
+  font-family: 'Fira Code', monospace !important;
+}
+
+.MJX-TEX .MathJax_CHTML {
+  color: var(--text-primary) !important;
+}
+
+.MJX-TEX .MathJax_HIGHLIGHT {
+  color: var(--primary) !important;
+}
+
+/* 公式容器 */
+.math-block {
+  text-align: center; /* 居中显示 */
+  margin: 1.5em 0;
+  padding: 1em;
+  background: var(--bg-code);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+/* 行内公式 */
+.math-inline-block {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 2px 6px;
+  background: var(--bg-code);
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* MathJax 块级公式居中 */
+.MJX-TEX .MathJax_Display {
+  text-align: center !important;
+  margin: 1.5em auto !important;
+  padding: 1em !important;
+  background: var(--bg-code) !important;
+  border-radius: var(--radius-md) !important;
+  border-left: 4px solid var(--primary) !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* MathJax 行内公式 */
+.MJX-TEX .MathJax_CHTML {
+  display: inline-block !important;
+  background: var(--bg-code) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  margin: 0 2px !important;
+}
+
+/* 公式编号 */
+.MJX-TEX .MJX-TEX-TEX {
+  font-size: 1.1em !important;
+}
+
+/* 公式变量 */
+.MJX-TEX .MJX-TEX-VAR {
+  font-style: italic !important;
+  color: var(--primary) !important;
+}
+
+/* 公式运算符 */
+.MJX-TEX .MJX-TEX-OP {
+  color: var(--text-primary) !important;
+}
+
+/* 公式函数 */
+.MJX-TEX .MJX-TEX-NORMAL {
+  font-family: 'Fira Code', monospace !important;
+}
+
+/* 公式括号 */
+.MJX-TEX .MJX-TEX-DELIM {
+  color: var(--text-secondary) !important;
+}
+
+/* 公式容器居中 */
+.MJX-TEX .MathJax_PHTML {
+  text-align: center !important;
+  margin: 1.5em auto !important;
+  padding: 1em !important;
+  background: var(--bg-code) !important;
+  border-radius: var(--radius-md) !important;
+  border-left: 4px solid var(--primary) !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* 确保所有数学公式都居中 */
+.MJX-TEX .MathJax {
+  text-align: center !important;
+}
+
+/* 公式表格居中 */
+.MJX-TEX table {
+  margin: 0 auto !important;
+}
+
+/* 公式矩阵居中 */
+.MJX-TEX .MJX-mtable {
+  margin: 0 auto !important;
 }
 
 /* ==========================================
