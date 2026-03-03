@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>九九的个人博客</title>
+  
+  <subtitle>龙出海，虎下山，世间万事，风云变幻，苍黄翻覆。纵使波谲云诡，但制心一处，便无事不办。天定胜人，人定兮胜天。</subtitle>
+  <link href="https://zhenwusi.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://zhenwusi.github.io/"/>
+  <updated>2026-03-02T13:30:24.904Z</updated>
+  <id>https://zhenwusi.github.io/</id>
+  
+  <author>
+    <name>ZhenWusi</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RLHF 的三阶段流程</title>
+    <link href="https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/"/>
+    <id>https://zhenwusi.github.io/2026/02/12/RLHF%20%E7%9A%84%E4%B8%89%E9%98%B6%E6%AE%B5%E6%B5%81%E7%A8%8B/</id>
+    <published>2026-02-11T16:00:00.000Z</published>
+    <updated>2026-03-02T13:30:24.904Z</updated>
+    
+    
+    <summary type="html">深入理解 RLHF（Reinforcement Learning from Human Feedback）的三个核心阶段</summary>
+    
+    
+    
+    <category term="算法" scheme="https://zhenwusi.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="LLM" scheme="https://zhenwusi.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+</feed>
